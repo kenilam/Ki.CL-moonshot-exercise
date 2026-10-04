@@ -1,0 +1,38 @@
+{
+  "name": "ki-cl-moonshot-exercise",
+  "version": "0.1.0",
+  "description": "Ki.CL moonshot exercise - a federated module for Ki.CL that also runs standalone",
+  "type": "module",
+  "private": true,
+  "packageManager": "yarn@4.17.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "Client",
+    "Server"
+  ],
+  "scripts": {
+    "build": "yarn workspace @ki-cl/moonshot run build",
+    "development": "yarn workspace @ki-cl/moonshot run types; yarn workspace @ki-cl/moonshot run dev",
+    "eval": "tsx Server/eval/index.ts",
+    "lint": "oxlint",
+    "production": "yarn build && NODE_ENV=production tsx Server/index.ts",
+    "server": "yarn workspace @ki-cl/moonshot-server run dev",
+    "start": "yarn run development",
+    "test": "tsx --test 'Server/**/*.test.ts' 'Client/src/**/*.test.ts'",
+    "typecheck": "yarn workspace @ki-cl/moonshot run typecheck && yarn workspace @ki-cl/moonshot-server run typecheck",
+    "types": "yarn workspace @ki-cl/moonshot run types"
+  },
+  "author": "Keni Lam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenilam/Ki.CL-moonshot-exercise.git"
+  },
+  "devDependencies": {
+    "oxlint": "^1.76.0",
+    "prettier": "3.9.9",
+    "tsx": "^4.23.1"
+  }
+}

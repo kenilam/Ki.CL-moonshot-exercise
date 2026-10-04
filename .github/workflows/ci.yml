@@ -29,7 +29,9 @@ jobs:
 
       - run: yarn lint
 
-      - run: yarn typecheck
+      # The server only: the client's types come from the remotes, which a
+      # runner can't download without a client token.
+      - run: yarn workspace @ki-cl/moonshot-server run typecheck
 
       - run: yarn test
 

@@ -15,11 +15,14 @@
   "scripts": {
     "build": "yarn workspace @ki-cl/moonshot run build",
     "development": "yarn workspace @ki-cl/moonshot run types; yarn workspace @ki-cl/moonshot run dev",
+    "eval": "tsx Server/eval/index.ts",
+    "lint": "oxlint",
     "production": "yarn build && NODE_ENV=production tsx Server/index.ts",
+    "server": "yarn workspace @ki-cl/moonshot-server run dev",
     "start": "yarn run development",
-    "types": "yarn workspace @ki-cl/moonshot run types",
-    "typecheck": "yarn workspace @ki-cl/moonshot run typecheck",
-    "lint": "oxlint"
+    "test": "tsx --test 'Server/**/*.test.ts' 'Client/src/**/*.test.ts'",
+    "typecheck": "yarn workspace @ki-cl/moonshot run typecheck && yarn workspace @ki-cl/moonshot-server run typecheck",
+    "types": "yarn workspace @ki-cl/moonshot run types"
   },
   "author": "Keni Lam",
   "license": "MIT",

@@ -20,14 +20,26 @@ export default defineConfig(({ command, mode }) => {
      */
     base: command === 'build' ? '/moonshot/' : '/',
     envDir,
+    // Only the Turnstile site key reaches the browser; the rest stays server-side.
+    envPrefix: ['TURNSTILE_SITE_KEY'],
     plugins: [
       react(),
       federation({
         name: 'moonshot',
         moduleParseIdleTimeout: 60,
         filename: 'remoteEntry.js',
+        // The views' CSS ships with the remote, so Ki.CL gets it too.
+        bundleAllCSS: true,
+        /*
+         * The parts, not a finished route: Ki.CL builds
+         * `<Route path={PATH}>{Introduction}{Compose}{Review}</Route>` under its portfolio,
+         * with its own sign-in gate around it.
+         */
         exposes: {
-          './routes': './src/index.tsx',
+          './compose': './src/compose/index.tsx',
+          './constants': './src/constants.ts',
+          './introduction': './src/introduction/index.tsx',
+          './review': './src/review/index.tsx',
         },
         // The same paths Ki.CL loads them from, so one build works in both.
         remotes: {
@@ -61,7 +73,11 @@ export default defineConfig(({ command, mode }) => {
       }),
     ],
     resolve: {
-      alias: { '@': path.resolve(root, 'src') },
+      alias: {
+        '@': path.resolve(root, 'src'),
+        // Constants and types the API shares with the client.
+        '@server': path.resolve(root, '../Server'),
+      },
     },
     server: {
       port: Number(env.PORT) || 3300,

@@ -9,6 +9,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noEmit": true,
+    "rootDir": "..",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
@@ -18,6 +19,7 @@
     "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./src/*"],
+      "@server/*": ["../Server/*"],
       "api": ["./@mf-types/api"],
       "api/*": ["./@mf-types/api/*"],
       "design": ["./@mf-types/design"],

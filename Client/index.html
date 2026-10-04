@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Ki.CL moonshot</title>
+    <script>
+      /*
+       * The federation plugin adds this export to every module that imports
+       * a remote. It isn't a component, so without this React Fast Refresh
+       * rejects every view and Vite reloads the whole page on each edit.
+       */
+      window.__getReactRefreshIgnoredExports = () => [
+        '__mf_remote_dependency_pending',
+      ];
+    </script>
   </head>
   <body>
     <app-root></app-root>

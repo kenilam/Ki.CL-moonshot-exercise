@@ -3,21 +3,27 @@ import { fileURLToPath } from 'node:url';
 
 import express from 'express';
 
+import { reviews } from './api/reviews';
+import { RULES } from './review/rules';
+import { MAX_LENGTH } from './review/schema';
+import { createStore } from './store';
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const envFile = path.resolve(root, '.env');
 
 try {
-  process.loadEnvFile(envFile);
+  process.loadEnvFile(path.resolve(root, '.env'));
 } catch {
   // No .env on Cloud Run; the environment is set there.
 }
 
-const PORT = Number(process.env.PORT) || 3300;
+// `PORT` in .env belongs to the Vite dev server, so a local server takes its own.
+const PORT =
+  Number(process.env.MOONSHOT_SERVER_PORT || process.env.PORT) || 3301;
 const DIST = path.resolve(root, 'Client/dist');
 
 /*
- * Serves the built remote for Ki.CL, which proxies `/moonshot` here like it
- * does `/design`. The AI endpoints will live under `/moonshot/api`.
+ * Serves the built remote and the editor's API. Ki.CL proxies `/moonshot` here
+ * like it does `/design`.
  */
 
 const app = express();
@@ -25,6 +31,17 @@ const app = express();
 app.get('/health', (_request, response) => {
   response.status(200).json({ status: 'ok' });
 });
+
+app.get('/moonshot/api/rules', (_request, response) => {
+  response.json(RULES);
+});
+
+app.use(
+  '/moonshot/api/reviews',
+  // JSON escapes stretch the text, so the body limit leaves room above it.
+  express.json({ limit: MAX_LENGTH * 4 }),
+  reviews(createStore())
+);
 
 // Module Federation hosts look for @mf-types.zip by default.
 app.get('/moonshot/@mf-types.zip', (_request, response) => {

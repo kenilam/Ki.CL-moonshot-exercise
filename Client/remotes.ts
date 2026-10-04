@@ -18,6 +18,7 @@ const getTargets = (env: Env) => {
     backend: env.KICL_BACKEND_URL,
     design: env.KICL_DESIGN_URL || host,
     host,
+    moonshot: env.KICL_MOONSHOT_URL || host,
   };
 };
 
@@ -29,7 +30,7 @@ const getHeaders = (env: Env): Record<string, string> =>
  * serves the same thing at `/api/client`.
  */
 const getProxy = (env: Env): Record<string, ProxyOptions> => {
-  const { backend, design, host } = getTargets(env);
+  const { backend, design, host, moonshot } = getTargets(env);
   const api = backend || host;
   const headers = getHeaders(env);
 
@@ -42,6 +43,8 @@ const getProxy = (env: Env): Record<string, ProxyOptions> => {
   });
 
   return {
+    // This repo's own API. The model key stays on the deployed server.
+    '/moonshot/api': route(moonshot),
     '/api/client': route(
       api,
       backend ? { rewrite: (path) => path.replace(/^\/api/, '') } : undefined

@@ -7,14 +7,11 @@ import { useFormContext } from 'react-hook-form';
 // Components
 import { Text } from 'design/components';
 
-// Schema
-import type { SignInValues } from './schema';
-
-/** The mutation's error, set on the form root by the parent. */
+/** A form's submit error, set on its root by whoever submits it. */
 const RootError: React.FunctionComponent = () => {
   const {
     formState: { errors },
-  } = useFormContext<SignInValues>();
+  } = useFormContext();
 
   if (!errors.root?.message) {
     return null;

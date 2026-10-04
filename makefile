@@ -41,3 +41,16 @@ types:
 	@echo ⌛ fetching remote types...
 	yarn run types
 	@echo done
+
+run.server:
+	@echo ⌛ running the server...
+	yarn run server
+
+test:
+	@echo ⌛ testing...
+	yarn run test
+	@echo done
+
+eval:
+	@echo ⌛ running the eval against the model...
+	yarn run eval

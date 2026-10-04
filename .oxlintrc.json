@@ -10,7 +10,8 @@
     "**/.Caches/**",
     "**/Types/**",
     "**/@mf-types/**",
-    "**/dist/**"
+    "**/dist/**",
+    "**/.history/**"
   ],
   "env": {
     "es2024": true,

@@ -116,7 +116,7 @@ print(next(e.get('value', '') for e in env if e['name'] == 'CORS_ORIGINS'))")
     ;;
 
   *)
-    sed -n '3,9p' "$0"
+    sed -n '3,10p' "$0"
     exit 1
     ;;
 esac

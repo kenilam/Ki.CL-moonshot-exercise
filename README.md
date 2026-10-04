@@ -78,7 +78,7 @@ The browser only ever talks to localhost. Module scripts loaded with `import()` 
 
 ## Deploy
 
-Two Cloud Run services, `ki-cl-moonshot-dev` and `ki-cl-moonshot`, in Ki.CL's project and network. They are internal and private: only Ki.CL's server calls them, with an ID token, at `/moonshot`. Pushes to `develop` and `main` redeploy them. `scripts/gcp.sh` sets this up, one step at a time: `secrets`, `deploy dev|prod`, `triggers`, `wire dev|prod` (sets `KICL_MOONSHOT_URL` on Ki.CL), and `localhost` (lets a standalone run on localhost use dev, given the client token public key).
+Ki.CL proxies `/moonshot` to a private Cloud Run service built from the `Dockerfile`, one for dev and one for production. Pushes to `develop` and `main` redeploy them. The infrastructure setup isn't in this repo.
 
 ## Tests
 

@@ -5,13 +5,19 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
 
-import { getProxy } from './remotes';
+import { getProxy, getTokenWarning } from './remotes';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const envDir = path.resolve(root, '..');
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, envDir, '');
+
+  const warning = command === 'serve' ? getTokenWarning(env) : null;
+
+  if (warning) {
+    console.warn(`\n⚠ ${warning}\n`);
+  }
 
   return {
     /*
@@ -43,22 +49,16 @@ export default defineConfig(({ command, mode }) => {
         },
         // The same paths Ki.CL loads them from, so one build works in both.
         remotes: {
-          api: {
-            type: 'module',
-            name: 'api',
-            entry: '/api/client/remoteEntry.js',
-          },
           design: {
             type: 'module',
             name: 'design',
             entry: '/design/remoteEntry.js',
           },
         },
-        // Kept in step with Ki.CL's host config.
+        // The singletons Ki.CL shares that this module uses, at Ki.CL's versions.
         shared: {
           react: { singleton: true, requiredVersion: '^19.0.0' },
           'react-dom': { singleton: true, requiredVersion: '^19.0.0' },
-          '@apollo/client': { singleton: true, requiredVersion: '^4.0.0' },
           'react-router-dom': { singleton: true, requiredVersion: '^7.0.0' },
           'react-hook-form': { singleton: true, requiredVersion: '^7.0.0' },
         },

@@ -22,13 +22,23 @@ const getTargets = (env: Env) => {
   };
 };
 
+/**
+ * Why requests to the Ki.CL deployment will be refused, or null. Without a
+ * token they get its password page, which shows up in the browser as a
+ * failed remote rather than as a missing token.
+ */
+const getTokenWarning = (env: Env) => {
+  const { backend, design, host, moonshot } = getTargets(env);
+  const usesHost = !backend || design === host || moonshot === host;
+
+  return usesHost && !env.KICL_CLIENT_TOKEN
+    ? `No KICL_CLIENT_TOKEN in .env, so ${host} will refuse the requests sent there. Add the token you were sent, or set KICL_BACKEND_URL, KICL_DESIGN_URL and KICL_MOONSHOT_URL to services on this machine.`
+    : null;
+};
+
 const getHeaders = (env: Env): Record<string, string> =>
   env.KICL_CLIENT_TOKEN ? { [TOKEN_HEADER]: env.KICL_CLIENT_TOKEN } : {};
 
-/**
- * A local Ki.CL-back serves its remote at `/client`; a Ki.CL deployment
- * serves the same thing at `/api/client`.
- */
 const getProxy = (env: Env): Record<string, ProxyOptions> => {
   const { backend, design, host, moonshot } = getTargets(env);
   const api = backend || host;
@@ -45,23 +55,16 @@ const getProxy = (env: Env): Record<string, ProxyOptions> => {
   return {
     // This repo's own API. The model key stays on the deployed server.
     '/moonshot/api': route(moonshot),
-    '/api/client': route(
-      api,
-      backend ? { rewrite: (path) => path.replace(/^\/api/, '') } : undefined
-    ),
-    '/api': route(api, { ws: true }),
-    '/assets/taxon-visual/': route(api),
-    '/assets/static/': route(api),
+    // Ki.CL-back's session endpoint, for the standalone shell.
+    '/api/session': route(api),
     '/design': route(design),
   };
 };
 
 const getTypeUrls = (env: Env) => {
-  const { backend, design, host } = getTargets(env);
-  const api = backend ? `${backend}/client` : `${host}/api/client`;
+  const { design } = getTargets(env);
 
   return {
-    api: { api: `${api}/types.d.ts`, zip: `${api}/types.zip` },
     design: {
       api: `${design}/design/types.d.ts`,
       zip: `${design}/design/types.zip`,
@@ -69,4 +72,4 @@ const getTypeUrls = (env: Env) => {
   };
 };
 
-export { getHeaders, getProxy, getTypeUrls };
+export { getHeaders, getProxy, getTokenWarning, getTypeUrls };

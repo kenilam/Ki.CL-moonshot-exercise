@@ -10,14 +10,15 @@ import { GoogleAuth, type IdTokenClient } from 'google-auth-library';
  *
  * Each lookup counts against the user's daily request limit on the API, which
  * the rest of Ki.CL shares, so a confirmed session is remembered for a while
- * rather than asked about on every request.
+ * rather than asked about on every request. Only for a minute: a session
+ * signed out or revoked on the API stops working here soon after.
  */
 
 const BACKEND_URL = process.env.KICL_BACKEND_URL || 'http://localhost:3100';
 
 const QUERY = 'query kicl_Me { Me { UserGUID aud } }';
 
-const TTL_MS = 10 * 60 * 1000;
+const TTL_MS = 60 * 1000;
 
 type Me = { UserGUID: string; aud: string } | null;
 

@@ -45,10 +45,10 @@ const Setup: React.FunctionComponent = () => {
           localhost.
         </Text>
         <Text is='p'>
-          With the API and the design system running locally, no token is
-          needed: the dev server sends everything to them instead. The{' '}
-          <HyperLink to={`${REPOSITORY}#readme`}>README</HyperLink> covers that
-          setup, the tests and the eval.
+          With the API, the design system and moonshot’s server running locally,
+          no token is needed: the dev server sends everything to them instead.
+          The <HyperLink to={`${REPOSITORY}#readme`}>README</HyperLink> covers
+          that setup, the tests and the eval.
         </Text>
       </section>
     </Layout>

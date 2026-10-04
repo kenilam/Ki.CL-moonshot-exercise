@@ -10,6 +10,13 @@ const PATH = 'moonshot';
 /** The editor's segment under `PATH`; the introduction is `PATH` itself. */
 const REVIEW_PATH = 'writing-review';
 
+/**
+ * Fired on `window` when moonshot's API answers 401. The host listens: Ki.CL's
+ * portfolio gate shows its sign-in, and the standalone shell starts a new
+ * session. Ki.CL's `views/portfolio/gate/constants.ts` has the same name.
+ */
+const SESSION_ENDED = 'kicl:session-ended';
+
 const REPOSITORY = 'https://github.com/kenilam/Ki.CL-moonshot-exercise';
 
 /** Where a client token is asked for. */
@@ -46,5 +53,6 @@ export {
   PATH,
   REPOSITORY,
   REVIEW_PATH,
+  SESSION_ENDED,
   TOKEN_REQUEST,
 };

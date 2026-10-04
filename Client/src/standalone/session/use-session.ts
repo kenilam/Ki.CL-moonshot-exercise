@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Constants
+import { SESSION_ENDED } from '@/constants';
 import { MAX_REJECTIONS, SITE_KEY } from './constants';
 
 // Session
@@ -21,6 +22,24 @@ function useSession() {
     hasSession() ? 'ready' : 'probe'
   );
   const [rejections, setRejections] = useState(0);
+
+  /*
+   * When the module's API refuses the session, start a new one; the module
+   * remounts under it. Once only: a session the API still refuses straight
+   * after (a revoked sign-in whose token hasn't expired) would loop.
+   */
+  const renewed = useRef(false);
+
+  useEffect(() => {
+    const ended = () => {
+      setStage(renewed.current ? 'failed' : 'probe');
+      renewed.current = true;
+    };
+
+    addEventListener(SESSION_ENDED, ended);
+
+    return () => removeEventListener(SESSION_ENDED, ended);
+  }, []);
 
   const turnstile = useTurnstile(stage === 'challenge' ? SITE_KEY : undefined);
   const { token, reset } = turnstile;

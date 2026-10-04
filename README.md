@@ -21,7 +21,7 @@ Engineers' writing drifts into the same habits: build-up before the point, fille
 
 Node 24 and Yarn 4 (`corepack enable`). Use Chrome or Firefox: the API's session cookies are `Secure`, and Safari won't keep them on `http://localhost`.
 
-The dev server proxies `/design`, `/api` and `/moonshot/api` somewhere, and `.env` decides where. Set it up before the first start.
+The dev server proxies `/design`, `/api/session` and `/moonshot/api` somewhere, and `.env` decides where. Set it up before the first start.
 
 ### Against dev.ki-cl.com
 
@@ -76,7 +76,7 @@ Why Opus 5.5: the task is judgement, not volume. It has to tell a filler sentenc
 
 - `Client/` is a Vite app and a Module Federation remote called `moonshot`. It exposes its parts rather than a finished route: `./introduction`, `./compose` and `./review` (the three routes) and `./constants` (`PATH`). Ki.CL renders them in a `<Routes>` under its own `/portfolio/moonshot/*` route, loaded on first visit and behind its sign-in, so the rest of Ki.CL still works if this remote is down. The standalone host assembles them under `PATH`. `src/standalone` stands in for Ki.CL when it runs alone: it provides the API client and the router.
 - It consumes one remote, `design` (from [Ki.CL-design-system](https://github.com/kenilam/Ki.CL-design-system)), for the components, styles and router.
-- Sessions belong to the host. The module only sends the session cookie, and if its API answers 401 it asks the visitor to reload. Inside Ki.CL, the portfolio's sign-in and Ki.CL's own session handle the rest. Standalone, `src/standalone` starts an anonymous session with one request to Ki.CL-back's `ExchangeToken`, after Turnstile when the API asks for it. The allowance and history follow that session.
+- Sessions belong to the host. The module only sends the session cookie, and if its API answers 401 it asks the visitor to reload. Inside Ki.CL, the portfolio's sign-in and Ki.CL's own session handle the rest. Standalone, `src/standalone` starts an anonymous session with one request to Ki.CL-back's `POST /api/session`, after Turnstile when the API asks for it. The allowance and history follow that session.
 - `Server/` is Express. It serves the built remote at `/moonshot` and the review API at `/moonshot/api`:
   - `POST /reviews` with `{ kind, text }` returns the review with its located edits.
   - `GET /reviews`, `GET /reviews/:id` and `GET /reviews/allowance` back the history and the counter.

@@ -5,13 +5,19 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
 
-import { getProxy } from './remotes';
+import { getProxy, getTokenWarning } from './remotes';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const envDir = path.resolve(root, '..');
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, envDir, '');
+
+  const warning = command === 'serve' ? getTokenWarning(env) : null;
+
+  if (warning) {
+    console.warn(`\n⚠ ${warning}\n`);
+  }
 
   return {
     /*

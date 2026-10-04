@@ -10,18 +10,36 @@ type Document = Omit<Review, 'id'> & { _id: string };
  * API's collections without touching them.
  */
 class MongoStore implements Store {
-  #reviews: Promise<Collection<Document>>;
+  #connecting: Promise<Collection<Document>> | null = null;
+  readonly #uri: string;
 
   constructor(uri: string) {
-    this.#reviews = new MongoClient(uri).connect().then(async (client) => {
-      const reviews = client
-        .db(process.env.MONGODB_DATABASE || 'test')
-        .collection<Document>('moonshot-reviews');
+    this.#uri = uri;
+  }
 
-      await reviews.createIndex({ userGUID: 1, createdAt: -1 });
+  /**
+   * Connects on first use. A failed connection isn't kept, so the next request
+   * tries again instead of failing for as long as the instance lives.
+   */
+  get #reviews() {
+    this.#connecting ??= this.#connect().catch((error: unknown) => {
+      this.#connecting = null;
 
-      return reviews;
+      throw error;
     });
+
+    return this.#connecting;
+  }
+
+  async #connect() {
+    const client = await new MongoClient(this.#uri).connect();
+    const reviews = client
+      .db(process.env.MONGODB_DATABASE || 'test')
+      .collection<Document>('moonshot-reviews');
+
+    await reviews.createIndex({ userGUID: 1, createdAt: -1 });
+
+    return reviews;
   }
 
   async create({ id, ...review }: Review) {

@@ -1,0 +1,14 @@
+{
+  "name": "@ki-cl/moonshot-server",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "26",
+    "tsx": "^4.23.1"
+  }
+}

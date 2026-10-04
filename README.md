@@ -19,25 +19,38 @@ Engineers' writing drifts into the same habits: build-up before the point, fille
 
 ## Run it
 
-Node 24 and Yarn 4 (`corepack enable`).
+Node 24 and Yarn 4 (`corepack enable`). Use Chrome or Firefox: the API's session cookies are `Secure`, and Safari won't keep them on `http://localhost`.
+
+The dev server proxies `/design`, `/api` and `/moonshot/api` somewhere, and `.env` decides where. Set it up before the first start.
+
+### Against dev.ki-cl.com
+
+This is the setup for reviewers. You don't need the design system, the API or an Anthropic key, only a client token. The token is personal and expires: [ask me for one](mailto:hello@ki-cl.com?subject=Moonshot%20client%20token), and don't commit it.
 
 ```bash
+cp .env.template .env   # then set KICL_CLIENT_TOKEN
 make start
 ```
 
-That copies `.env.template` to `.env`, installs, downloads the remotes' types and starts the dev server on port 3300.
+`make start` installs, downloads the remotes' types and starts the dev server at `http://localhost:3300/portfolio/moonshot`. Without a token it warns in the terminal, and the page can't load.
 
-The dev server proxies `/design`, `/api` and `/moonshot/api` somewhere. Where depends on `.env`, and there are two ways to set it up:
+### Against services on your machine
 
-- **Against dev.ki-cl.com (reviewers).** Leave `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` unset, and put the client token you were sent in `.env` as `KICL_CLIENT_TOKEN`. You don't need the design system, the API or an Anthropic key. The token is personal and expires; [ask me for one](mailto:hello@ki-cl.com?subject=Moonshot%20client%20token), and don't commit it.
-- **Against services on your machine.** Set those three URLs (the template has the ports) and leave `KICL_CLIENT_TOKEN` empty: nothing goes to dev.ki-cl.com, so there's nothing to get past. This needs Ki.CL-back, which is private, so it's for working on the stack itself. See the end of this section.
+This is for working on the stack itself, and needs Ki.CL-back, which is private.
 
-Use Chrome or Firefox. The API's session cookies are `Secure`, and Safari won't keep them on `http://localhost`.
+1. Start Ki.CL-back and the design system.
+2. In `.env`, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` (the template has the ports) and `ANTHROPIC_API_KEY`. Set `TURNSTILE_SITE_KEY` to your Ki.CL-back's key, or to Cloudflare's test key `1x00000000000000000000AA`. `KICL_CLIENT_TOKEN` stays empty, since nothing goes to dev.ki-cl.com.
+3. Run `make run.server` and `make run` side by side.
+
+Without `MONGODB_ATLAS_URI` the server keeps reviews in memory.
+
+To see the module inside a local Ki.CL, keep `make run.server` running: Ki.CL proxies `/moonshot` to it on port 3301. It serves the last build, so run `make build` after changing the client.
 
 | Command               | What it does                                                   |
 | --------------------- | -------------------------------------------------------------- |
-| `make run`            | Dev server on `PORT`                                           |
-| `make run.server`     | `Server/` on `MOONSHOT_SERVER_PORT`, for working on the API    |
+| `make start`          | Installs, then `make run`                                      |
+| `make run`            | Downloads the types, then the dev server on `PORT`             |
+| `make run.server`     | `Server/` on `MOONSHOT_SERVER_PORT`, serving the last build    |
 | `make test`           | Unit tests                                                     |
 | `make eval`           | Runs the example texts against the model (costs a call each)   |
 | `make types`          | Downloads the `api` and `design` types into `Client/@mf-types` |
@@ -45,8 +58,6 @@ Use Chrome or Firefox. The API's session cookies are `Secure`, and Safari won't 
 | `make run.production` | Builds, then serves the remote and the API from `Server/`      |
 | `make typecheck`      | `tsc` over both workspaces                                     |
 | `make lint`           | oxlint                                                         |
-
-To run everything on your own machine, start Ki.CL-back and the design system, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` in `.env` (the template has the usual ports), add `ANTHROPIC_API_KEY`, and start `make run.server` next to `make run`. `KICL_CLIENT_TOKEN` stays empty. Without `MONGODB_ATLAS_URI` the server keeps reviews in memory.
 
 ## How the AI is used
 

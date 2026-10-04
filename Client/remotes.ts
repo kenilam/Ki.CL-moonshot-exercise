@@ -22,6 +22,20 @@ const getTargets = (env: Env) => {
   };
 };
 
+/**
+ * Why requests to the Ki.CL deployment will be refused, or null. Without a
+ * token they get its password page, which shows up in the browser as a
+ * failed remote rather than as a missing token.
+ */
+const getTokenWarning = (env: Env) => {
+  const { backend, design, host, moonshot } = getTargets(env);
+  const usesHost = !backend || design === host || moonshot === host;
+
+  return usesHost && !env.KICL_CLIENT_TOKEN
+    ? `No KICL_CLIENT_TOKEN in .env, so ${host} will refuse the requests sent there. Add the token you were sent, or set KICL_BACKEND_URL, KICL_DESIGN_URL and KICL_MOONSHOT_URL to services on this machine.`
+    : null;
+};
+
 const getHeaders = (env: Env): Record<string, string> =>
   env.KICL_CLIENT_TOKEN ? { [TOKEN_HEADER]: env.KICL_CLIENT_TOKEN } : {};
 
@@ -69,4 +83,4 @@ const getTypeUrls = (env: Env) => {
   };
 };
 
-export { getHeaders, getProxy, getTypeUrls };
+export { getHeaders, getProxy, getTokenWarning, getTypeUrls };

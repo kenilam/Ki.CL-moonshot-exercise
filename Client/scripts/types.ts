@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { getHeaders, getTypeUrls } from '../remotes';
+import { getHeaders, getTokenWarning, getTypeUrls } from '../remotes';
 
 /*
  * Downloads the remotes' types into `@mf-types`. The federation plugin can
@@ -17,6 +17,12 @@ const envFile = path.resolve(root, '../.env');
 
 if (existsSync(envFile)) {
   process.loadEnvFile(envFile);
+}
+
+const warning = getTokenWarning(process.env);
+
+if (warning) {
+  console.warn(`⚠ ${warning}`);
 }
 
 const headers = getHeaders(process.env);

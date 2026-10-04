@@ -2,6 +2,8 @@ import type { Review, Summary } from '@server/store';
 import type { Kind } from '@server/review/constants';
 import type { RULES } from '@server/review/rules';
 
+import { SESSION_ENDED } from '@/constants';
+
 /** Same origin: Ki.CL, or the standalone dev server, proxies it to `Server/`. */
 const BASE = '/moonshot/api';
 
@@ -18,9 +20,10 @@ class ApiError extends Error {
 
 /*
  * The session is the host's: Ki.CL, or the standalone shell, starts and
- * renews it on load. A 401 means it ended while the page was open.
+ * renews it. A 401 means it ended or was revoked, so the host is told and
+ * takes over: a sign-in in Ki.CL, a new session standalone.
  */
-const SESSION_ENDED = 'Your session has ended. Reload the page to continue.';
+const ENDED = 'Your session has ended. Reload the page to continue.';
 
 async function request<Result>(
   path: string,
@@ -35,7 +38,9 @@ async function request<Result>(
   const body = await response.json().catch(() => null);
 
   if (response.status === 401) {
-    throw new ApiError(SESSION_ENDED, response.status);
+    dispatchEvent(new Event(SESSION_ENDED));
+
+    throw new ApiError(ENDED, response.status);
   }
 
   if (!response.ok) {

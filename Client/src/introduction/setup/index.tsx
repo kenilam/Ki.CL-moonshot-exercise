@@ -12,6 +12,7 @@ import { REPOSITORY, TOKEN_REQUEST } from '@/constants';
 const COMMANDS = [
   `git clone ${REPOSITORY}.git`,
   'cd Ki.CL-moonshot-exercise',
+  'cp .env.template .env   # then set KICL_CLIENT_TOKEN',
   'make start',
 ].join('\n');
 
@@ -35,8 +36,10 @@ const Setup: React.FunctionComponent = () => {
           <Text is='code'>{COMMANDS}</Text>
         </Text>
         <Text is='p'>
-          Put the token in <Text is='code'>.env</Text> as{' '}
-          <Text is='code'>KICL_CLIENT_TOKEN</Text>, and open{' '}
+          The token goes in <Text is='code'>.env</Text> as{' '}
+          <Text is='code'>KICL_CLIENT_TOKEN</Text> before the first{' '}
+          <Text is='code'>make start</Text>; without it, the terminal warns and
+          the page can’t load. Then open{' '}
           <Text is='code'>http://localhost:3300/portfolio/moonshot</Text> in
           Chrome or Firefox. Safari doesn’t keep the API’s secure cookies on
           localhost.

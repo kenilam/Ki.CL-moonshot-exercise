@@ -1,0 +1,22 @@
+/*
+ * The kind picker shares a header with the text's label, which names the
+ * chosen kind. Above tablet the picker takes its own row over the label, as a
+ * full segmented control. At tablet and
+ * below it collapses to a popover trigger and stands where the label was; the
+ * label is hidden then (`kicl-hidden-up-to-tablet`), still naming the field.
+ *
+ * View CSS because no utility places a grid item by breakpoint.
+ */
+.kicl--views--moonshot--compose--form__header {
+  grid-template-columns: 1fr auto;
+}
+
+.kicl--views--moonshot--compose--form__header > :first-child {
+  grid-column: 1 / -1;
+}
+
+@container style(--kicl-viewport-up-to-tablet: true) {
+  .kicl--views--moonshot--compose--form__header > :first-child {
+    grid-column: auto;
+  }
+}

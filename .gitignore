@@ -19,3 +19,6 @@ dist/
 !.yarn/versions
 .pnp.*
 .mf/
+
+# Editor local history
+.history/

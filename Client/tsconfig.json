@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "rootDir": "..",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "types": ["node", "vite/client"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@server/*": ["../Server/*"],
+      "api": ["./@mf-types/api"],
+      "api/*": ["./@mf-types/api/*"],
+      "design": ["./@mf-types/design"],
+      "design/*": ["./@mf-types/design/*"],
+      "REMOTE_ALIAS_IDENTIFIER/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "scripts/**/*", "remotes.ts", "vite.config.ts"],
+  "exclude": ["dist/**/*", "node_modules/**/*", "@mf-types/**/*"]
+}

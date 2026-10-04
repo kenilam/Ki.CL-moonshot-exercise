@@ -49,22 +49,16 @@ export default defineConfig(({ command, mode }) => {
         },
         // The same paths Ki.CL loads them from, so one build works in both.
         remotes: {
-          api: {
-            type: 'module',
-            name: 'api',
-            entry: '/api/client/remoteEntry.js',
-          },
           design: {
             type: 'module',
             name: 'design',
             entry: '/design/remoteEntry.js',
           },
         },
-        // Kept in step with Ki.CL's host config.
+        // The singletons Ki.CL shares that this module uses, at Ki.CL's versions.
         shared: {
           react: { singleton: true, requiredVersion: '^19.0.0' },
           'react-dom': { singleton: true, requiredVersion: '^19.0.0' },
-          '@apollo/client': { singleton: true, requiredVersion: '^4.0.0' },
           'react-router-dom': { singleton: true, requiredVersion: '^7.0.0' },
           'react-hook-form': { singleton: true, requiredVersion: '^7.0.0' },
         },

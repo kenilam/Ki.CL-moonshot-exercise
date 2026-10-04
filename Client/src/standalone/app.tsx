@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 
 // Libraries
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { Navigate, Outlet, Route, Router } from 'design/router';
 
 // Components
-import { Layout, Spinner } from 'design/components';
+import { Layout } from 'design/components';
 
 // Widgets
 import { ThemeToggle } from 'design/widgets';
@@ -27,13 +27,9 @@ import { Review } from '@/review';
 import { PATH } from '@/constants';
 
 /*
- * Stands in for Ki.CL when this runs on its own: the API provider and the
- * router, with the module at the path Ki.CL gives it.
+ * Stands in for Ki.CL when this runs on its own: the session and the router,
+ * with the module at the path Ki.CL gives it.
  */
-
-const KiclProvider = lazy(() =>
-  import('api/provider').then(({ KiclProvider }) => ({ default: KiclProvider }))
-);
 
 /** Ki.CL's `/portfolio` page. Pages centre themselves within it. */
 const Portfolio: React.FunctionComponent = () => {
@@ -54,7 +50,7 @@ const Standalone: React.FunctionComponent = () => {
   useResponsive();
 
   return (
-    <Suspense fallback={<Spinner />}>
+    <>
       {/*
        * Ki.CL's header has the theme toggle; the stand-in puts one at the top
        * right. Not fixed, so it scrolls away instead of covering the review's
@@ -71,27 +67,25 @@ const Standalone: React.FunctionComponent = () => {
         </header>
       </Layout>
       {/* `Session` starts the anonymous session, after Turnstile if asked. */}
-      <KiclProvider autoExchange={false}>
-        <Session>
-          <Router>
-            <Route path='/'>
-              <Route
-                index
-                element={<Navigate replace to={`portfolio/${PATH}`} />}
-              />
-              <Route path='portfolio' element={<Portfolio />}>
-                {/* Assembled the way Ki.CL assembles the exposed parts. */}
-                <Route path={PATH}>
-                  {Introduction}
-                  {Compose}
-                  {Review}
-                </Route>
+      <Session>
+        <Router>
+          <Route path='/'>
+            <Route
+              index
+              element={<Navigate replace to={`portfolio/${PATH}`} />}
+            />
+            <Route path='portfolio' element={<Portfolio />}>
+              {/* Assembled the way Ki.CL assembles the exposed parts. */}
+              <Route path={PATH}>
+                {Introduction}
+                {Compose}
+                {Review}
               </Route>
             </Route>
-          </Router>
-        </Session>
-      </KiclProvider>
-    </Suspense>
+          </Route>
+        </Router>
+      </Session>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ Follow Ki.CL's CLAUDE.md for UI and structure: semantic markup, `design/componen
 - Imports climb with the `@/` alias (`Client/src`), never `../`; same-folder `./` is fine. Server code shared with the client comes through `@server/`.
 - More than one class goes through `classNames('a', 'b')`, never a space-separated string.
 - Routing comes from `design/router`, never `react-router-dom` directly.
-- Import `useQuery`, `useMutation`, `useSubscription` and `skipToken` from `api/provider`. Custom GraphQL operations must be named `kicl_*`.
-- Keep `shared` in `Client/vite.config.ts` in step with Ki.CL's `App/.client/index.ts`.
+- No `api` remote and no Apollo. Sessions are the host's: the module only sends the cookie and shows a message on a 401. The standalone shell starts its session with one `fetch` to Ki.CL-back's `POST /api/session` (`src/standalone/session/exchange.ts`).
+- `shared` in `Client/vite.config.ts` lists the singletons Ki.CL shares that this module uses, at Ki.CL's versions (`App/.client/index.ts`).
 - `Client/@mf-types` is downloaded by `make types`. Don't edit it.
 - Into `develop` = squash; `develop` → `main` = merge commit. Never push to `develop` directly.

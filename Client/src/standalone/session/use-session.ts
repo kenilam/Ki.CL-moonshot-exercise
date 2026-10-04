@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { hasSession } from 'api/provider';
-
 // Constants
 import { MAX_REJECTIONS, SITE_KEY } from './constants';
 
+// Session
+import { exchange, hasSession, type Outcome } from './exchange';
+
 // Hooks
-import { useExchange } from './use-exchange';
 import { useTurnstile } from './use-turnstile';
 
-type Stage =
-  'probe' | 'challenge' | Awaited<ReturnType<ReturnType<typeof useExchange>>>;
+type Stage = 'probe' | 'challenge' | Outcome;
 
 /**
  * Where the visit is. It tries without a token first, so a visitor whose
@@ -23,7 +22,6 @@ function useSession() {
   );
   const [rejections, setRejections] = useState(0);
 
-  const exchange = useExchange();
   const turnstile = useTurnstile(stage === 'challenge' ? SITE_KEY : undefined);
   const { token, reset } = turnstile;
 
@@ -43,7 +41,7 @@ function useSession() {
     return () => {
       cancelled = true;
     };
-  }, [exchange, stage]);
+  }, [stage]);
 
   useEffect(() => {
     if (stage !== 'challenge' || !token) {
@@ -68,7 +66,7 @@ function useSession() {
     return () => {
       cancelled = true;
     };
-  }, [exchange, rejections, reset, stage, token]);
+  }, [rejections, reset, stage, token]);
 
   // The API wants a check but there's no site key: a setup problem, not the visitor's.
   const unconfigured = stage === 'challenge' && !SITE_KEY;

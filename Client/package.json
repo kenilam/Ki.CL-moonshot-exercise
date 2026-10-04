@@ -10,10 +10,8 @@
     "types": "tsx scripts/types.ts"
   },
   "dependencies": {
-    "@apollo/client": "4.2.8",
     "@hookform/resolvers": "5.5.7",
     "classnames": "2.5.1",
-    "graphql": "17",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "7.83.0",

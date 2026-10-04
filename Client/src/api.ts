@@ -2,8 +2,6 @@ import type { Review, Summary } from '@server/store';
 import type { Kind } from '@server/review/constants';
 import type { RULES } from '@server/review/rules';
 
-import { refresh } from './session';
-
 /** Same origin: Ki.CL, or the standalone dev server, proxies it to `Server/`. */
 const BASE = '/moonshot/api';
 
@@ -18,28 +16,27 @@ class ApiError extends Error {
   }
 }
 
-const send = (path: string, init?: RequestInit) =>
-  fetch(`${BASE}${path}`, {
+/*
+ * The session is the host's: Ki.CL, or the standalone shell, starts and
+ * renews it on load. A 401 means it ended while the page was open.
+ */
+const SESSION_ENDED = 'Your session has ended. Reload the page to continue.';
+
+async function request<Result>(
+  path: string,
+  init?: RequestInit
+): Promise<Result> {
+  const response = await fetch(`${BASE}${path}`, {
     credentials: 'include',
     ...init,
     headers: { 'Content-Type': 'application/json', ...init?.headers },
   });
 
-/**
- * A 401 means the access token is missing or expired. The session is renewed
- * once and the request retried.
- */
-async function request<Result>(
-  path: string,
-  init?: RequestInit
-): Promise<Result> {
-  let response = await send(path, init);
-
-  if (response.status === 401 && (await refresh())) {
-    response = await send(path, init);
-  }
-
   const body = await response.json().catch(() => null);
+
+  if (response.status === 401) {
+    throw new ApiError(SESSION_ENDED, response.status);
+  }
 
   if (!response.ok) {
     throw new ApiError(

@@ -6,7 +6,7 @@
 /** Must match `TURNSTILE_ACTION` in the API's ExchangeToken resolver. */
 const ACTION = 'exchange-token';
 
-/** The API reads the token from this header, not from the GraphQL variables. */
+/** The header the API reads the Turnstile token from. */
 const TOKEN_HEADER = 'x-turnstile-token';
 
 const SCRIPT_SRC =

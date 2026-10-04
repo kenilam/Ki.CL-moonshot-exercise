@@ -32,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
         bundleAllCSS: true,
         /*
          * The parts, not a finished route: Ki.CL builds
-         * `<Route path={PATH}>{Introduction}{Compose}{Review}</Route>` under its portfolio,
+         * `<Routes>{Introduction}{Compose}{Review}</Routes>` under its portfolio,
          * with its own sign-in gate around it.
          */
         exposes: {

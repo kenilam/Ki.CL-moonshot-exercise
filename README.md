@@ -76,6 +76,10 @@ Why Opus 5.5: the task is judgement, not volume. It has to tell a filler sentenc
 
 The browser only ever talks to localhost. Module scripts loaded with `import()` can't carry a custom header or a cross-site cookie, so the token goes on the dev server's proxy rather than in the browser. `make types` exists for the same reason: the federation plugin can't send the token when it fetches types itself.
 
+## Deploy
+
+Two Cloud Run services, `ki-cl-moonshot-dev` and `ki-cl-moonshot`, in Ki.CL's project and network. They are internal and private: only Ki.CL's server calls them, with an ID token, at `/moonshot`. Pushes to `develop` and `main` redeploy them. `scripts/gcp.sh` sets this up, one step at a time: `secrets`, `deploy dev|prod`, `triggers`, `wire dev|prod` (sets `KICL_MOONSHOT_URL` on Ki.CL), and `localhost` (lets a standalone run on localhost use dev, given the client token public key).
+
 ## Tests
 
 `make test` runs the unit tests: finding quotes in the text (`locate.test.ts`) and applying accepted edits (`apply.test.ts`). Both are deterministic.

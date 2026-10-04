@@ -31,9 +31,9 @@ const Design: React.FunctionComponent = () => {
         <Text is='p'>
           It’s a Module Federation remote of Ki.CL, with a small Express server
           beside it for the reviews. Components, styles and routing come from
-          the design system’s remote, and sessions and the GraphQL client from
-          Ki.CL-back’s. The server asks Ki.CL-back whose session a request
-          carries, so it never holds the secret that signs them.
+          the design system’s remote. Sessions are Ki.CL’s: the module only
+          sends the cookie, and the server asks Ki.CL-back whose session it is,
+          so it never holds the secret that signs them.
         </Text>
         <Card>
           <Diagram spec={services} />

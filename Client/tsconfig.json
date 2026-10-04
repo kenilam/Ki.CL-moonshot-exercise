@@ -20,8 +20,6 @@
     "paths": {
       "@/*": ["./src/*"],
       "@server/*": ["../Server/*"],
-      "api": ["./@mf-types/api"],
-      "api/*": ["./@mf-types/api/*"],
       "design": ["./@mf-types/design"],
       "design/*": ["./@mf-types/design/*"],
       "REMOTE_ALIAS_IDENTIFIER/*": ["./src/*"]

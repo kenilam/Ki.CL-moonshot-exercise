@@ -27,9 +27,16 @@ const DIST = path.resolve(root, 'Client/dist');
  */
 
 const app = express();
+const store = createStore();
 
-app.get('/health', (_request, response) => {
-  response.status(200).json({ status: 'ok' });
+app.get('/health', async (_request, response) => {
+  if (await store.healthy()) {
+    response.status(200).json({ status: 'ok' });
+
+    return;
+  }
+
+  response.status(503).json({ status: 'unavailable' });
 });
 
 app.get('/moonshot/api/rules', (_request, response) => {
@@ -40,7 +47,7 @@ app.use(
   '/moonshot/api/reviews',
   // JSON escapes stretch the text, so the body limit leaves room above it.
   express.json({ limit: MAX_LENGTH * 4 }),
-  reviews(createStore())
+  reviews(store)
 );
 
 // Module Federation hosts look for @mf-types.zip by default.

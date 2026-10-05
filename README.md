@@ -44,7 +44,7 @@ This is for working on the stack itself, and needs Ki.CL-back, which is private.
 
 Without `MONGODB_ATLAS_URI` the server keeps reviews in memory.
 
-To see the module inside a local Ki.CL, keep `make run.server` running: Ki.CL proxies `/moonshot` to it on port 3301. It serves the last build, so run `make build` after changing the client.
+To see the module inside a local Ki.CL, keep `make run.server` running for the API on port 3301. Set `KICL_MOONSHOT_DEV_URL=http://localhost:3300` in Ki.CL's `.env` and Ki.CL loads the module from `make run`, with hot updates. Without it, Ki.CL loads the last build from port 3301, so run `make build` after changing the client.
 
 | Command               | What it does                                                 |
 | --------------------- | ------------------------------------------------------------ |

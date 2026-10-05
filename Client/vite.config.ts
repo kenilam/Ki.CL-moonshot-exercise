@@ -21,15 +21,33 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     /*
-     * Ki.CL proxies `/moonshot` to the built remote. The standalone page runs
-     * at the root, so its routes match the paths they have inside Ki.CL.
+     * Ki.CL proxies `/moonshot` to this remote, built or dev. In dev every
+     * module, `@vite/client` and the HMR socket sit under it too, so they
+     * don't collide with Ki.CL's own `/@id` and `/node_modules/.vite`.
      */
-    base: command === 'build' ? '/moonshot/' : '/',
+    base: '/moonshot/',
     envDir,
     // Only the Turnstile site key reaches the browser; the rest stays server-side.
     envPrefix: ['TURNSTILE_SITE_KEY'],
     plugins: [
       react(),
+      /*
+       * The standalone page keeps the path it has inside Ki.CL. Vite only
+       * serves under `base`, so it gets the request under it while the
+       * browser and the router still see `/portfolio/...`.
+       */
+      {
+        name: 'moonshot-standalone',
+        configureServer(server) {
+          server.middlewares.use((request, _response, next) => {
+            if (request.url?.startsWith('/portfolio/')) {
+              request.url = `/moonshot${request.url}`;
+            }
+
+            next();
+          });
+        },
+      },
       federation({
         name: 'moonshot',
         moduleParseIdleTimeout: 60,

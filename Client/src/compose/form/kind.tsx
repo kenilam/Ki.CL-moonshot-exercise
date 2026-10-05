@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { useFormContext } from 'react-hook-form';
 
@@ -30,13 +30,6 @@ const Kind: React.FunctionComponent = () => {
     useFormContext<ComposeValues>();
 
   /*
-   * A click or tap on a kind moves on to the text. Arrow keys change the kind
-   * too, one option per press, so those keep focus here or the next option
-   * could never be reached.
-   */
-  const pointer = useRef(false);
-
-  /*
    * An example nobody has touched follows the kind: the same example for the
    * new kind. Anything typed or edited, even by one character, is kept.
    */
@@ -65,15 +58,13 @@ const Kind: React.FunctionComponent = () => {
             collapse='popover'
             aria-label='Kind of text'
             name={field.name}
-            onPointerDown={() => {
-              pointer.current = true;
-            }}
-            onValueChange={(next) => {
+            onValueChange={(next, { pointer }) => {
               swapExample(field.value, next);
               field.onChange(next);
 
-              if (pointer.current) {
-                pointer.current = false;
+              // A click or tap moves on to the text. Arrow keys keep focus
+              // here, so the next option can still be reached.
+              if (pointer) {
                 setFocus('text');
               }
             }}

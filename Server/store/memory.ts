@@ -28,6 +28,10 @@ class MemoryStore implements Store {
       (review) => review.userGUID === userGUID && review.createdAt >= since
     ).length;
   }
+
+  async healthy() {
+    return true;
+  }
 }
 
 export { MemoryStore };

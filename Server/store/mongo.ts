@@ -4,12 +4,15 @@ import { summarise, type Review, type Store } from './review';
 
 type Document = Omit<Review, 'id'> & { _id: string };
 
+const PING_TIMEOUT_MS = 2000;
+
 /**
  * The same database as Ki.CL-back - `test` locally, `production` in
  * production - in a collection named for this module, so it sits beside the
  * API's collections without touching them.
  */
 class MongoStore implements Store {
+  #client: MongoClient | null = null;
   #connecting: Promise<Collection<Document>> | null = null;
   readonly #uri: string;
 
@@ -38,8 +41,36 @@ class MongoStore implements Store {
       .collection<Document>('moonshot-reviews');
 
     await reviews.createIndex({ userGUID: 1, createdAt: -1 });
+    this.#client = client;
 
     return reviews;
+  }
+
+  /**
+   * Whether the primary answers. A client that has lost the primary stays
+   * connected and fails every query after 30 seconds of server selection.
+   * Before the first connection there is nothing to check, and the next
+   * request connects fresh.
+   */
+  async healthy() {
+    if (!this.#client) {
+      return true;
+    }
+
+    try {
+      await this.#client
+        .db('admin')
+        .command(
+          { ping: 1 },
+          { readPreference: 'primary', timeoutMS: PING_TIMEOUT_MS }
+        );
+
+      return true;
+    } catch (error) {
+      console.error('MongoDB primary did not answer:', error);
+
+      return false;
+    }
   }
 
   async create({ id, ...review }: Review) {

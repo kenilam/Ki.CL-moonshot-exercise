@@ -16,7 +16,7 @@
     "react-dom": "19.2.8",
     "react-hook-form": "7.83.0",
     "react-icons": "5.7.0",
-    "react-router-dom": "7.18.2",
+    "react-router-dom": "7.18.4",
     "rxjs": "7.8.2",
     "valibot": "1.4.2"
   },

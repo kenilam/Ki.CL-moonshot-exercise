@@ -23,9 +23,15 @@ const Allowance: React.FunctionComponent = () => {
   const [allowance, setAllowance] = useState<Remaining>();
 
   useEffect(() => {
-    getAllowance()
-      .then(setAllowance)
-      .catch(() => undefined);
+    const load = async () => {
+      try {
+        setAllowance(await getAllowance());
+      } catch {
+        // Stays hidden.
+      }
+    };
+
+    void load();
   }, []);
 
   if (!allowance) {

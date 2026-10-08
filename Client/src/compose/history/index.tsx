@@ -31,9 +31,15 @@ const History: React.FunctionComponent = () => {
   const [reviews, setReviews] = useState<Summary[]>([]);
 
   useEffect(() => {
-    listReviews()
-      .then(setReviews)
-      .catch(() => undefined);
+    const load = async () => {
+      try {
+        setReviews(await listReviews());
+      } catch {
+        // Stays hidden.
+      }
+    };
+
+    void load();
   }, []);
 
   if (!reviews.length) {

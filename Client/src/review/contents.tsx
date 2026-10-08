@@ -39,12 +39,16 @@ import {
  * above tablet, and stacked with the text held at the foot at tablet and below.
  */
 const VERSIONS = {
-  true: React.lazy(() =>
-    import('./mobile').then(({ Mobile }) => ({ default: Mobile }))
-  ),
-  false: React.lazy(() =>
-    import('./default').then(({ Default }) => ({ default: Default }))
-  ),
+  true: React.lazy(async () => {
+    const { Mobile } = await import('./mobile');
+
+    return { default: Mobile };
+  }),
+  false: React.lazy(async () => {
+    const { Default } = await import('./default');
+
+    return { default: Default };
+  }),
 };
 
 const Contents: React.FunctionComponent = () => {

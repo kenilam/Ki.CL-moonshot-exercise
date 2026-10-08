@@ -21,8 +21,10 @@ const useReview = (id: string | undefined): State => {
 
     let current = true;
 
-    Promise.all([getReview(id), getRules()])
-      .then(([review, rules]) => {
+    const load = async () => {
+      try {
+        const [review, rules] = await Promise.all([getReview(id), getRules()]);
+
         if (current) {
           setLoaded({
             id,
@@ -31,12 +33,18 @@ const useReview = (id: string | undefined): State => {
             status: 'ready',
           });
         }
-      })
-      .catch((error: Error) => {
+      } catch (error) {
         if (current) {
-          setLoaded({ id, message: error.message, status: 'error' });
+          setLoaded({
+            id,
+            message: (error as Error).message,
+            status: 'error',
+          });
         }
-      });
+      }
+    };
+
+    void load();
 
     return () => {
       current = false;

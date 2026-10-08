@@ -40,9 +40,14 @@ async function exchange(token: string | null): Promise<Outcome> {
       return 'failed';
     }
 
-    const body = (await response.json().catch(() => null)) as {
-      code?: string;
-    } | null;
+    let body: { code?: string } | null = null;
+
+    try {
+      body = (await response.json()) as { code?: string } | null;
+    } catch {
+      // Not JSON, so there is no code to read.
+    }
+
     const outcome = body?.code ? CODES[body.code] : undefined;
 
     if (outcome) {

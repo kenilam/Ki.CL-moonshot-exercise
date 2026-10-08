@@ -9,9 +9,11 @@ import { Spinner } from 'design/components';
 // Constants
 import { REVIEW_PATH } from '@/constants';
 
-const Contents = React.lazy(() =>
-  import('./contents').then(({ Contents }) => ({ default: Contents }))
-);
+const Contents = React.lazy(async () => {
+  const { Contents } = await import('./contents');
+
+  return { default: Contents };
+});
 
 const Lazy: React.FunctionComponent = () => {
   return (

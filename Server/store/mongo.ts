@@ -25,13 +25,19 @@ class MongoStore implements Store {
    * tries again instead of failing for as long as the instance lives.
    */
   get #reviews() {
-    this.#connecting ??= this.#connect().catch((error: unknown) => {
+    this.#connecting ??= this.#attempt();
+
+    return this.#connecting;
+  }
+
+  async #attempt() {
+    try {
+      return await this.#connect();
+    } catch (error) {
       this.#connecting = null;
 
       throw error;
-    });
-
-    return this.#connecting;
+    }
   }
 
   async #connect() {

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
+import { compression } from 'vite-plugin-compression2';
 
 import { getProxy, getTokenWarning } from './remotes';
 
@@ -30,6 +31,8 @@ export default defineConfig(({ command, mode }) => {
     // Only the Turnstile site key reaches the browser; the rest stays server-side.
     envPrefix: ['TURNSTILE_SITE_KEY'],
     plugins: [
+      // A .gz and a .br beside each built file, which the server sends as they are.
+      compression({ algorithms: ['gzip', 'brotliCompress'] }),
       react(),
       /*
        * The standalone page keeps the path it has inside Ki.CL. Vite only

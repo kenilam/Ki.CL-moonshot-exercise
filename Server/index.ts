@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 
 import { reviews } from './api/reviews';
+import { precompressed } from './precompressed';
 import { RULES } from './review/rules';
 import { MAX_LENGTH } from './review/schema';
 import { createStore } from './store';
@@ -57,15 +58,16 @@ app.get('/moonshot/@mf-types.zip', (_request, response) => {
 
 app.use(
   '/moonshot',
+  precompressed(DIST),
   express.static(DIST, {
     setHeaders(response, file) {
-      // The entry keeps its name across releases, so it has to be revalidated.
-      // Everything else is content-hashed.
+      // The entry keeps its name across releases, so it is checked every time.
+      // The files under assets are content-hashed.
       response.setHeader(
         'Cache-Control',
-        file.endsWith('remoteEntry.js')
-          ? 'no-cache'
-          : 'public, max-age=31536000, immutable'
+        file.includes('/assets/')
+          ? 'public, max-age=31536000, immutable'
+          : 'no-cache'
       );
     },
   })

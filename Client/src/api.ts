@@ -25,6 +25,15 @@ class ApiError extends Error {
  */
 const ENDED = 'Your session has ended. Reload the page to continue.';
 
+/** The response's body, or null when it isn't JSON. */
+async function readJson(response: Response): ReturnType<Response['json']> {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
 async function request<Result>(
   path: string,
   init?: RequestInit
@@ -35,7 +44,7 @@ async function request<Result>(
     headers: { 'Content-Type': 'application/json', ...init?.headers },
   });
 
-  const body = await response.json().catch(() => null);
+  const body = await readJson(response);
 
   if (response.status === 401) {
     dispatchEvent(new Event(SESSION_ENDED));

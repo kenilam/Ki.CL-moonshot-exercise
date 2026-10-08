@@ -6,9 +6,11 @@ import { Route } from 'design/router';
 // Components
 import { Spinner } from 'design/components';
 
-const Contents = React.lazy(() =>
-  import('./contents').then(({ Contents }) => ({ default: Contents }))
-);
+const Contents = React.lazy(async () => {
+  const { Contents } = await import('./contents');
+
+  return { default: Contents };
+});
 
 const Lazy: React.FunctionComponent = () => {
   return (

@@ -50,12 +50,18 @@ const Result: React.FunctionComponent<Props> = ({
         <CardHeader>
           <CardTitle is='h2'>Result</CardTitle>
           <Button
+            before={
+              copied ? (
+                <Ri.RiCheckLine aria-hidden />
+              ) : (
+                <Ri.RiClipboardLine aria-hidden />
+              )
+            }
             onClick={copy}
             level={copied ? 'confirm' : 'info'}
             size='small'
             variant='secondary'
           >
-            {copied ? <Ri.RiCheckLine /> : <Ri.RiClipboardLine />}
             {copied ? 'Copied' : 'Copy'}
           </Button>
         </CardHeader>

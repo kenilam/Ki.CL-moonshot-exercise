@@ -19,8 +19,8 @@ const SESSION_ENDED = 'kicl:session-ended';
 
 const REPOSITORY = 'https://github.com/kenilam/Ki.CL-moonshot-exercise';
 
-/** Where a client token is asked for. */
-const TOKEN_REQUEST = `mailto:hello@ki-cl.com?subject=${encodeURIComponent('Moonshot client token')}`;
+/** Where a client token is asked for: the mail button there opens the contact form. */
+const TOKEN_REQUEST = 'https://ki-cl.com';
 
 // In the order the options show.
 const KIND_LABELS: Record<Kind, string> = {

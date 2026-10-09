@@ -51,13 +51,13 @@ const Examples: React.FunctionComponent = () => {
           {(Object.keys(EXAMPLE_LABELS) as Example[]).map((example) => (
             <ListItem key={example} gap='narrowest'>
               <Button
+                after={<Ri.RiArrowRightSLine aria-hidden />}
                 onClick={() => fill(example)}
                 size='small'
                 type='button'
                 variant='tertiary'
               >
                 {EXAMPLE_LABELS[example].label}
-                <Ri.RiArrowRightSLine aria-hidden />
               </Button>
             </ListItem>
           ))}

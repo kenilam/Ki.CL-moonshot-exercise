@@ -25,7 +25,7 @@ The dev server proxies `/design`, `/api/session` and `/moonshot/api` somewhere, 
 
 ### Against dev.ki-cl.com
 
-This is the setup for reviewers. You don't need the design system, the API or an Anthropic key, only a client token. The token is personal and expires: [ask me for one](mailto:hello@ki-cl.com?subject=Moonshot%20client%20token), and don't commit it.
+This is the setup for reviewers. You don't need the design system, the API or an Anthropic key, only a client token. The token is personal and expires: ask me for one with the mail button on [ki-cl.com](https://ki-cl.com), and don't commit it.
 
 ```bash
 cp .env.template .env   # then set KICL_CLIENT_TOKEN

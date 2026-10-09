@@ -65,15 +65,17 @@ const ComposeForm: React.FunctionComponent = () => {
         >
           <footer>
             <Button
+              after={
+                isSubmitting && (
+                  <Ri.RiLoader4Line aria-hidden className='is-revolving' />
+                )
+              }
               disabled={isSubmitting}
               level='confirm'
               size='small'
               type='submit'
             >
               {isSubmitting ? 'Reviewing' : 'Review'}
-              {isSubmitting ? (
-                <Ri.RiLoader4Line aria-hidden className='is-revolving' />
-              ) : null}
             </Button>
             <Allowance />
           </footer>

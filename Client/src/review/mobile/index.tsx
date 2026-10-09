@@ -81,12 +81,12 @@ const Mobile: React.FunctionComponent<Props> = ({
           )}
         >
           <Button
+            before={<Ri.RiFileTextLine aria-hidden />}
             popoverTarget={id}
             popoverTargetAction='show'
             size='small'
             variant='ghost'
           >
-            <Ri.RiFileTextLine aria-hidden />
             Your text and result
           </Button>
         </div>

@@ -10,4 +10,4 @@ Follow Ki.CL's CLAUDE.md for UI and structure: semantic markup, `design/componen
 - No `api` remote and no Apollo. Sessions are the host's: the module only sends the cookie and shows a message on a 401. The standalone shell starts its session with one `fetch` to Ki.CL-back's `POST /api/session` (`src/standalone/session/exchange.ts`).
 - `shared` in `Client/vite.config.ts` lists the singletons Ki.CL shares that this module uses, at Ki.CL's versions (`App/.client/index.ts`).
 - `Client/@mf-types` is downloaded by `make types`. Don't edit it.
-- Into `develop` = squash; `develop` → `main` = merge commit. Never push to `develop` directly.
+- Into `develop` = squash. The Release workflow fast-forwards `main` to `develop`. Never push to `develop` or `main` directly.

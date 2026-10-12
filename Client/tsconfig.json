@@ -25,6 +25,12 @@
       "REMOTE_ALIAS_IDENTIFIER/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "scripts/**/*", "remotes.ts", "vite.config.ts"],
+  "include": [
+    "src/**/*",
+    "scripts/**/*",
+    "types/**/*",
+    "remotes.ts",
+    "vite.config.ts"
+  ],
   "exclude": ["dist/**/*", "node_modules/**/*", "@mf-types/**/*"]
 }

@@ -4,6 +4,10 @@
  *
  * Bump VERSION when a rule changes, so a stored review can be traced back to
  * the guide that produced it.
+ *
+ * These words are the model's. The UI reads its own copy of each name and
+ * guidance from the client's `moonshot` namespace, as `rule_<id>` and
+ * `rule_guidance_<id>`, so a change here is made there too.
  */
 const VERSION = '1';
 

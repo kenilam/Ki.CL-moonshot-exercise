@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import { Router, type Request, type Response } from 'express';
+import type { z } from 'zod';
 
 import { identify, IdentityError } from '../identity';
 import { locate } from '../review/locate';
@@ -8,6 +9,8 @@ import { MODEL, propose, ReviewError } from '../review/model';
 import { VERSION } from '../review/rules';
 import { ReviewInput } from '../review/schema';
 import type { Store } from '../store';
+
+import type { ErrorCode, Failure } from './errors';
 
 /** Reviews per user per UTC day. Each one is a paid model call. */
 const DAILY_ALLOWANCE = Number(process.env.MOONSHOT_DAILY_ALLOWANCE) || 20;
@@ -20,8 +23,28 @@ const startOfDay = () => {
   );
 };
 
-const fail = (response: Response, status: number, message: string) => {
-  response.status(status).json({ error: message });
+const fail = (
+  response: Response,
+  status: number,
+  code: ErrorCode,
+  extra?: Omit<Failure, 'code'>
+) => {
+  response.status(status).json({ code, ...extra } satisfies Failure);
+};
+
+/** An empty text and one over the limit get their own code; the client has a sentence for each. */
+const invalid = (issues: z.core.$ZodIssue[]): ErrorCode => {
+  const [issue] = issues;
+
+  if (issue?.path[0] === 'text' && issue.code === 'too_small') {
+    return 'text_empty';
+  }
+
+  if (issue?.path[0] === 'text' && issue.code === 'too_big') {
+    return 'text_too_long';
+  }
+
+  return 'invalid_review';
 };
 
 function reviews(store: Store): Router {
@@ -37,16 +60,16 @@ function reviews(store: Store): Router {
       console.error('Identity check failed:', error);
 
       if (error instanceof IdentityError) {
-        fail(response, error.status, error.message);
+        fail(response, error.status, error.code);
       } else {
-        fail(response, 502, "Couldn't check your session. Try again.");
+        fail(response, 502, 'session_unchecked');
       }
 
       return;
     }
 
     if (!userGUID) {
-      fail(response, 401, 'Your session has ended. Reload the page.');
+      fail(response, 401, 'session_ended');
 
       return;
     }
@@ -72,7 +95,7 @@ function reviews(store: Store): Router {
     const review = await store.get(response.locals.userGUID, request.params.id);
 
     if (!review) {
-      fail(response, 404, 'No such review.');
+      fail(response, 404, 'review_not_found');
 
       return;
     }
@@ -84,7 +107,7 @@ function reviews(store: Store): Router {
     const input = ReviewInput.safeParse(request.body);
 
     if (!input.success) {
-      fail(response, 400, input.error.issues[0]?.message ?? 'Invalid review.');
+      fail(response, 400, invalid(input.error.issues));
 
       return;
     }
@@ -93,11 +116,9 @@ function reviews(store: Store): Router {
     const used = await store.countSince(userGUID, startOfDay());
 
     if (used >= DAILY_ALLOWANCE) {
-      fail(
-        response,
-        429,
-        `That's all ${DAILY_ALLOWANCE} reviews for today. More tomorrow.`
-      );
+      fail(response, 429, 'allowance_used', {
+        values: { limit: DAILY_ALLOWANCE },
+      });
 
       return;
     }
@@ -122,7 +143,7 @@ function reviews(store: Store): Router {
       await store.create(review);
 
       if (rejection) {
-        fail(response, 422, rejection);
+        fail(response, 422, 'rejected', { message: rejection });
 
         return;
       }
@@ -130,13 +151,13 @@ function reviews(store: Store): Router {
       response.status(201).json(review);
     } catch (error) {
       if (error instanceof ReviewError) {
-        fail(response, error.status, error.message);
+        fail(response, error.status, error.code);
 
         return;
       }
 
       console.error('Review failed:', error);
-      fail(response, 502, 'The review failed. Try again.');
+      fail(response, 502, 'review_failed');
     }
   });
 

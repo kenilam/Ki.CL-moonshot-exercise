@@ -1,6 +1,8 @@
 import React from 'react';
 
+// Libraries
 import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import {
@@ -14,8 +16,7 @@ import {
 import type { ComposeValues } from './schema';
 
 // Constants
-import { KIND_LABELS } from '@/constants';
-import { EXAMPLES, type Example } from './examples/constants';
+import { EXAMPLES } from './examples/constants';
 
 // API
 import type { Kind } from '@/api';
@@ -26,6 +27,7 @@ const isKind = (value: string): value is Kind =>
   (KINDS as readonly string[]).includes(value);
 
 const Kind: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const { control, getValues, setFocus, setValue } =
     useFormContext<ComposeValues>();
 
@@ -39,12 +41,14 @@ const Kind: React.FunctionComponent = () => {
     }
 
     const text = getValues('text');
-    const example = (Object.keys(EXAMPLES[previous]) as Example[]).find(
-      (name) => EXAMPLES[previous][name] === text
+    const example = EXAMPLES.find(
+      (name) => t(`examples.${previous}.${name}`) === text
     );
 
     if (example) {
-      setValue('text', EXAMPLES[next][example], { shouldDirty: true });
+      setValue('text', t(`examples.${next}.${example}`), {
+        shouldDirty: true,
+      });
     }
   };
 
@@ -56,7 +60,7 @@ const Kind: React.FunctionComponent = () => {
         <FormItem>
           <Segmented
             collapse='popover'
-            aria-label='Kind of text'
+            aria-label={t('label', { context: 'kind' })}
             name={field.name}
             onValueChange={(next, { pointer }) => {
               swapExample(field.value, next);
@@ -70,9 +74,9 @@ const Kind: React.FunctionComponent = () => {
             }}
             value={field.value}
           >
-            {Object.entries(KIND_LABELS).map(([value, label]) => (
-              <SegmentedItem key={value} value={value}>
-                {label}
+            {KINDS.map((kind) => (
+              <SegmentedItem key={kind} value={kind}>
+                {t('kind', { context: kind })}
               </SegmentedItem>
             ))}
           </Segmented>

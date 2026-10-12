@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import {
   Badge,
@@ -14,24 +17,18 @@ import {
 // Libraries
 import type { Decision, Edit } from '@/review/apply';
 
-// API
-import type { Rule } from '@/api';
-
 type Props = {
   decision: Decision | undefined;
   edit: Edit;
-  rule: Rule | undefined;
 };
 
 /**
  * One edit inside the text: a link to its card. Hovering or focusing it shows
  * the rule and the reason, opened by the browser through `interestfor`.
  */
-const Highlight: React.FunctionComponent<Props> = ({
-  decision,
-  edit,
-  rule,
-}) => {
+const Highlight: React.FunctionComponent<Props> = ({ decision, edit }) => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Popover inline>
       <PopoverTrigger asChild>
@@ -51,7 +48,8 @@ const Highlight: React.FunctionComponent<Props> = ({
         <Layout autoFlow='row' gap='narrower' justifyItems='start'>
           <div className='kicl-padding-narrow'>
             <Badge size='small' variant='outline'>
-              {rule?.name ?? edit.rule}
+              {/* A rule the guide no longer has shows as its id. */}
+              {t('rule', { context: edit.rule, defaultValue: edit.rule })}
             </Badge>
             <Text className='kicl-font-size-small' is='p' variant='secondary'>
               {edit.reason}

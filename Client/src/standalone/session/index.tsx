@@ -1,13 +1,13 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import { Layout, Spinner } from 'design/components';
 
 // Status
 import { Status403, Status429, Status500 } from 'design/status';
-
-// Constants
-import { COPY } from './constants';
 
 // Hooks
 import { useSession } from './use-session';
@@ -20,18 +20,35 @@ import { useSession } from './use-session';
 const Session: React.FunctionComponent<React.PropsWithChildren> = ({
   children,
 }) => {
+  const { t } = useTranslation('moonshot');
   const { container, interactive, stage } = useSession();
 
   if (stage === 'rejected') {
-    return <Status403 message={COPY.retry} title={COPY.rejected} />;
+    return (
+      <Status403
+        message={t('session', { context: 'retry' })}
+        title={t('session', { context: 'rejected' })}
+      />
+    );
   }
 
+  // Vague like the API's own message: naming the limit says how to get round it.
   if (stage === 'limited') {
-    return <Status429 message={COPY.later} title={COPY.limited} />;
+    return (
+      <Status429
+        message={t('session', { context: 'later' })}
+        title={t('session', { context: 'limited' })}
+      />
+    );
   }
 
   if (stage === 'failed') {
-    return <Status500 message={COPY.retry} title={COPY.failed} />;
+    return (
+      <Status500
+        message={t('session', { context: 'retry' })}
+        title={t('session', { context: 'failed' })}
+      />
+    );
   }
 
   if (stage === 'ready') {

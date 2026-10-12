@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 
 // Libraries
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import { Button, Layout, Sheet, SheetHeader } from 'design/components';
@@ -26,8 +27,8 @@ const Mobile: React.FunctionComponent<Props> = ({
   decisions,
   onDecide,
   review,
-  rules,
 }) => {
+  const { t } = useTranslation('moonshot');
   const sheet = useRef<HTMLDialogElement>(null);
 
   // A new key each time the sheet closes, so "Copied" is back to "Copy".
@@ -87,7 +88,7 @@ const Mobile: React.FunctionComponent<Props> = ({
             size='small'
             variant='ghost'
           >
-            Your text and result
+            {t('title', { context: 'text_and_result' })}
           </Button>
         </div>
       </Layout>
@@ -101,12 +102,11 @@ const Mobile: React.FunctionComponent<Props> = ({
               onDecide(edit, decision);
               sheet.current?.showPopover();
             }}
-            rules={rules}
           />
         </div>
       </Layout>
       <Sheet
-        aria-label='Your text and result'
+        aria-label={t('title', { context: 'text_and_result' })}
         id={id}
         onOpenChange={(open) => {
           if (!open) {
@@ -118,7 +118,7 @@ const Mobile: React.FunctionComponent<Props> = ({
         <Layout justifyItems='end'>
           <SheetHeader>
             <Button
-              aria-label='Close'
+              aria-label={t('action', { context: 'close' })}
               popoverTarget={id}
               popoverTargetAction='hide'
               size='small'
@@ -132,7 +132,7 @@ const Mobile: React.FunctionComponent<Props> = ({
         <Layout alignContent='start' autoFlow='row' gap='normal'>
           <div>
             <Result decisions={decisions} key={closings} review={review} />
-            <Marked decisions={decisions} review={review} rules={rules} />
+            <Marked decisions={decisions} review={review} />
           </div>
         </Layout>
       </Sheet>

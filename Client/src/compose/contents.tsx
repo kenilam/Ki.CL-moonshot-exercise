@@ -2,6 +2,7 @@ import React from 'react';
 
 // Libraries
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import { Heading, HyperLink, Layout } from 'design/components';
@@ -15,6 +16,8 @@ import { History } from './history';
 import { Intro } from './intro';
 
 const Contents: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Layout
       autoFlow='row'
@@ -33,9 +36,9 @@ const Contents: React.FunctionComponent = () => {
       <section>
         <header>
           <HyperLink before={<Ri.RiArrowLeftSLine aria-hidden />} to='..'>
-            About
+            {t('action', { context: 'about' })}
           </HyperLink>
-          <Heading is='h1'>Writing review</Heading>
+          <Heading is='h1'>{t('title', { context: 'writing_review' })}</Heading>
           <Intro />
         </header>
         <ComposeForm />

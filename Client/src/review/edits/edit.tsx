@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import {
   Badge,
@@ -14,14 +17,10 @@ import {
 // Libraries
 import type { Decision, Edit as EditType } from '@/review/apply';
 
-// API
-import type { Rule } from '@/api';
-
 type Props = {
   decision: Decision | undefined;
   edit: EditType;
   onDecide: (decision: Decision) => void;
-  rule: Rule | undefined;
 };
 
 /** The card's edge shows the decision, so a long list can be scanned. */
@@ -30,12 +29,9 @@ const LEVELS = {
   rejected: 'error',
 } as const;
 
-const Edit: React.FunctionComponent<Props> = ({
-  decision,
-  edit,
-  onDecide,
-  rule,
-}) => {
+const Edit: React.FunctionComponent<Props> = ({ decision, edit, onDecide }) => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Card id={`edit-${edit.id}`} is='li' level={decision && LEVELS[decision]}>
       <Layout autoFlow='row' gap='narrower' justifyItems='start'>
@@ -46,8 +42,16 @@ const Edit: React.FunctionComponent<Props> = ({
             justifyContent='space-between'
           >
             <header>
-              <Badge size='small' title={rule?.guidance} variant='outline'>
-                {rule?.name ?? edit.rule}
+              {/* A rule the guide no longer has shows as its id, with no guidance. */}
+              <Badge
+                size='small'
+                title={t('rule_guidance', {
+                  context: edit.rule,
+                  defaultValue: '',
+                })}
+                variant='outline'
+              >
+                {t('rule', { context: edit.rule, defaultValue: edit.rule })}
               </Badge>
               {/* A rejected edit is plain text again, so there is nothing to show. */}
               {decision === 'rejected' ? null : (
@@ -55,7 +59,7 @@ const Edit: React.FunctionComponent<Props> = ({
                   className='kicl-font-size-smaller'
                   to={`#text-${edit.id}`}
                 >
-                  Show in text
+                  {t('action', { context: 'show_in_text' })}
                 </HyperLink>
               )}
             </header>
@@ -66,7 +70,7 @@ const Edit: React.FunctionComponent<Props> = ({
               <Text is='ins'>{edit.replacement}</Text>
             ) : (
               <Badge level='error' size='small' variant='outline'>
-                Remove
+                {t('label', { context: 'remove' })}
               </Badge>
             )}
           </Text>
@@ -74,7 +78,7 @@ const Edit: React.FunctionComponent<Props> = ({
             {edit.reason}
           </Text>
           <Layout autoFlow='column' gap='narrower' justifyContent='start'>
-            <div role='group' aria-label='Decision'>
+            <div role='group' aria-label={t('label', { context: 'decision' })}>
               <Button
                 aria-pressed={decision === 'accepted'}
                 disabled={decision === 'accepted'}
@@ -83,7 +87,7 @@ const Edit: React.FunctionComponent<Props> = ({
                 size='small'
                 variant='ghost'
               >
-                Accept
+                {t('action', { context: 'accept' })}
               </Button>
               <Button
                 aria-pressed={decision === 'rejected'}
@@ -93,7 +97,7 @@ const Edit: React.FunctionComponent<Props> = ({
                 size='small'
                 variant='tertiary'
               >
-                Reject
+                {t('action', { context: 'reject' })}
               </Button>
             </div>
           </Layout>

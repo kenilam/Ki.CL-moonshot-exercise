@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 
 import { GoogleAuth, type IdTokenClient } from 'google-auth-library';
 
+import type { ErrorCode } from './api/errors';
+
 /**
  * Asks Ki.CL's API who the visitor is, passing their session cookie along.
  *
@@ -25,10 +27,10 @@ type Me = { UserGUID: string; aud: string } | null;
 /** The API could not answer, as opposed to answering "not signed in". */
 class IdentityError extends Error {
   constructor(
-    message: string,
+    readonly code: ErrorCode,
     readonly status: number
   ) {
-    super(message);
+    super(code);
   }
 }
 
@@ -94,10 +96,7 @@ async function identify(cookie: string | undefined): Promise<string | null> {
   });
 
   if (response.status === 429) {
-    throw new IdentityError(
-      'Ki.CL has had too many requests from this account today. Try again later.',
-      429
-    );
+    throw new IdentityError('account_limited', 429);
   }
 
   if (response.status === 401) {
@@ -105,7 +104,7 @@ async function identify(cookie: string | undefined): Promise<string | null> {
   }
 
   if (!response.ok) {
-    throw new IdentityError("Couldn't reach Ki.CL to check your session.", 502);
+    throw new IdentityError('session_unreachable', 502);
   }
 
   const { data } = (await response.json()) as { data?: { Me: Me } };

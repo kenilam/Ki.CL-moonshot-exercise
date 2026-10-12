@@ -22,22 +22,6 @@ const REPOSITORY = 'https://github.com/kenilam/Ki.CL-moonshot-exercise';
 /** Where a client token is asked for: the mail button there opens the contact form. */
 const TOKEN_REQUEST = 'https://ki-cl.com';
 
-// In the order the options show.
-const KIND_LABELS: Record<Kind, string> = {
-  commit: 'Commit',
-  pr: 'Pull request',
-  readme: 'README',
-  comment: 'Code comment',
-};
-
-// How each kind is named in the text box's label, its placeholder and notes.
-const KIND_FIELDS: Record<Kind, { label: string; noun: string }> = {
-  commit: { label: 'Commit message', noun: 'a commit message' },
-  pr: { label: 'Pull request description', noun: 'a pull request description' },
-  readme: { label: 'README', noun: 'a README' },
-  comment: { label: 'Code comment', noun: 'a code comment' },
-};
-
 // One colour per kind, so a kind looks the same wherever its badge shows.
 const KIND_LEVELS: Record<Kind, React.ComponentProps<typeof Badge>['level']> = {
   commit: 'error',
@@ -47,8 +31,6 @@ const KIND_LEVELS: Record<Kind, React.ComponentProps<typeof Badge>['level']> = {
 };
 
 export {
-  KIND_FIELDS,
-  KIND_LABELS,
   KIND_LEVELS,
   PATH,
   REPOSITORY,

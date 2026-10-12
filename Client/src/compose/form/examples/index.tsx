@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+// Libraries
 import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import {
@@ -21,17 +23,18 @@ import * as Ri from 'react-icons/ri';
 import type { ComposeValues } from '@/compose/form/schema';
 
 // Constants
-import { EXAMPLE_LABELS, EXAMPLES, type Example } from './constants';
+import { EXAMPLES, type Example } from './constants';
 
 /** Fills the text with an example of the chosen kind, then closes. */
 const Examples: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const [open, setOpen] = useState(false);
   const { clearErrors, setValue, watch } = useFormContext<ComposeValues>();
   const kind = watch('kind');
 
   const fill = (example: Example) => {
     clearErrors('root');
-    setValue('text', EXAMPLES[kind][example], {
+    setValue('text', t(`examples.${kind}.${example}`), {
       shouldDirty: true,
       shouldValidate: true,
     });
@@ -43,12 +46,12 @@ const Examples: React.FunctionComponent = () => {
       <PopoverTrigger
         className={getButtonClassNames({ size: 'small', variant: 'tertiary' })}
       >
-        <Text is='span'>Try an example</Text>
+        <Text is='span'>{t('action', { context: 'try_example' })}</Text>
         <Ri.RiArrowDownSLine aria-hidden />
       </PopoverTrigger>
       <PopoverContent offset='narrowest' placement='block-end-end'>
         <List gap='narrower'>
-          {(Object.keys(EXAMPLE_LABELS) as Example[]).map((example) => (
+          {EXAMPLES.map((example) => (
             <ListItem key={example} gap='narrowest'>
               <Button
                 after={<Ri.RiArrowRightSLine aria-hidden />}
@@ -57,7 +60,7 @@ const Examples: React.FunctionComponent = () => {
                 type='button'
                 variant='tertiary'
               >
-                {EXAMPLE_LABELS[example].label}
+                {t('example', { context: example })}
               </Button>
             </ListItem>
           ))}

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import { Badge } from 'design/components';
 
@@ -20,6 +23,7 @@ const levelFor = ({ limit, remaining }: Remaining): Level => {
 
 /** How many reviews are left today. Hidden until it loads, and on error. */
 const Allowance: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const [allowance, setAllowance] = useState<Remaining>();
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const Allowance: React.FunctionComponent = () => {
 
   return (
     <Badge level={levelFor(allowance)} size='small' variant='outline'>
-      {allowance.remaining} of {allowance.limit} reviews left today
+      {t('allowance', { count: allowance.remaining, limit: allowance.limit })}
     </Badge>
   );
 };

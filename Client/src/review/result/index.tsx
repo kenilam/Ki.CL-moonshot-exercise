@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import {
   Button,
@@ -32,6 +35,7 @@ const Result: React.FunctionComponent<Props> = ({
   decisions,
   review,
 }) => {
+  const { t } = useTranslation('moonshot');
   const [copied, setCopied] = useState(false);
   const text = apply(review.text, review.edits, decisions);
 
@@ -48,7 +52,7 @@ const Result: React.FunctionComponent<Props> = ({
         justifyContent='space-between'
       >
         <CardHeader>
-          <CardTitle is='h2'>Result</CardTitle>
+          <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
           <Button
             before={
               copied ? (
@@ -62,7 +66,9 @@ const Result: React.FunctionComponent<Props> = ({
             size='small'
             variant='secondary'
           >
-            {copied ? 'Copied' : 'Copy'}
+            {copied
+              ? t('status', { context: 'copied' })
+              : t('action', { context: 'copy' })}
           </Button>
         </CardHeader>
       </Layout>

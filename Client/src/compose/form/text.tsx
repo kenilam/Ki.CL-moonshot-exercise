@@ -1,6 +1,8 @@
 import React from 'react';
 
+// Libraries
 import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import {
@@ -26,10 +28,8 @@ import type { ComposeValues } from './schema';
 
 import { MAX_LENGTH } from '@server/review/constants';
 
-// Constants
-import { KIND_FIELDS } from '@/constants';
-
 const Text: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const { control, watch } = useFormContext<ComposeValues>();
   const kind = watch('kind');
 
@@ -47,7 +47,7 @@ const Text: React.FunctionComponent = () => {
             <div className='kicl--views--moonshot--compose--form__header'>
               <Kind />
               <FormLabel className='kicl-hidden-up-to-tablet'>
-                {KIND_FIELDS[kind].label}
+                {t('label_text', { context: kind })}
               </FormLabel>
               <Examples />
             </div>
@@ -63,13 +63,16 @@ const Text: React.FunctionComponent = () => {
               // oxlint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               maxLength={MAX_LENGTH}
-              placeholder={`Paste or type ${KIND_FIELDS[kind].noun}`}
+              placeholder={t('placeholder', { context: kind })}
               rows={14}
               spellCheck
             />
           </FormControl>
           <FormDescription>
-            {field.value.length} / {MAX_LENGTH}
+            {t('text_length', {
+              length: field.value.length,
+              max: MAX_LENGTH,
+            })}
           </FormDescription>
           <FormMessage />
         </FormItem>

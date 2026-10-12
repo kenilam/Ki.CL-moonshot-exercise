@@ -82,6 +82,9 @@ export default defineConfig(({ command, mode }) => {
           'react-dom': { singleton: true, requiredVersion: '^19.0.0' },
           'react-router-dom': { singleton: true, requiredVersion: '^7.0.0' },
           'react-hook-form': { singleton: true, requiredVersion: '^7.0.0' },
+          // Ki.CL's instance holds the translations, read from the database.
+          i18next: { singleton: true, requiredVersion: '^26.0.0' },
+          'react-i18next': { singleton: true, requiredVersion: '^17.0.0' },
         },
         dts: {
           // `scripts/types.ts` downloads them, with the client token.

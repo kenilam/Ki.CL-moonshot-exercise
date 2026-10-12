@@ -1,7 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
+// Libraries
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 // Routes
 import { useNavigate } from 'design/router';
@@ -13,7 +15,7 @@ import { Button, Card, Form, Layout } from 'design/components';
 import * as Ri from 'react-icons/ri';
 
 // API
-import { createReview } from '@/api';
+import { createReview, explain } from '@/api';
 
 // Partials
 import { RootError } from '@/root-error';
@@ -21,14 +23,16 @@ import { Allowance } from './allowance';
 import { Text } from './text';
 
 // Schema
-import { ComposeSchema, type ComposeValues } from './schema';
+import { composeSchema, type ComposeValues } from './schema';
 
 const ComposeForm: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const navigate = useNavigate();
+  const schema = useMemo(() => composeSchema(t), [t]);
 
   const form = useForm<ComposeValues>({
     defaultValues: { kind: 'commit', text: '' },
-    resolver: valibotResolver(ComposeSchema),
+    resolver: valibotResolver(schema),
   });
 
   const onSubmit = useCallback(
@@ -38,12 +42,10 @@ const ComposeForm: React.FunctionComponent = () => {
 
         navigate(review.id);
       } catch (error) {
-        form.setError('root', {
-          message: error instanceof Error ? error.message : String(error),
-        });
+        form.setError('root', { message: explain(t, error) });
       }
     },
-    [form, navigate]
+    [form, navigate, t]
   );
 
   const { isSubmitting } = form.formState;
@@ -75,7 +77,9 @@ const ComposeForm: React.FunctionComponent = () => {
               size='small'
               type='submit'
             >
-              {isSubmitting ? 'Reviewing' : 'Review'}
+              {isSubmitting
+                ? t('status', { context: 'reviewing' })
+                : t('action', { context: 'review' })}
             </Button>
             <Allowance />
           </footer>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-// Components
-import { Heading, HyperLink, Layout, Text } from 'design/components';
+// Libraries
+import { useTranslation } from 'react-i18next';
 
-// Icons
-import * as Ri from 'react-icons/ri';
+// Components
+import { Heading, Layout, Markdown, Text } from 'design/components';
 
 // Constants
 import { REPOSITORY, TOKEN_REQUEST } from '@/constants';
@@ -17,38 +17,29 @@ const COMMANDS = [
 ].join('\n');
 
 const Setup: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Layout autoFlow='row' gap='normal'>
       <section aria-labelledby='introduction-setup'>
         <Heading id='introduction-setup' is='h2'>
-          Run it locally
+          {t('title', { context: 'setup' })}
         </Heading>
         <Text is='p'>
-          It runs on its own, without the design system, the API or an Anthropic
-          key: the dev server forwards those to dev.ki-cl.com. That needs a
-          client token, which is personal and expires, so it isn’t shared here:{' '}
-          <HyperLink before={<Ri.RiMailLine aria-hidden />} to={TOKEN_REQUEST}>
-            ask me for one
-          </HyperLink>
-          . It needs Node 24 and Yarn 4.
+          <Markdown>
+            {t('introduction.setup.token', { token_request: TOKEN_REQUEST })}
+          </Markdown>
         </Text>
         <Text is='pre'>
           <Text is='code'>{COMMANDS}</Text>
         </Text>
         <Text is='p'>
-          The token goes in <Text is='code'>.env</Text> as{' '}
-          <Text is='code'>KICL_CLIENT_TOKEN</Text> before the first{' '}
-          <Text is='code'>make start</Text>; without it, the terminal warns and
-          the page can’t load. Then open{' '}
-          <Text is='code'>http://localhost:3300/portfolio/moonshot</Text> in
-          Chrome or Firefox. Safari doesn’t keep the API’s secure cookies on
-          localhost.
+          <Markdown>{t('introduction.setup.open')}</Markdown>
         </Text>
         <Text is='p'>
-          With the API, the design system and moonshot’s server running locally,
-          no token is needed: the dev server sends everything to them instead.
-          The <HyperLink to={`${REPOSITORY}#readme`}>README</HyperLink> covers
-          that setup, the tests and the eval.
+          <Markdown>
+            {t('introduction.setup.local', { readme: `${REPOSITORY}#readme` })}
+          </Markdown>
         </Text>
       </section>
     </Layout>

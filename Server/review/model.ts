@@ -1,6 +1,8 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 
+import type { ErrorCode } from '../api/errors';
+
 import { render, SYSTEM } from './prompt';
 import { ProposedEdits, type Kind, type Proposal } from './schema';
 
@@ -10,14 +12,14 @@ let client: Anthropic | null = null;
 
 class ReviewError extends Error {
   constructor(
-    message: string,
+    readonly code: ErrorCode,
     readonly status: number
   ) {
-    super(message);
+    super(code);
   }
 }
 
-/** Asks the model for edits. Throws a ReviewError the API can show as is. */
+/** Asks the model for edits. Throws a ReviewError with the code the API answers with. */
 async function propose(kind: Kind, text: string): Promise<Proposal> {
   // A key that isn't scoped to a workspace has to name one on every request.
   client ??= new Anthropic({
@@ -44,11 +46,11 @@ async function propose(kind: Kind, text: string): Promise<Proposal> {
   });
 
   if (response.stop_reason === 'refusal') {
-    throw new ReviewError('The model declined to review this text.', 422);
+    throw new ReviewError('model_declined', 422);
   }
 
   if (response.stop_reason === 'max_tokens' || !response.parsed_output) {
-    throw new ReviewError('The review came back incomplete. Try again.', 502);
+    throw new ReviewError('review_incomplete', 502);
   }
 
   return response.parsed_output;

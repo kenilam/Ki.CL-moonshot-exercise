@@ -2,6 +2,7 @@ import React, { Suspense, useState } from 'react';
 
 // Libraries
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 // Routes
 import { Link, useParams } from 'design/router';
@@ -26,13 +27,11 @@ import { useReview } from './use-review';
 // Libraries
 import type { Decision, Decisions } from './apply';
 
+// API
+import { explain } from '@/api';
+
 // Constants
-import {
-  KIND_FIELDS,
-  KIND_LABELS,
-  KIND_LEVELS,
-  REVIEW_PATH,
-} from '@/constants';
+import { KIND_LEVELS, REVIEW_PATH } from '@/constants';
 
 /**
  * Two layouts, loaded when needed, as Ki.CL's navigation does: side by side
@@ -52,6 +51,7 @@ const VERSIONS = {
 };
 
 const Contents: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const { isMobile } = useResponsive();
   const Version = VERSIONS[String(isMobile) as 'true' | 'false'];
   const { reviewId } = useParams();
@@ -77,15 +77,17 @@ const Contents: React.FunctionComponent = () => {
       >
         <section>
           <Text accent='error' is='p' role='alert'>
-            {state.message}
+            {explain(t, state.error)}
           </Text>
-          <Link to={`../${REVIEW_PATH}`}>Start a new review</Link>
+          <Link to={`../${REVIEW_PATH}`}>
+            {t('action', { context: 'start_review' })}
+          </Link>
         </section>
       </Layout>
     );
   }
 
-  const { review, rules } = state;
+  const { review } = state;
   const reviewedAs = review.reviewedAs ?? review.kind;
 
   const decide = (id: string, decision: Decision) =>
@@ -115,30 +117,29 @@ const Contents: React.FunctionComponent = () => {
               before={<Ri.RiArrowLeftSLine aria-hidden />}
               to={`../${REVIEW_PATH}`}
             >
-              New review
+              {t('action', { context: 'new_review' })}
             </HyperLink>
             <Layout autoFlow='row' gap='narrowest' justifyItems='start'>
               <Heading dense is='h1'>
                 <Badge level={KIND_LEVELS[reviewedAs]} size='small'>
-                  {KIND_LABELS[reviewedAs]}
+                  {t('kind', { context: reviewedAs })}
                 </Badge>
-                Review
+                {t('title', { context: 'review' })}
               </Heading>
             </Layout>
             {reviewedAs !== review.kind ? (
               <Text is='p' variant='secondary'>
-                {`Submitted as ${KIND_FIELDS[review.kind].noun}; reviewed as ${KIND_FIELDS[reviewedAs].noun}.`}
+                {/* A kind is never reviewed as itself, so those pairs have no sentence. */}
+                {t('reviewed_as', {
+                  context: `${review.kind}_${reviewedAs}`,
+                  defaultValue: '',
+                })}
               </Text>
             ) : null}
           </header>
         </Layout>
         <Suspense fallback={<Spinner />}>
-          <Version
-            decisions={decisions}
-            onDecide={decide}
-            review={review}
-            rules={rules}
-          />
+          <Version decisions={decisions} onDecide={decide} review={review} />
         </Suspense>
       </section>
     </Layout>

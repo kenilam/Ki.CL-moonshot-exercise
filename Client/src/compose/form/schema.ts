@@ -1,15 +1,23 @@
+import type { TFunction } from 'i18next';
 import * as v from 'valibot';
 
 import { KINDS, MAX_LENGTH } from '@server/review/constants';
 
-export const ComposeSchema = v.object({
-  kind: v.picklist(KINDS),
-  text: v.pipe(
-    v.string(),
-    v.trim(),
-    v.minLength(1, 'Paste the text to review.'),
-    v.maxLength(MAX_LENGTH, `Keep it under ${MAX_LENGTH} characters.`)
-  ),
-});
+const composeSchema = (t: TFunction<'moonshot'>) =>
+  v.object({
+    kind: v.picklist(KINDS),
+    text: v.pipe(
+      v.string(),
+      v.trim(),
+      v.minLength(1, t('error', { context: 'text_empty' })),
+      v.maxLength(
+        MAX_LENGTH,
+        t('error', { context: 'text_too_long', max: MAX_LENGTH })
+      )
+    ),
+  });
 
-export type ComposeValues = v.InferOutput<typeof ComposeSchema>;
+type ComposeValues = v.InferOutput<ReturnType<typeof composeSchema>>;
+
+export { composeSchema };
+export type { ComposeValues };

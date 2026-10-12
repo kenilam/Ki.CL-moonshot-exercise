@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Icons
 import * as Ri from 'react-icons/ri';
 
@@ -19,7 +22,7 @@ import {
 import { listReviews, type Summary } from '@/api';
 
 // Constants
-import { KIND_LABELS, KIND_LEVELS } from '@/constants';
+import { KIND_LEVELS } from '@/constants';
 
 const date = new Intl.DateTimeFormat(undefined, {
   dateStyle: 'medium',
@@ -28,6 +31,7 @@ const date = new Intl.DateTimeFormat(undefined, {
 
 /** The user's last reviews. Nothing shows until there is at least one. */
 const History: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
   const [reviews, setReviews] = useState<Summary[]>([]);
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const History: React.FunctionComponent = () => {
     <Card aria-labelledby='history' is='section'>
       <CardHeader>
         <Heading dense id='history' is='h2'>
-          Earlier reviews
+          {t('title', { context: 'history' })}
         </Heading>
       </CardHeader>
       <List>
@@ -59,7 +63,7 @@ const History: React.FunctionComponent = () => {
             <div>
               <Card>
                 <Badge level={KIND_LEVELS[kind]} size='small'>
-                  {KIND_LABELS[kind]}
+                  {t('kind', { context: kind })}
                 </Badge>
                 <CardContent className='kicl-margin-inline-narrower'>
                   <HyperLink
@@ -70,7 +74,7 @@ const History: React.FunctionComponent = () => {
                   </HyperLink>
                 </CardContent>
                 <Badge size='small' variant='outline'>
-                  {editCount} edits ·{' '}
+                  {t('edit_count', { count: editCount })} ·{' '}
                   <time>{date.format(new Date(createdAt))}</time>
                 </Badge>
               </Card>

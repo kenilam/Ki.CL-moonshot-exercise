@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+
+// Libraries
+import { useTranslation } from 'react-i18next';
 
 // Components
 import {
@@ -14,34 +17,28 @@ import {
 // Diagrams
 import { services } from './services';
 
-const POINTS = [
-  'One call to Claude Opus 5.5 per review. The style guide is the system prompt, cached across requests, and the output is structured: a quote, its replacement, the rule and the reason for each edit.',
-  'The model quotes the text instead of giving positions. The server finds each quote and drops any that is missing, repeated, overlapping or changes nothing, so an edit never lands in the wrong place.',
-  'Text that isn’t technical writing, or that tries to instruct the model, comes back with a one-line reason instead of edits.',
-  'Reviews are kept in MongoDB, and each session gets 20 a day.',
-];
+const POINTS = ['call', 'quote', 'rejection', 'store'] as const;
 
 const Design: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
+  const spec = useMemo(() => services(t), [t]);
+
   return (
     <Layout autoFlow='row' gap='normal'>
       <section aria-labelledby='introduction-design'>
         <Heading id='introduction-design' is='h2'>
-          Technical design
+          {t('title', { context: 'design' })}
         </Heading>
-        <Text is='p'>
-          It’s a Module Federation remote of Ki.CL, with a small Express server
-          beside it for the reviews. Components, styles and routing come from
-          the design system’s remote. Sessions are Ki.CL’s: the module only
-          sends the cookie, and the server asks Ki.CL-back whose session it is,
-          so it never holds the secret that signs them.
-        </Text>
+        <Text is='p'>{t('introduction.design.architecture')}</Text>
         <Card>
-          <Diagram spec={services} />
+          <Diagram spec={spec} />
         </Card>
         <List gap='narrower'>
           {POINTS.map((point) => (
             <ListItem key={point}>
-              <Text is='span'>{point}</Text>
+              <Text is='span'>
+                {t('introduction.design.point', { context: point })}
+              </Text>
             </ListItem>
           ))}
         </List>

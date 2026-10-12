@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import {
   Card,
@@ -16,13 +19,12 @@ import { Highlight } from './highlight';
 import { segment, type Decisions } from '@/review/apply';
 
 // API
-import type { Review, Rule } from '@/api';
+import type { Review } from '@/api';
 
 /** `className` comes from the page's `Layout span`. */
 type Props = Pick<React.ComponentProps<typeof Card>, 'className'> & {
   decisions: Decisions;
   review: Review;
-  rules: Map<string, Rule>;
 };
 
 /**
@@ -34,12 +36,13 @@ const Marked: React.FunctionComponent<Props> = ({
   className,
   decisions,
   review,
-  rules,
 }) => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Card className={className} is='section'>
       <CardHeader>
-        <CardTitle is='h2'>Your text</CardTitle>
+        <CardTitle is='h2'>{t('title', { context: 'text' })}</CardTitle>
       </CardHeader>
       <CardContent>
         <Text is='span'>
@@ -56,14 +59,7 @@ const Marked: React.FunctionComponent<Props> = ({
               return edit.quote;
             }
 
-            return (
-              <Highlight
-                decision={decision}
-                edit={edit}
-                key={edit.id}
-                rule={rules.get(edit.rule)}
-              />
-            );
+            return <Highlight decision={decision} edit={edit} key={edit.id} />;
           })}
         </Text>
       </CardContent>

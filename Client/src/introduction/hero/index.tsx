@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import { Heading, HyperLink, Layout, Text } from 'design/components';
 
@@ -10,24 +13,21 @@ import * as Ri from 'react-icons/ri';
 import { REPOSITORY, REVIEW_PATH } from '@/constants';
 
 const Hero: React.FunctionComponent = () => {
+  const { t } = useTranslation('moonshot');
+
   return (
     <Layout autoFlow='row' gap='normal' justifyItems='start'>
       <header>
-        <Heading is='h1'>Writing review</Heading>
-        <Text is='p'>
-          A reviewer for what engineers write for each other: commit messages,
-          pull request descriptions, READMEs and code comments. It suggests
-          small edits, each tied to a style rule, and the person keeps the ones
-          they agree with.
-        </Text>
+        <Heading is='h1'>{t('title', { context: 'writing_review' })}</Heading>
+        <Text is='p'>{t('introduction.hero.summary')}</Text>
         <Layout autoFlow='column' gap='normal'>
-          <nav aria-label='Writing review'>
+          <nav aria-label={t('title', { context: 'writing_review' })}>
             <HyperLink
               after={<Ri.RiArrowRightLine aria-hidden />}
               lookLikeButton
               to={REVIEW_PATH}
             >
-              Try it
+              {t('action', { context: 'try' })}
             </HyperLink>
             <HyperLink
               before={<Ri.RiGithubLine aria-hidden />}
@@ -35,7 +35,7 @@ const Hero: React.FunctionComponent = () => {
               to={REPOSITORY}
               variant='secondary'
             >
-              Source on GitHub
+              {t('action', { context: 'source' })}
             </HyperLink>
           </nav>
         </Layout>

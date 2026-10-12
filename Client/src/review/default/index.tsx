@@ -15,13 +15,12 @@ import { Marked } from '@/review/text';
 import type { Decision, Decisions } from '@/review/apply';
 
 // API
-import type { Review, Rule } from '@/api';
+import type { Review } from '@/api';
 
 type Props = {
   decisions: Decisions;
   onDecide: (id: string, decision: Decision) => void;
   review: Review;
-  rules: Map<string, Rule>;
 };
 
 /** Above tablet: the text and its result beside the edits, kept in view. */
@@ -29,7 +28,6 @@ const Default: React.FunctionComponent<Props> = ({
   decisions,
   onDecide,
   review,
-  rules,
 }) => {
   return (
     <Layout alignItems='start' columns gap='normal'>
@@ -41,7 +39,7 @@ const Default: React.FunctionComponent<Props> = ({
               'kicl-inset-block-start'
             )}
           >
-            <Marked decisions={decisions} review={review} rules={rules} />
+            <Marked decisions={decisions} review={review} />
             <Result decisions={decisions} review={review} />
           </div>
         </Layout>
@@ -56,7 +54,6 @@ const Default: React.FunctionComponent<Props> = ({
               decisions={decisions}
               edits={review.edits}
               onDecide={onDecide}
-              rules={rules}
             />
           </div>
         </Layout>

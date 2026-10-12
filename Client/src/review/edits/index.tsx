@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Libraries
+import { useTranslation } from 'react-i18next';
+
 // Components
 import {
   Button,
@@ -18,15 +21,11 @@ import { Edit } from './edit';
 // Libraries
 import type { Decision, Decisions, Edit as EditType } from '@/review/apply';
 
-// API
-import type { Rule } from '@/api';
-
 /** `className` comes from the page's `Layout span`. */
 type Props = Pick<React.ComponentProps<typeof Card>, 'className'> & {
   decisions: Decisions;
   edits: EditType[];
   onDecide: (id: string, decision: Decision) => void;
-  rules: Map<string, Rule>;
 };
 
 const Edits: React.FunctionComponent<Props> = ({
@@ -34,14 +33,16 @@ const Edits: React.FunctionComponent<Props> = ({
   decisions,
   edits,
   onDecide,
-  rules,
 }) => {
+  const { t } = useTranslation('moonshot');
   const pending = edits.filter(({ id }) => !decisions[id]);
 
   return (
     <Card className={className} is='section'>
       <CardHeader>
-        <CardTitle is='h2'>Edits ({edits.length})</CardTitle>
+        <CardTitle is='h2'>
+          {t('title', { context: 'edits', total: edits.length })}
+        </CardTitle>
         {pending.length ? (
           <CardAction>
             <Button
@@ -51,7 +52,7 @@ const Edits: React.FunctionComponent<Props> = ({
               size='small'
               variant='secondary'
             >
-              Accept all
+              {t('action', { context: 'accept_all' })}
             </Button>
           </CardAction>
         ) : null}
@@ -65,12 +66,11 @@ const Edits: React.FunctionComponent<Props> = ({
                 edit={edit}
                 key={edit.id}
                 onDecide={(decision) => onDecide(edit.id, decision)}
-                rule={rules.get(edit.rule)}
               />
             ))}
           </List>
         ) : (
-          <Text is='p'>No edits. It reads well.</Text>
+          <Text is='p'>{t('no_edits')}</Text>
         )}
       </CardContent>
     </Card>

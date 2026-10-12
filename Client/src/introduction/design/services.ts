@@ -1,3 +1,5 @@
+import type { TFunction } from 'i18next';
+
 import type { DiagramSpec } from 'design/components';
 
 const W = 160;
@@ -6,31 +8,30 @@ const SERVICES = 380;
 const OUTSIDE = 600;
 
 /** What the browser reaches through Ki.CL, and what the moonshot server calls. */
-const services: DiagramSpec = {
-  title: 'Services',
-  description:
-    'The browser loads the moonshot remote through Ki.CL’s server, or through the dev proxy when it runs alone. That server forwards /design to the design system, /api to Ki.CL-back and /moonshot to the moonshot server. The moonshot server checks the session with Ki.CL-back, asks Claude for the edits and stores reviews in MongoDB.',
+const services = (t: TFunction<'moonshot'>): DiagramSpec => ({
+  title: t('diagram.services.title'),
+  description: t('diagram.services.description'),
   width: 780,
   height: 330,
   nodes: [
     {
-      title: 'Browser',
-      lines: ['moonshot remote'],
+      title: t('diagram.services.node', { context: 'browser' }),
+      lines: [t('diagram.services.line', { context: 'browser' })],
       x: 10,
       y: 135,
       w: 130,
       h: H,
     },
     {
-      title: 'Ki.CL server',
-      lines: ['or the dev proxy'],
+      title: t('diagram.services.node', { context: 'server' }),
+      lines: [t('diagram.services.line', { context: 'server' })],
       x: 190,
       y: 135,
       w: 140,
       h: H,
     },
     {
-      title: 'Design system',
+      title: t('diagram.services.node', { context: 'design' }),
       lines: ['/design'],
       x: SERVICES,
       y: 20,
@@ -38,15 +39,15 @@ const services: DiagramSpec = {
       h: H,
     },
     {
-      title: 'Ki.CL-back',
-      lines: ['/api · sessions'],
+      title: t('diagram.services.node', { context: 'back' }),
+      lines: [t('diagram.services.line', { context: 'back' })],
       x: SERVICES,
       y: 135,
       w: W,
       h: H,
     },
     {
-      title: 'Moonshot server',
+      title: t('diagram.services.node', { context: 'moonshot' }),
       lines: ['/moonshot/api'],
       x: SERVICES,
       y: 250,
@@ -54,15 +55,15 @@ const services: DiagramSpec = {
       h: H,
     },
     {
-      title: 'Claude Opus 5.5',
-      lines: ['edits as structured output'],
+      title: t('diagram.services.node', { context: 'model' }),
+      lines: [t('diagram.services.line', { context: 'model' })],
       x: OUTSIDE,
       y: 175,
       w: 170,
       h: H,
     },
     {
-      title: 'MongoDB',
+      title: t('diagram.services.node', { context: 'store' }),
       lines: ['moonshot-reviews'],
       shape: 'cylinder',
       x: OUTSIDE,
@@ -125,6 +126,6 @@ const services: DiagramSpec = {
       ],
     },
   ],
-};
+});
 
 export { services };

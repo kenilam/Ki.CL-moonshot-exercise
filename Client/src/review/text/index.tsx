@@ -16,31 +16,23 @@ import {
 import { Highlight } from './highlight';
 
 // Libraries
-import { segment, type Decisions } from '@/review/apply';
+import { segment } from '@/review/apply';
 
-// API
-import type { Review } from '@/api';
+// Types
+import type { Props as VersionProps } from '@/review/default';
 
-/** `className` comes from the page's `Layout span`. */
-type Props = Pick<React.ComponentProps<typeof Card>, 'className'> & {
-  decisions: Decisions;
-  review: Review;
-};
+type Props = Pick<VersionProps, 'decisions' | 'review'>;
 
 /**
  * The original text with each edit in place: marked while pending, shown as a
  * deletion and an insertion once accepted, and plain again once rejected.
  * Every edit still in play links to its card, and shows its reason on hover.
  */
-const Marked: React.FunctionComponent<Props> = ({
-  className,
-  decisions,
-  review,
-}) => {
+const Marked: React.FunctionComponent<Props> = ({ decisions, review }) => {
   const { t } = useTranslation('moonshot');
 
   return (
-    <Card className={className} is='section'>
+    <Card is='section'>
       <CardHeader>
         <CardTitle is='h2'>{t('title', { context: 'text' })}</CardTitle>
       </CardHeader>

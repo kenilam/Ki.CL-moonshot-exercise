@@ -36,9 +36,7 @@ const Design: React.FunctionComponent = () => {
         <List gap='narrower'>
           {POINTS.map((point) => (
             <ListItem key={point}>
-              <Text is='span'>
-                {t('introduction.design.point', { context: point })}
-              </Text>
+              {t('introduction.design.point', { context: point })}
             </ListItem>
           ))}
         </List>

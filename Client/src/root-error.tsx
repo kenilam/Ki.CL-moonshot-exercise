@@ -1,7 +1,6 @@
 import React from 'react';
 
 // Libraries
-import classNames from 'classnames';
 import { useFormContext } from 'react-hook-form';
 
 // Components
@@ -18,11 +17,7 @@ const RootError: React.FunctionComponent = () => {
   }
 
   return (
-    <Text
-      className={classNames('kicl-font-size-smaller', 'kicl-color-error')}
-      is='p'
-      role='alert'
-    >
+    <Text accent='error' className='kicl-font-size-smaller' is='p' role='alert'>
       {errors.root.message}
     </Text>
   );

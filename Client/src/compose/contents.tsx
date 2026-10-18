@@ -15,21 +15,16 @@ import { ComposeForm } from './form';
 import { History } from './history';
 import { Intro } from './intro';
 
+// Constants
+import { READING_PAGE_CLASS_NAMES } from '@/constants';
+
 const Contents: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
 
   return (
     <Layout
       autoFlow='row'
-      className={classNames(
-        'kicl-inline-size-full',
-        'kicl-margin-inline-auto',
-        'kicl-max-inline-size-columns-8',
-        'kicl-padding-block-end-wide',
-        // Clears Ki.CL's global header; nothing to clear when there is none.
-        'kicl-padding-block-start-header',
-        'kicl-padding-inline-wide'
-      )}
+      className={classNames(READING_PAGE_CLASS_NAMES)}
       gap='wide'
       justifyItems='stretch'
     >

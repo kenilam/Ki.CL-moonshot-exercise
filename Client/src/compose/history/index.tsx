@@ -11,7 +11,6 @@ import {
   Badge,
   Card,
   CardContent,
-  CardHeader,
   Heading,
   HyperLink,
   List,
@@ -50,12 +49,15 @@ const History: React.FunctionComponent = () => {
   }
 
   return (
-    <Card aria-labelledby='history' is='section'>
-      <CardHeader>
+    <Card
+      aria-labelledby='history'
+      header={
         <Heading dense id='history' is='h2'>
           {t('title', { context: 'history' })}
         </Heading>
-      </CardHeader>
+      }
+      is='section'
+    >
       <List>
         {reviews.map(({ createdAt, editCount, excerpt, id, kind }) => (
           <Card is='li' key={id}>

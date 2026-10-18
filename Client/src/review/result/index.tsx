@@ -8,7 +8,6 @@ import {
   Card,
   CardAction,
   CardContent,
-  CardHeader,
   CardTitle,
   CopyButton,
   Text,
@@ -31,22 +30,26 @@ const Result: React.FunctionComponent<Props> = ({ decisions, review }) => {
   const text = apply(review.text, review.edits, decisions);
 
   return (
-    <Card is='section'>
-      <CardHeader>
-        <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
-        <CardAction>
-          <CopyButton
-            copiedLabel={t('status', { context: 'copied' })}
-            icon={<Ri.RiClipboardLine aria-hidden />}
-            label={t('action', { context: 'copy' })}
-            level='info'
-            showLabel
-            size='small'
-            value={text}
-            variant='secondary'
-          />
-        </CardAction>
-      </CardHeader>
+    <Card
+      header={
+        <>
+          <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
+          <CardAction>
+            <CopyButton
+              copiedLabel={t('status', { context: 'copied' })}
+              icon={<Ri.RiClipboardLine aria-hidden />}
+              label={t('action', { context: 'copy' })}
+              level='info'
+              showLabel
+              size='small'
+              value={text}
+              variant='secondary'
+            />
+          </CardAction>
+        </>
+      }
+      is='section'
+    >
       <CardContent>
         <Text is='span'>{text}</Text>
       </CardContent>

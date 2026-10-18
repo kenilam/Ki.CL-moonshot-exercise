@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 // Components
-import { Button, Layout, Sheet, SheetHeader } from 'design/components';
+import { Button, Layout, Sheet } from 'design/components';
 
 // Icons
 import * as Ri from 'react-icons/ri';
@@ -113,19 +113,6 @@ const Mobile: React.FunctionComponent<Props> = ({
         }}
         ref={sheet}
       >
-        <Layout justifyItems='end'>
-          <SheetHeader>
-            <Button
-              aria-label={t('action', { context: 'close' })}
-              popoverTarget={id}
-              popoverTargetAction='hide'
-              size='small'
-              variant='ghost'
-            >
-              <Ri.RiCloseLine aria-hidden />
-            </Button>
-          </SheetHeader>
-        </Layout>
         {/* One wrapper, so both cards share the sheet's content row. */}
         <Layout alignContent='start' autoFlow='row' gap='normal'>
           <div>

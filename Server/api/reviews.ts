@@ -15,6 +15,9 @@ import type { ErrorCode, Failure } from './errors';
 /** Reviews per user per UTC day. Each one is a paid model call. */
 const DAILY_ALLOWANCE = Number(process.env.MOONSHOT_DAILY_ALLOWANCE) || 20;
 
+/** What `GET /allowance` answers, read by the client's allowance badge. */
+type Allowance = { limit: number; remaining: number };
+
 const startOfDay = () => {
   const now = new Date();
 
@@ -84,7 +87,7 @@ function reviews(store: Store): Router {
     response.json({
       limit: DAILY_ALLOWANCE,
       remaining: Math.max(0, DAILY_ALLOWANCE - used),
-    });
+    } satisfies Allowance);
   });
 
   router.get('/', async (_request, response) => {
@@ -165,3 +168,4 @@ function reviews(store: Store): Router {
 }
 
 export { reviews };
+export type { Allowance };

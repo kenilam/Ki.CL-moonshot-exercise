@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // Libraries
 import { useTranslation } from 'react-i18next';
 
 // Components
 import {
-  Button,
   Card,
+  CardAction,
   CardContent,
   CardHeader,
   CardTitle,
-  Layout,
+  CopyButton,
   Text,
 } from 'design/components';
 
@@ -18,60 +18,35 @@ import {
 import * as Ri from 'react-icons/ri';
 
 // Libraries
-import { apply, type Decisions } from '@/review/apply';
+import { apply } from '@/review/apply';
 
-// API
-import type { Review } from '@/api';
+// Types
+import type { Props as VersionProps } from '@/review/default';
 
-/** `className` sizes the card from the page, such as a height cap. */
-type Props = Pick<React.ComponentProps<typeof Card>, 'className'> & {
-  decisions: Decisions;
-  review: Review;
-};
+type Props = Pick<VersionProps, 'decisions' | 'review'>;
 
 /** The text with the accepted edits applied, ready to copy. */
-const Result: React.FunctionComponent<Props> = ({
-  className,
-  decisions,
-  review,
-}) => {
+const Result: React.FunctionComponent<Props> = ({ decisions, review }) => {
   const { t } = useTranslation('moonshot');
-  const [copied, setCopied] = useState(false);
   const text = apply(review.text, review.edits, decisions);
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-  };
-
   return (
-    <Card className={className} is='section'>
-      <Layout
-        autoFlow='column'
-        alignItems='center'
-        justifyContent='space-between'
-      >
-        <CardHeader>
-          <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
-          <Button
-            before={
-              copied ? (
-                <Ri.RiCheckLine aria-hidden />
-              ) : (
-                <Ri.RiClipboardLine aria-hidden />
-              )
-            }
-            onClick={copy}
-            level={copied ? 'confirm' : 'info'}
+    <Card is='section'>
+      <CardHeader>
+        <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
+        <CardAction>
+          <CopyButton
+            copiedLabel={t('status', { context: 'copied' })}
+            icon={<Ri.RiClipboardLine aria-hidden />}
+            label={t('action', { context: 'copy' })}
+            level='info'
+            showLabel
             size='small'
+            value={text}
             variant='secondary'
-          >
-            {copied
-              ? t('status', { context: 'copied' })
-              : t('action', { context: 'copy' })}
-          </Button>
-        </CardHeader>
-      </Layout>
+          />
+        </CardAction>
+      </CardHeader>
       <CardContent>
         <Text is='span'>{text}</Text>
       </CardContent>

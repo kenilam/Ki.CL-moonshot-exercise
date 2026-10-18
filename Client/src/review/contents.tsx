@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 // Routes
-import { Link, useParams } from 'design/router';
+import { useParams } from 'design/router';
 
 // Icons
 import * as Ri from 'react-icons/ri';
@@ -31,29 +31,33 @@ import type { Decision, Decisions } from './apply';
 import { explain } from '@/api';
 
 // Constants
-import { KIND_LEVELS, REVIEW_PATH } from '@/constants';
+import {
+  KIND_LEVELS,
+  PAGE_CLASS_NAMES,
+  READING_PAGE_CLASS_NAMES,
+  REVIEW_PATH,
+} from '@/constants';
 
 /**
  * Two layouts, loaded when needed, as Ki.CL's navigation does: side by side
  * above tablet, and stacked with the text held at the foot at tablet and below.
  */
-const VERSIONS = {
-  true: React.lazy(async () => {
-    const { Mobile } = await import('./mobile');
+const Mobile = React.lazy(async () => {
+  const { Mobile } = await import('./mobile');
 
-    return { default: Mobile };
-  }),
-  false: React.lazy(async () => {
-    const { Default } = await import('./default');
+  return { default: Mobile };
+});
 
-    return { default: Default };
-  }),
-};
+const Default = React.lazy(async () => {
+  const { Default } = await import('./default');
+
+  return { default: Default };
+});
 
 const Contents: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
   const { isMobile } = useResponsive();
-  const Version = VERSIONS[String(isMobile) as 'true' | 'false'];
+  const Version = isMobile ? Mobile : Default;
   const { reviewId } = useParams();
   const state = useReview(reviewId);
   const [decisions, setDecisions] = useState<Decisions>({});
@@ -66,22 +70,16 @@ const Contents: React.FunctionComponent = () => {
     return (
       <Layout
         autoFlow='row'
-        className={classNames(
-          'kicl-inline-size-full',
-          'kicl-padding-block-end-wide',
-          // Clears Ki.CL's global header; nothing to clear when there is none.
-          'kicl-padding-block-start-header',
-          'kicl-padding-inline-wide'
-        )}
+        className={classNames(READING_PAGE_CLASS_NAMES)}
         gap='normal'
       >
         <section>
           <Text accent='error' is='p' role='alert'>
             {explain(t, state.error)}
           </Text>
-          <Link to={`../${REVIEW_PATH}`}>
+          <HyperLink to={`../${REVIEW_PATH}`}>
             {t('action', { context: 'start_review' })}
-          </Link>
+          </HyperLink>
         </section>
       </Layout>
     );
@@ -96,23 +94,15 @@ const Contents: React.FunctionComponent = () => {
   return (
     <Layout
       autoFlow='row'
-      className={classNames(
-        'kicl-inline-size-full',
-        'kicl-padding-block-end-wide',
-        // Clears Ki.CL's global header; nothing to clear when there is none.
-        'kicl-padding-block-start-header',
-        // On mobile the parts keep their own gutter, so the sticky bar can run edge to edge.
-        { 'kicl-padding-inline-wide': !isMobile }
-      )}
+      // Each part keeps its own gutter, so the mobile sticky bar can run edge to edge.
+      className={classNames(PAGE_CLASS_NAMES)}
       gap='wide'
       justifyItems='stretch'
     >
       <section>
         {/* The kind the text was reviewed as, which the note explains when it differs. */}
         <Layout autoFlow='row' gap='wide' justifyItems='start'>
-          <header
-            className={classNames({ 'kicl-padding-inline-wide': isMobile })}
-          >
+          <header className='kicl-padding-inline-wide'>
             <HyperLink
               before={<Ri.RiArrowLeftSLine aria-hidden />}
               to={`../${REVIEW_PATH}`}
@@ -121,7 +111,7 @@ const Contents: React.FunctionComponent = () => {
             </HyperLink>
             <Layout autoFlow='row' gap='narrowest' justifyItems='start'>
               <Heading dense is='h1'>
-                <Badge level={KIND_LEVELS[reviewedAs]} size='small'>
+                <Badge size='small' level={KIND_LEVELS[reviewedAs]}>
                   {t('kind', { context: reviewedAs })}
                 </Badge>
                 {t('title', { context: 'review' })}

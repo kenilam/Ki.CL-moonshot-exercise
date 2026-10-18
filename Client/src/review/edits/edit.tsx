@@ -69,7 +69,7 @@ const Edit: React.FunctionComponent<Props> = ({ decision, edit, onDecide }) => {
             {edit.replacement ? (
               <Text is='ins'>{edit.replacement}</Text>
             ) : (
-              <Badge level='error' size='small' variant='outline'>
+              <Badge size='small' level='error' variant='outline'>
                 {t('label', { context: 'remove' })}
               </Badge>
             )}

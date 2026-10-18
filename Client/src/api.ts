@@ -1,6 +1,7 @@
 import type { TFunction } from 'i18next';
 
 import type { Failure } from '@server/api/errors';
+import type { Allowance } from '@server/api/reviews';
 import type { Review, Summary } from '@server/store';
 import { MAX_LENGTH, type Kind } from '@server/review/constants';
 
@@ -83,8 +84,7 @@ const getReview = (id: string) => request<Review>(`/reviews/${id}`);
 
 const listReviews = () => request<Summary[]>('/reviews');
 
-const getAllowance = () =>
-  request<{ limit: number; remaining: number }>('/reviews/allowance');
+const getAllowance = () => request<Allowance>('/reviews/allowance');
 
 export { createReview, explain, getAllowance, getReview, listReviews };
 export type { Kind, Review, Summary };

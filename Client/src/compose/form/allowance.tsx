@@ -43,7 +43,7 @@ const Allowance: React.FunctionComponent = () => {
   }
 
   return (
-    <Badge level={levelFor(allowance)} size='small' variant='outline'>
+    <Badge size='small' level={levelFor(allowance)} variant='outline'>
       {t('allowance', { count: allowance.remaining, limit: allowance.limit })}
     </Badge>
   );

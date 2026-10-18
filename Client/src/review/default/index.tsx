@@ -31,12 +31,12 @@ const Default: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Layout alignItems='start' columns gap='normal'>
-      <div>
+      <div className='kicl-padding-inline-wide'>
         <Layout span={5}>
           <div
             className={classNames(
               'kicl-position-sticky',
-              'kicl-inset-block-start'
+              'kicl-inset-block-start-header'
             )}
           >
             <Marked decisions={decisions} review={review} />
@@ -44,18 +44,15 @@ const Default: React.FunctionComponent<Props> = ({
           </div>
         </Layout>
         <Layout span={7}>
-          <div
+          <Edits
             className={classNames(
               'kicl-position-sticky',
-              'kicl-inset-block-start'
+              'kicl-inset-block-start-header'
             )}
-          >
-            <Edits
-              decisions={decisions}
-              edits={review.edits}
-              onDecide={onDecide}
-            />
-          </div>
+            decisions={decisions}
+            edits={review.edits}
+            onDecide={onDecide}
+          />
         </Layout>
       </div>
     </Layout>

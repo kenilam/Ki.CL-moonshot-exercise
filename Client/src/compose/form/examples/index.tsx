@@ -6,14 +6,12 @@ import { useTranslation } from 'react-i18next';
 
 // Components
 import {
-  getButtonClassNames,
   Button,
   List,
   ListItem,
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Text,
 } from 'design/components';
 
 // Icons
@@ -43,11 +41,15 @@ const Examples: React.FunctionComponent = () => {
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger
-        className={getButtonClassNames({ size: 'small', variant: 'tertiary' })}
-      >
-        <Text is='span'>{t('action', { context: 'try_example' })}</Text>
-        <Ri.RiArrowDownSLine aria-hidden />
+      <PopoverTrigger asChild>
+        <Button
+          after={<Ri.RiArrowDownSLine aria-hidden />}
+          size='small'
+          type='button'
+          variant='tertiary'
+        >
+          {t('action', { context: 'try_example' })}
+        </Button>
       </PopoverTrigger>
       <PopoverContent offset='narrowest' placement='block-end-end'>
         <List gap='narrower'>

@@ -93,18 +93,16 @@ const Mobile: React.FunctionComponent<Props> = ({
         </div>
       </Layout>
       {/* Padding, not margin: a card is its parent's full width, and a margin would overflow it. */}
-      <Layout autoFlow='row'>
-        <div className='kicl-padding-inline-wide'>
-          <Edits
-            decisions={decisions}
-            edits={review.edits}
-            onDecide={(edit, decision) => {
-              onDecide(edit, decision);
-              sheet.current?.showPopover();
-            }}
-          />
-        </div>
-      </Layout>
+      <div className='kicl-padding-inline-wide'>
+        <Edits
+          decisions={decisions}
+          edits={review.edits}
+          onDecide={(edit, decision) => {
+            onDecide(edit, decision);
+            sheet.current?.showPopover();
+          }}
+        />
+      </div>
       <Sheet
         aria-label={t('title', { context: 'text_and_result' })}
         id={id}

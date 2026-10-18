@@ -22,6 +22,21 @@ const REPOSITORY = 'https://github.com/kenilam/Ki.CL-moonshot-exercise';
 /** Where a client token is asked for: the mail button there opens the contact form. */
 const TOKEN_REQUEST = 'https://ki-cl.com';
 
+/** A page's own box: full width, and clear of Ki.CL's global header when there is one. */
+const PAGE_CLASS_NAMES = [
+  'kicl-inline-size-full',
+  'kicl-padding-block-end-wide',
+  'kicl-padding-block-start-header',
+];
+
+/** A page of reading: eight columns, centred, with its gutter. */
+const READING_PAGE_CLASS_NAMES = [
+  ...PAGE_CLASS_NAMES,
+  'kicl-margin-inline-auto',
+  'kicl-max-inline-size-columns-8',
+  'kicl-padding-inline-wide',
+];
+
 // One colour per kind, so a kind looks the same wherever its badge shows.
 const KIND_LEVELS: Record<Kind, React.ComponentProps<typeof Badge>['level']> = {
   commit: 'error',
@@ -32,7 +47,9 @@ const KIND_LEVELS: Record<Kind, React.ComponentProps<typeof Badge>['level']> = {
 
 export {
   KIND_LEVELS,
+  PAGE_CLASS_NAMES,
   PATH,
+  READING_PAGE_CLASS_NAMES,
   REPOSITORY,
   REVIEW_PATH,
   SESSION_ENDED,

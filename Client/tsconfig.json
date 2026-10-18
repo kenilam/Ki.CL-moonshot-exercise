@@ -21,7 +21,7 @@
       "@/*": ["./src/*"],
       "@server/*": ["../Server/*"],
       "design": ["./@mf-types/design"],
-      "design/*": ["./@mf-types/design/*"],
+      "design/*": ["./@mf-types/design/*", "./@mf-types/design/compiled-types/src/*"],
       "REMOTE_ALIAS_IDENTIFIER/*": ["./src/*"]
     }
   },

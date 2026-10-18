@@ -12,20 +12,15 @@ import { Hero } from './hero';
 import { Idea } from './idea';
 import { Setup } from './setup';
 
+// Constants
+import { READING_PAGE_CLASS_NAMES } from '@/constants';
+
 /** What the exercise is, how it's built and how to run it, before the editor. */
 const Contents: React.FunctionComponent = () => {
   return (
     <Layout
       autoFlow='row'
-      className={classNames(
-        'kicl-inline-size-full',
-        'kicl-margin-inline-auto',
-        'kicl-max-inline-size-columns-8',
-        'kicl-padding-block-end-wide',
-        // Clears Ki.CL's global header; nothing to clear when there is none.
-        'kicl-padding-block-start-header',
-        'kicl-padding-inline-wide'
-      )}
+      className={classNames(READING_PAGE_CLASS_NAMES)}
       gap='widest'
       justifyItems='stretch'
     >

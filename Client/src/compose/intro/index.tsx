@@ -26,10 +26,9 @@ const Intro: React.FunctionComponent = () => {
             >
               {/* The list numbers the steps for screen readers already. */}
               <Badge
-                className='kicl-text-align-center'
-                aria-hidden
-                rounded
+                className='kicl-border-radius-lg kicl-text-align-center'
                 size='small'
+                aria-hidden
               >
                 {index + 1}
               </Badge>

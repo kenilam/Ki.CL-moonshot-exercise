@@ -4,13 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Components
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Text,
-} from 'design/components';
+import { Card, CardContent, CardTitle, Text } from 'design/components';
 
 // Partials
 import { Highlight } from './highlight';
@@ -32,10 +26,10 @@ const Marked: React.FunctionComponent<Props> = ({ decisions, review }) => {
   const { t } = useTranslation('moonshot');
 
   return (
-    <Card is='section'>
-      <CardHeader>
-        <CardTitle is='h2'>{t('title', { context: 'text' })}</CardTitle>
-      </CardHeader>
+    <Card
+      header={<CardTitle is='h2'>{t('title', { context: 'text' })}</CardTitle>}
+      is='section'
+    >
       <CardContent>
         <Text is='span'>
           {segment(review.text, review.edits).map((part) => {

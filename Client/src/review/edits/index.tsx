@@ -9,7 +9,6 @@ import {
   Card,
   CardAction,
   CardContent,
-  CardHeader,
   CardTitle,
   List,
   Text,
@@ -40,25 +39,30 @@ const Edits: React.FunctionComponent<Props> = ({
   const pending = edits.filter(({ id }) => !decisions[id]);
 
   return (
-    <Card className={className} is='section'>
-      <CardHeader>
-        <CardTitle is='h2'>
-          {t('title', { context: 'edits', total: edits.length })}
-        </CardTitle>
-        {pending.length ? (
-          <CardAction>
-            <Button
-              onClick={() =>
-                pending.forEach(({ id }) => onDecide(id, 'accepted'))
-              }
-              size='small'
-              variant='secondary'
-            >
-              {t('action', { context: 'accept_all' })}
-            </Button>
-          </CardAction>
-        ) : null}
-      </CardHeader>
+    <Card
+      className={className}
+      header={
+        <>
+          <CardTitle is='h2'>
+            {t('title', { context: 'edits', total: edits.length })}
+          </CardTitle>
+          {pending.length ? (
+            <CardAction>
+              <Button
+                onClick={() =>
+                  pending.forEach(({ id }) => onDecide(id, 'accepted'))
+                }
+                size='small'
+                variant='secondary'
+              >
+                {t('action', { context: 'accept_all' })}
+              </Button>
+            </CardAction>
+          ) : null}
+        </>
+      }
+      is='section'
+    >
       <CardContent>
         {edits.length ? (
           <List gap='normal'>

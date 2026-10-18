@@ -51,7 +51,7 @@ const ComposeForm: React.FunctionComponent = () => {
   const { isSubmitting } = form.formState;
 
   return (
-    <Card is='section' variant='ghost'>
+    <Card is='section' variant='secondary'>
       <Form {...form} onSubmit={form.handleSubmit(onSubmit)}>
         <Layout gap='narrow'>
           <section>

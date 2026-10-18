@@ -19,14 +19,16 @@ import {
 import { Edit } from './edit';
 
 // Libraries
-import type { Decision, Decisions, Edit as EditType } from '@/review/apply';
+import type { Edit as EditType } from '@/review/apply';
 
-/** `className` comes from the page's `Layout span`. */
-type Props = Pick<React.ComponentProps<typeof Card>, 'className'> & {
-  decisions: Decisions;
-  edits: EditType[];
-  onDecide: (id: string, decision: Decision) => void;
-};
+// Types
+import type { Props as VersionProps } from '@/review/default';
+
+/** `className` positions the card from the page, such as keeping it in view. */
+type Props = Pick<React.ComponentProps<typeof Card>, 'className'> &
+  Pick<VersionProps, 'decisions' | 'onDecide'> & {
+    edits: EditType[];
+  };
 
 const Edits: React.FunctionComponent<Props> = ({
   className,

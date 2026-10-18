@@ -15,7 +15,6 @@ import {
   Heading,
   HyperLink,
   List,
-  ListItem,
 } from 'design/components';
 
 // API
@@ -59,27 +58,22 @@ const History: React.FunctionComponent = () => {
       </CardHeader>
       <List>
         {reviews.map(({ createdAt, editCount, excerpt, id, kind }) => (
-          <ListItem key={id}>
-            <div>
-              <Card>
-                <Badge level={KIND_LEVELS[kind]} size='small'>
-                  {t('kind', { context: kind })}
-                </Badge>
-                <CardContent className='kicl-margin-inline-narrower'>
-                  <HyperLink
-                    to={id}
-                    after={<Ri.RiArrowRightSLine aria-hidden />}
-                  >
-                    {excerpt}
-                  </HyperLink>
-                </CardContent>
-                <Badge size='small' variant='outline'>
-                  {t('edit_count', { count: editCount })} ·{' '}
-                  <time>{date.format(new Date(createdAt))}</time>
-                </Badge>
-              </Card>
-            </div>
-          </ListItem>
+          <Card is='li' key={id}>
+            <Badge level={KIND_LEVELS[kind]} size='small'>
+              {t('kind', { context: kind })}
+            </Badge>
+            <CardContent className='kicl-margin-inline-narrower'>
+              <HyperLink to={id} after={<Ri.RiArrowRightSLine aria-hidden />}>
+                {excerpt}
+              </HyperLink>
+            </CardContent>
+            <Badge size='small' variant='outline'>
+              {t('edit_count', { count: editCount })} ·{' '}
+              <time dateTime={new Date(createdAt).toISOString()}>
+                {date.format(new Date(createdAt))}
+              </time>
+            </Badge>
+          </Card>
         ))}
       </List>
     </Card>

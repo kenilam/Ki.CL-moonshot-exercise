@@ -35,9 +35,9 @@ import { PATH } from '@/constants';
 const Portfolio: React.FunctionComponent = () => {
   return (
     <Layout justifyItems='stretch'>
-      <div>
+      <main>
         <Outlet />
-      </div>
+      </main>
     </Layout>
   );
 };

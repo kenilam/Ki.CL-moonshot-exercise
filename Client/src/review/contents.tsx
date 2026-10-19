@@ -74,7 +74,7 @@ const Contents: React.FunctionComponent = () => {
         gap='normal'
       >
         <section>
-          <Text accent='error' is='p' role='alert'>
+          <Text level='error' is='p' role='alert'>
             {explain(t, state.error)}
           </Text>
           <HyperLink to={`../${REVIEW_PATH}`}>

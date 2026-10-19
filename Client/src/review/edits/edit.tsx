@@ -49,7 +49,7 @@ const Edit: React.FunctionComponent<Props> = ({ decision, edit, onDecide }) => {
                   context: edit.rule,
                   defaultValue: '',
                 })}
-                variant='outline'
+                variant='ghost'
               >
                 {t('rule', { context: edit.rule, defaultValue: edit.rule })}
               </Badge>
@@ -69,7 +69,7 @@ const Edit: React.FunctionComponent<Props> = ({ decision, edit, onDecide }) => {
             {edit.replacement ? (
               <Text is='ins'>{edit.replacement}</Text>
             ) : (
-              <Badge size='small' level='error' variant='outline'>
+              <Badge size='small' level='error' variant='ghost'>
                 {t('label', { context: 'remove' })}
               </Badge>
             )}

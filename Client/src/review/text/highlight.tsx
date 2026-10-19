@@ -47,7 +47,7 @@ const Highlight: React.FunctionComponent<Props> = ({ decision, edit }) => {
       <PopoverHint className='kicl-max-inline-size-columns-4'>
         <Layout autoFlow='row' gap='narrower' justifyItems='start'>
           <div className='kicl-padding-narrow'>
-            <Badge size='small' variant='outline'>
+            <Badge size='small' variant='ghost'>
               {/* A rule the guide no longer has shows as its id. */}
               {t('rule', { context: edit.rule, defaultValue: edit.rule })}
             </Badge>

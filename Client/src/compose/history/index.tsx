@@ -69,7 +69,7 @@ const History: React.FunctionComponent = () => {
                 {excerpt}
               </HyperLink>
             </CardContent>
-            <Badge size='small' variant='outline'>
+            <Badge size='small' variant='ghost'>
               {t('edit_count', { count: editCount })} ·{' '}
               <time dateTime={new Date(createdAt).toISOString()}>
                 {date.format(new Date(createdAt))}

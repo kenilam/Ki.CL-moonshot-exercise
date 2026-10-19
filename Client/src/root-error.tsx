@@ -17,7 +17,7 @@ const RootError: React.FunctionComponent = () => {
   }
 
   return (
-    <Text accent='error' className='kicl-font-size-smaller' is='p' role='alert'>
+    <Text level='error' className='kicl-font-size-smaller' is='p' role='alert'>
       {errors.root.message}
     </Text>
   );

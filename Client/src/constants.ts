@@ -41,7 +41,7 @@ const READING_PAGE_CLASS_NAMES = [
 const KIND_LEVELS: Record<Kind, React.ComponentProps<typeof Badge>['level']> = {
   commit: 'error',
   pr: 'warning',
-  readme: undefined,
+  readme: 'neutral',
   comment: 'info',
 };
 

@@ -456,15 +456,15 @@ __metadata:
   linkType: hard
 
 "@module-federation/vite@npm:^1.20.0":
-  version: 1.23.1
-  resolution: "@module-federation/vite@npm:1.23.1"
+  version: 1.23.5
+  resolution: "@module-federation/vite@npm:1.23.5"
   dependencies:
     "@module-federation/dts-plugin": "npm:2.9.2"
     "@module-federation/runtime": "npm:2.9.2"
     "@module-federation/sdk": "npm:2.9.2"
   peerDependencies:
     vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 10c0/f428c4b57aea27d2d5d4d1c3f2c27a17f05d210b06c5bbb9794ef801daa3f99ca4fed22d55c5ef06142aac0b125917e39a72913840e74dcf530576798df15c50
+  checksum: 10c0/5e4a736684fbf7eebfd01a2380ca93794ff4ac1157c6a3d9c8c4e387501291d36b325b69cacff0e56a46c35de56ccf9810561564e7f5b8f038ed26a27ff14197
   languageName: node
   linkType: hard
 

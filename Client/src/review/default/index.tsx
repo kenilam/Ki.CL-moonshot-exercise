@@ -33,7 +33,7 @@ const Default: React.FunctionComponent<Props> = ({
     <Layout alignItems='start' columns gap='normal'>
       <div className='kicl-padding-inline-wide'>
         <Layout span={5}>
-          <div
+          <aside
             className={classNames(
               'kicl-position-sticky',
               'kicl-inset-block-start-header'
@@ -41,7 +41,7 @@ const Default: React.FunctionComponent<Props> = ({
           >
             <Marked decisions={decisions} review={review} />
             <Result decisions={decisions} review={review} />
-          </div>
+          </aside>
         </Layout>
         <Layout span={7}>
           <Edits

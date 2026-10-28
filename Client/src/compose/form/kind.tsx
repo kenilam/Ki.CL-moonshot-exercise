@@ -5,12 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 // Components
-import {
-  FormField,
-  FormItem,
-  Segmented,
-  SegmentedItem,
-} from 'design/components';
+import { FormField, Segmented, SegmentedItem } from 'design/components';
 
 // Schema
 import type { ComposeValues } from './schema';
@@ -57,30 +52,28 @@ const Kind: React.FunctionComponent = () => {
       control={control}
       name='kind'
       render={({ field }) => (
-        <FormItem>
-          <Segmented
-            collapse='popover'
-            aria-label={t('label', { context: 'kind' })}
-            name={field.name}
-            onValueChange={(next, { pointer }) => {
-              swapExample(field.value, next);
-              field.onChange(next);
+        <Segmented
+          collapse='popover'
+          aria-label={t('label', { context: 'kind' })}
+          name={field.name}
+          onValueChange={(next, { pointer }) => {
+            swapExample(field.value, next);
+            field.onChange(next);
 
-              // A click or tap moves on to the text. Arrow keys keep focus
-              // here, so the next option can still be reached.
-              if (pointer) {
-                setFocus('text');
-              }
-            }}
-            value={field.value}
-          >
-            {KINDS.map((kind) => (
-              <SegmentedItem key={kind} value={kind}>
-                {t('kind', { context: kind })}
-              </SegmentedItem>
-            ))}
-          </Segmented>
-        </FormItem>
+            // A click or tap moves on to the text. Arrow keys keep focus
+            // here, so the next option can still be reached.
+            if (pointer) {
+              setFocus('text');
+            }
+          }}
+          value={field.value}
+        >
+          {KINDS.map((kind) => (
+            <SegmentedItem key={kind} value={kind}>
+              {t('kind', { context: kind })}
+            </SegmentedItem>
+          ))}
+        </Segmented>
       )}
     />
   );

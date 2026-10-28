@@ -30,7 +30,7 @@ const Design: React.FunctionComponent = () => {
           {t('title', { context: 'design' })}
         </Heading>
         <Text is='p'>{t('introduction.design.architecture')}</Text>
-        <Card>
+        <Card is='section'>
           <Diagram spec={spec} />
         </Card>
         <List gap='narrower'>

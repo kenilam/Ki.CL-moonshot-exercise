@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 // Components
-import { Button, Layout, Sheet } from 'design/components';
+import { Button, Menu, Sheet } from 'design/components';
 
 // Icons
 import * as Ri from 'react-icons/ri';
@@ -69,40 +69,41 @@ const Mobile: React.FunctionComponent<Props> = ({
 
   return (
     <>
-      <Layout autoFlow='row' justifyItems='end'>
-        {/* Sticks under Ki.CL's global header; at the top when there is none. */}
-        <div
-          className={classNames(
-            'kicl-backdrop',
-            'kicl-inset-block-start-header',
-            'kicl-padding-block',
-            'kicl-padding-inline-wide',
-            'kicl-position-sticky',
-            'kicl-z-index-raised'
-          )}
+      {/* Sticks under Ki.CL's global header; at the top when there is none. */}
+      <Menu
+        autoFlow='row'
+        className={classNames(
+          'kicl-backdrop',
+          'kicl-inset-block-start-header',
+          'kicl-padding-block',
+          'kicl-padding-inline-wide',
+          'kicl-position-sticky',
+          'kicl-z-index-raised'
+        )}
+        justifyItems='end'
+      >
+        <Button
+          before={<Ri.RiFileTextLine aria-hidden />}
+          popoverTarget={id}
+          popoverTargetAction='show'
+          size='small'
+          variant='ghost'
         >
-          <Button
-            before={<Ri.RiFileTextLine aria-hidden />}
-            popoverTarget={id}
-            popoverTargetAction='show'
-            size='small'
-            variant='ghost'
-          >
-            {t('title', { context: 'text_and_result' })}
-          </Button>
-        </div>
-      </Layout>
-      {/* Padding, not margin: a card is its parent's full width, and a margin would overflow it. */}
-      <div className='kicl-padding-inline-wide'>
-        <Edits
-          decisions={decisions}
-          edits={review.edits}
-          onDecide={(edit, decision) => {
-            onDecide(edit, decision);
-            sheet.current?.showPopover();
-          }}
-        />
-      </div>
+          {t('title', { context: 'text_and_result' })}
+        </Button>
+      </Menu>
+      <Edits
+        className={classNames(
+          'kicl-inline-size-auto',
+          'kicl-margin-inline-wide'
+        )}
+        decisions={decisions}
+        edits={review.edits}
+        onDecide={(edit, decision) => {
+          onDecide(edit, decision);
+          sheet.current?.showPopover();
+        }}
+      />
       <Sheet
         aria-label={t('title', { context: 'text_and_result' })}
         id={id}
@@ -113,13 +114,8 @@ const Mobile: React.FunctionComponent<Props> = ({
         }}
         ref={sheet}
       >
-        {/* One wrapper, so both cards share the sheet's content row. */}
-        <Layout alignContent='start' autoFlow='row' gap='normal'>
-          <div>
-            <Result decisions={decisions} key={closings} review={review} />
-            <Marked decisions={decisions} review={review} />
-          </div>
-        </Layout>
+        <Result decisions={decisions} key={closings} review={review} />
+        <Marked decisions={decisions} review={review} />
       </Sheet>
     </>
   );

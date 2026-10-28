@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import {
   Card,
   CardAction,
-  CardContent,
   CardTitle,
   CopyButton,
   Text,
@@ -50,9 +49,7 @@ const Result: React.FunctionComponent<Props> = ({ decisions, review }) => {
       }
       is='section'
     >
-      <CardContent>
-        <Text is='span'>{text}</Text>
-      </CardContent>
+      <Text is='p'>{text}</Text>
     </Card>
   );
 };

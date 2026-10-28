@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Components
-import { Card, CardContent, CardTitle, Text } from 'design/components';
+import { Card, CardTitle, Text } from 'design/components';
 
 // Partials
 import { Highlight } from './highlight';
@@ -30,25 +30,23 @@ const Marked: React.FunctionComponent<Props> = ({ decisions, review }) => {
       header={<CardTitle is='h2'>{t('title', { context: 'text' })}</CardTitle>}
       is='section'
     >
-      <CardContent>
-        <Text is='span'>
-          {segment(review.text, review.edits).map((part) => {
-            if ('text' in part) {
-              return part.text;
-            }
+      <Text is='p'>
+        {segment(review.text, review.edits).map((part) => {
+          if ('text' in part) {
+            return part.text;
+          }
 
-            const { edit } = part;
-            const decision = decisions[edit.id];
+          const { edit } = part;
+          const decision = decisions[edit.id];
 
-            // Rejected is plain text again: nothing left to open.
-            if (decision === 'rejected') {
-              return edit.quote;
-            }
+          // Rejected is plain text again: nothing left to open.
+          if (decision === 'rejected') {
+            return edit.quote;
+          }
 
-            return <Highlight decision={decision} edit={edit} key={edit.id} />;
-          })}
-        </Text>
-      </CardContent>
+          return <Highlight decision={decision} edit={edit} key={edit.id} />;
+        })}
+      </Text>
     </Card>
   );
 };

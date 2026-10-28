@@ -8,7 +8,6 @@ import {
   Button,
   Card,
   CardAction,
-  CardContent,
   CardTitle,
   List,
   Text,
@@ -63,22 +62,20 @@ const Edits: React.FunctionComponent<Props> = ({
       }
       is='section'
     >
-      <CardContent>
-        {edits.length ? (
-          <List gap='normal'>
-            {edits.map((edit) => (
-              <Edit
-                decision={decisions[edit.id]}
-                edit={edit}
-                key={edit.id}
-                onDecide={(decision) => onDecide(edit.id, decision)}
-              />
-            ))}
-          </List>
-        ) : (
-          <Text is='p'>{t('no_edits')}</Text>
-        )}
-      </CardContent>
+      {edits.length ? (
+        <List gap='normal'>
+          {edits.map((edit) => (
+            <Edit
+              decision={decisions[edit.id]}
+              edit={edit}
+              key={edit.id}
+              onDecide={(decision) => onDecide(edit.id, decision)}
+            />
+          ))}
+        </List>
+      ) : (
+        <Text is='p'>{t('no_edits')}</Text>
+      )}
     </Card>
   );
 };

@@ -63,10 +63,10 @@ const Session: React.FunctionComponent<React.PropsWithChildren> = ({
       justifyItems='center'
       fullScreen
     >
-      <div>
+      <main>
         {!interactive && <Spinner in />}
         <div ref={container} />
-      </div>
+      </main>
     </Layout>
   );
 };

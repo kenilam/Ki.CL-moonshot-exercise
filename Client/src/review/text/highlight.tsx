@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Libraries
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 // Components
@@ -43,20 +44,23 @@ const Highlight: React.FunctionComponent<Props> = ({ decision, edit }) => {
           )}
         </HyperLink>
       </PopoverTrigger>
-      {/* The cap goes on the panel: it's the panel that has to stay narrow. */}
-      <PopoverHint className='kicl-max-inline-size-columns-4'>
-        <Layout autoFlow='row' gap='narrower' justifyItems='start'>
-          <div className='kicl-padding-narrow'>
-            <Badge size='small' variant='ghost'>
-              {/* A rule the guide no longer has shows as its id. */}
-              {t('rule', { context: edit.rule, defaultValue: edit.rule })}
-            </Badge>
-            <Text className='kicl-font-size-small' is='p' variant='secondary'>
-              {edit.reason}
-            </Text>
-          </div>
-        </Layout>
-      </PopoverHint>
+      <Layout autoFlow='row' gap='narrower' justifyItems='start'>
+        {/* The cap goes on the panel: it's the panel that has to stay narrow. */}
+        <PopoverHint
+          className={classNames(
+            'kicl-max-inline-size-columns-4',
+            'kicl-padding'
+          )}
+        >
+          <Badge size='small' variant='ghost'>
+            {/* A rule the guide no longer has shows as its id. */}
+            {t('rule', { context: edit.rule, defaultValue: edit.rule })}
+          </Badge>
+          <Text className='kicl-font-size-small' is='p' variant='secondary'>
+            {edit.reason}
+          </Text>
+        </PopoverHint>
+      </Layout>
     </Popover>
   );
 };

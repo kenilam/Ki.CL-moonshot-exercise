@@ -7,14 +7,7 @@ import { useTranslation } from 'react-i18next';
 import * as Ri from 'react-icons/ri';
 
 // Components
-import {
-  Badge,
-  Card,
-  CardContent,
-  Heading,
-  HyperLink,
-  List,
-} from 'design/components';
+import { Badge, Card, Heading, HyperLink, List } from 'design/components';
 
 // API
 import { listReviews, type Summary } from '@/api';
@@ -64,11 +57,13 @@ const History: React.FunctionComponent = () => {
             <Badge level={KIND_LEVELS[kind]} size='small'>
               {t('kind', { context: kind })}
             </Badge>
-            <CardContent className='kicl-margin-inline-narrower'>
-              <HyperLink to={id} after={<Ri.RiArrowRightSLine aria-hidden />}>
-                {excerpt}
-              </HyperLink>
-            </CardContent>
+            <HyperLink
+              after={<Ri.RiArrowRightSLine aria-hidden />}
+              className='kicl-margin-inline-narrower'
+              to={id}
+            >
+              {excerpt}
+            </HyperLink>
             <Badge size='small' variant='ghost'>
               {t('edit_count', { count: editCount })} ·{' '}
               <time dateTime={new Date(createdAt).toISOString()}>

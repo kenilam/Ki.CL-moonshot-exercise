@@ -44,13 +44,13 @@ const Text: React.FunctionComponent = () => {
             gap='narrow'
             justifyContent='space-between'
           >
-            <div className='kicl--views--moonshot--compose--form__header'>
+            <header className='kicl--views--moonshot--compose--form__header'>
               <Kind />
               <FormLabel className='kicl-hidden-up-to-tablet'>
                 {t('label_text', { context: kind })}
               </FormLabel>
               <Examples />
-            </div>
+            </header>
           </Layout>
           <FormControl>
             {/*

@@ -15,14 +15,9 @@ import { listReviews, type Summary } from '@/api';
 // Constants
 import { KIND_LEVELS } from '@/constants';
 
-const date = new Intl.DateTimeFormat(undefined, {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-});
-
 /** The user's last reviews. Nothing shows until there is at least one. */
 const History: React.FunctionComponent = () => {
-  const { t } = useTranslation('moonshot');
+  const { i18n, t } = useTranslation('moonshot');
   const [reviews, setReviews] = useState<Summary[]>([]);
 
   useEffect(() => {
@@ -40,6 +35,11 @@ const History: React.FunctionComponent = () => {
   if (!reviews.length) {
     return null;
   }
+
+  const date = new Intl.DateTimeFormat(i18n.language, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
 
   return (
     <Card

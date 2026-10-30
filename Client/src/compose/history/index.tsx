@@ -58,7 +58,9 @@ const History: React.FunctionComponent = () => {
               {t('kind', { context: kind })}
             </Badge>
             <HyperLink
-              after={<Ri.RiArrowRightSLine aria-hidden />}
+              after={
+                <Ri.RiArrowRightSLine aria-hidden className='kicl-rtl-mirror' />
+              }
               className='kicl-margin-inline-narrower'
               to={id}
             >

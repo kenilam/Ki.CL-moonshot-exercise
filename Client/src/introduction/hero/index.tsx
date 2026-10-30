@@ -23,7 +23,9 @@ const Hero: React.FunctionComponent = () => {
         <Layout autoFlow='column' gap='normal'>
           <nav aria-label={t('title', { context: 'writing_review' })}>
             <HyperLink
-              after={<Ri.RiArrowRightLine aria-hidden />}
+              after={
+                <Ri.RiArrowRightLine aria-hidden className='kicl-rtl-mirror' />
+              }
               lookLikeButton
               to={REVIEW_PATH}
             >

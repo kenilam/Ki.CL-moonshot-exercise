@@ -104,7 +104,9 @@ const Contents: React.FunctionComponent = () => {
         <Layout autoFlow='row' gap='wide' justifyItems='start'>
           <header className='kicl-padding-inline-wide'>
             <HyperLink
-              before={<Ri.RiArrowLeftSLine aria-hidden />}
+              before={
+                <Ri.RiArrowLeftSLine aria-hidden className='kicl-rtl-mirror' />
+              }
               to={`../${REVIEW_PATH}`}
             >
               {t('action', { context: 'new_review' })}

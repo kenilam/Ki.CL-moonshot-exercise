@@ -70,7 +70,7 @@ One call per review, to Claude Opus 5.5 through the Anthropic SDK (`Server/revie
 - **It reviews what the text is.** The model also returns `reviewedAs`. A commit message submitted as a README is reviewed as a commit message, with that kind's conventions, and the review page says so instead of rejecting it.
 - **Declines fall back.** The request opts into server-side fallbacks, so a refusal is retried on Anthropic's recommended model instead of failing. A refusal that survives that shows as a plain error.
 
-Why Opus 5.5: the task is judgement, not volume. It has to tell a filler sentence from one that carries information, keep the author's facts and code untouched, and quote text exactly. A review is one request a user waits for once, so the latency and price of the larger model are fine. `MOONSHOT_MODEL` switches it, and `make eval` is how I'd check a cheaper model holds up.
+Why Opus 5.5: the task is judgment, not volume. It has to tell a filler sentence from one that carries information, keep the author's facts and code untouched, and quote text exactly. A review is one request a user waits for once, so the latency and price of the larger model are fine. `MOONSHOT_MODEL` switches it, and `make eval` is how I'd check a cheaper model holds up.
 
 ## How it fits together
 
@@ -82,7 +82,7 @@ Why Opus 5.5: the task is judgement, not volume. It has to tell a filler sentenc
   - `GET /reviews`, `GET /reviews/:id` and `GET /reviews/allowance` back the history and the counter.
   - `GET /rules` returns the style guide the model edits against. The UI doesn't call it: it names each rule from its own translations.
   - A failed request answers `{ code }`, such as `allowance_used`, and the client has the sentence for each code. A text the model turned away also carries the model's sentence as `message`.
-- The words on screen are in `Client/src/locales/en/moonshot.json`, read through i18next as the `moonshot` namespace. Inside Ki.CL they come from Ki.CL's database, seeded from that file, so they can change without a release. Standalone, the file is bundled. The rules' names and guidance are in that file and in `Server/review/rules.ts`, because the prompt is the model's and stays in English on the server; a test checks the two match.
+- The words on screen are in `Client/src/locales/en-US/moonshot.json`, read through i18next as the `moonshot` namespace. Inside Ki.CL they come from Ki.CL's database, seeded from that file, so they can change without a release. Standalone, the file is bundled. The rules' names and guidance are in that file and in `Server/review/rules.ts`, because the prompt is the model's and stays in English on the server; a test checks the two match.
 - The server asks Ki.CL's API whose session it is by passing their session cookie to `kicl_Me`. It doesn't verify the cookie itself, because the API signs it with a shared secret, and holding that secret here would also let this server issue sessions.
 - Each user gets 20 reviews a day, counted in Mongo so a second instance can't get around it. Text is capped at 8,000 characters.
 - Reviews are stored in Ki.CL-back's own database (`test` locally, `production` in production), in a `moonshot-reviews` collection beside the API's.

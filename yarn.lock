@@ -369,7 +369,7 @@ __metadata:
     i18next: "npm:26.4.3"
     react: "npm:19.3.1"
     react-dom: "npm:19.3.1"
-    react-hook-form: "npm:7.83.0"
+    react-hook-form: "npm:7.91.0"
     react-i18next: "npm:17.0.16"
     react-icons: "npm:5.7.0"
     react-router-dom: "npm:7.18.2"
@@ -2366,12 +2366,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.83.0":
-  version: 7.83.0
-  resolution: "react-hook-form@npm:7.83.0"
+"react-hook-form@npm:7.91.0":
+  version: 7.91.0
+  resolution: "react-hook-form@npm:7.91.0"
   peerDependencies:
+    "@types/react": "*"
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10c0/3a1cfbb6bd614833675e1db1c079e05dc51c4f26c5259424023846a380de22d51748a755032a9983af492d25cbe98c524eecadce3c75e6997ff136e7538be06e
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/21c6164024082331242eaf7dd865ca6ac905af5a4941da60dc302337f0190635be7e73af30954cb7a310f5d94883e851b1d79322415aca796b81877085ef1c7c
   languageName: node
   linkType: hard
 

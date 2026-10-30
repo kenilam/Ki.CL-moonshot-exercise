@@ -56,7 +56,12 @@ const Examples: React.FunctionComponent = () => {
           {EXAMPLES.map((example) => (
             <ListItem key={example} gap='narrowest'>
               <Button
-                after={<Ri.RiArrowRightSLine aria-hidden />}
+                after={
+                  <Ri.RiArrowRightSLine
+                    aria-hidden
+                    className='kicl-rtl-mirror'
+                  />
+                }
                 onClick={() => fill(example)}
                 size='small'
                 type='button'

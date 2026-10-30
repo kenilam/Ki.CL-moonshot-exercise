@@ -30,7 +30,12 @@ const Contents: React.FunctionComponent = () => {
     >
       <section>
         <header>
-          <HyperLink before={<Ri.RiArrowLeftSLine aria-hidden />} to='..'>
+          <HyperLink
+            before={
+              <Ri.RiArrowLeftSLine aria-hidden className='kicl-rtl-mirror' />
+            }
+            to='..'
+          >
             {t('action', { context: 'about' })}
           </HyperLink>
           <Heading is='h1'>{t('title', { context: 'writing_review' })}</Heading>

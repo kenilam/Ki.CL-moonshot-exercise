@@ -70,7 +70,7 @@ const RULES = [
     id: 'honest-failure',
     name: 'Say what went wrong',
     guidance:
-      'Replace sanitised failure language (“encountered reliability challenges”) with what actually broke, when the text gives enough to say it.',
+      'Replace sanitized failure language (“encountered reliability challenges”) with what actually broke, when the text gives enough to say it.',
   },
   {
     id: 'format',

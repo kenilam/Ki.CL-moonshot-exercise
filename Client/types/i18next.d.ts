@@ -1,6 +1,6 @@
 import 'i18next';
 
-import type moonshot from '@/locales/en/moonshot.json';
+import type moonshot from '@/locales/en-US/moonshot.json';
 
 /**
  * Keys are checked against the English file, which seeds the database. Kept

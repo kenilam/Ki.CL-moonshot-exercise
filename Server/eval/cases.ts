@@ -56,7 +56,7 @@ This PR adds a Redis cache in front of \`getTaxon\`, which cut p95 latency from 
     keep: ['`getTaxon`', '820ms', '140ms'],
   },
   {
-    name: 'sanitised failure',
+    name: 'sanitized failure',
     kind: 'pr',
     text: `During early iterations, the review subsystem encountered reliability challenges that required improvements to the fallback strategy. The fallback now returns no score when the reviewer fails.`,
     flag: ['encountered reliability challenges'],

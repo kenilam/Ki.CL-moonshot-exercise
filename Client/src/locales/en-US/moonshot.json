@@ -127,7 +127,7 @@
   "rule_guidance_concrete-names": "Replace vague abstractions (“the solution”, “the orchestration layer”, “the underlying infrastructure”) with the actual component, file or system the text already names elsewhere.",
   "rule_guidance_cut-mechanism": "Describe what happens from the reader’s side. Remove step-by-step mechanism, edge cases and justifications for choices nobody would question.",
   "rule_guidance_format": "Follow the convention for the kind of text. Commit message: first line says what changed in the imperative, under 72 characters; the body says why; no “This commit”. PR description: what changed and why first, then how it was tested. README: what it is and how to run it come first. Code comment: says why, not what the code already shows.",
-  "rule_guidance_honest-failure": "Replace sanitised failure language (“encountered reliability challenges”) with what actually broke, when the text gives enough to say it.",
+  "rule_guidance_honest-failure": "Replace sanitized failure language (“encountered reliability challenges”) with what actually broke, when the text gives enough to say it.",
   "rule_guidance_lead-with-point": "The first sentence says the outcome or the decision. Background, build-up and context come after it, if at all.",
   "rule_guidance_no-corporate": "Replace “leverage”, “utilize”, “unlock value”, “drive alignment”, “holistic”, “best-in-class” with the plain word or the concrete thing.",
   "rule_guidance_no-empty-qualifiers": "Remove words that carry no information: essentially, fundamentally, robust, seamless, powerful, elegant, significantly, highly, quite.",

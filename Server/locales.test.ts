@@ -12,7 +12,7 @@ import { RULES } from './review/rules';
  */
 const copy: Record<string, unknown> = JSON.parse(
   readFileSync(
-    new URL('../Client/src/locales/en/moonshot.json', import.meta.url),
+    new URL('../Client/src/locales/en-US/moonshot.json', import.meta.url),
     'utf8'
   )
 );

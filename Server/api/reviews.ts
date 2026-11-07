@@ -6,17 +6,15 @@ import type { z } from 'zod';
 import { identify, IdentityError } from '../identity';
 import { locate } from '../review/locate';
 import { MODEL, propose, ReviewError } from '../review/model';
-import { VERSION } from '../review/rules';
+import { VERSION } from '../../Shared/rules';
 import { ReviewInput } from '../review/schema';
 import type { Store } from '../store';
 
-import type { ErrorCode, Failure } from './errors';
+import type { ErrorCode, Failure } from '../../Shared/errors';
+import type { Allowance } from '../../Shared/review';
 
 /** Reviews per user per UTC day. Each one is a paid model call. */
 const DAILY_ALLOWANCE = Number(process.env.MOONSHOT_DAILY_ALLOWANCE) || 20;
-
-/** What `GET /allowance` answers, read by the client's allowance badge. */
-type Allowance = { limit: number; remaining: number };
 
 const startOfDay = () => {
   const now = new Date();
@@ -168,4 +166,3 @@ function reviews(store: Store): Router {
 }
 
 export { reviews };
-export type { Allowance };

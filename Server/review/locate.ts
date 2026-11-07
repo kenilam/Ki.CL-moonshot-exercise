@@ -1,4 +1,5 @@
-import type { Edit, Proposed } from './schema';
+import type { Edit } from '../../Shared/review';
+import type { Proposed } from './schema';
 
 /**
  * Turns the model's quoted edits into offsets in the original text.

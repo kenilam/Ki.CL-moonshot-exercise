@@ -1,5 +1,3 @@
-/** Shared with the client, so this file imports nothing. */
-
 /**
  * Why a request failed. The client has the sentence for each one, as
  * `error_<code>` in its `moonshot` namespace, so none is written here.

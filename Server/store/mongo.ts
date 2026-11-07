@@ -1,6 +1,7 @@
 import { MongoClient, type Collection } from 'mongodb';
 
-import { summarise, type Review, type Store } from './review';
+import type { Review } from '../../Shared/review';
+import { summarise, type Store } from './review';
 
 type Document = Omit<Review, 'id'> & { _id: string };
 

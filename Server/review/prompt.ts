@@ -1,5 +1,5 @@
-import { RULES } from './rules';
-import type { Kind } from './schema';
+import { RULES } from '../../Shared/rules';
+import type { Kind } from '../../Shared/review';
 
 const KIND_NAMES: Record<Kind, string> = {
   comment: 'code comment',

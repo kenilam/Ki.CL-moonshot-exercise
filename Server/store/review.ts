@@ -1,28 +1,4 @@
-import type { Edit, Kind } from '../review/schema';
-
-type Review = {
-  id: string;
-  userGUID: string;
-  kind: Kind;
-  text: string;
-  edits: Edit[];
-  /** Why the text wasn't reviewed. Kept so it still counts against the allowance. */
-  rejection: string | null;
-  /**
-   * The kind the text was reviewed as. Differs from `kind` when the text
-   * clearly reads as another kind. Missing on reviews made before it existed.
-   */
-  reviewedAs?: Kind;
-  model: string;
-  rules: string;
-  createdAt: Date;
-};
-
-type Summary = Pick<Review, 'id' | 'kind' | 'createdAt'> & {
-  /** The start of the text, for the history list. */
-  excerpt: string;
-  editCount: number;
-};
+import type { Review, Summary } from '../../Shared/review';
 
 interface Store {
   create(review: Review): Promise<void>;
@@ -42,4 +18,4 @@ const summarise = ({ id, kind, createdAt, text, edits }: Review): Summary => ({
 });
 
 export { summarise };
-export type { Review, Store, Summary };
+export type { Store };

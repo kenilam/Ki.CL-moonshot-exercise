@@ -9,4 +9,4 @@ const createStore = (): Store =>
     : new MemoryStore();
 
 export { createStore };
-export type { Review, Store, Summary } from './review';
+export type { Store } from './review';

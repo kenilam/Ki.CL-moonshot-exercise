@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-import { KINDS, MAX_LENGTH, type Kind } from './constants';
-import { RULE_IDS } from './rules';
+import { KINDS, MAX_LENGTH } from '../../Shared/review';
+import { RULE_IDS } from '../../Shared/rules';
 
 const ReviewInput = z.object({
   kind: z.enum(KINDS),
@@ -30,12 +30,5 @@ const ProposedEdits = z.object({
 type Proposal = z.infer<typeof ProposedEdits>;
 type Proposed = Proposal['edits'][number];
 
-/** An edit the server has found in the text, with its character offsets. */
-type Edit = Proposed & {
-  id: string;
-  start: number;
-  end: number;
-};
-
-export { KINDS, MAX_LENGTH, ProposedEdits, ReviewInput };
-export type { Edit, Kind, Proposal, Proposed };
+export { ProposedEdits, ReviewInput };
+export type { Proposal, Proposed };

@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
-import { ERROR_CODES } from './api/errors';
-import { RULES } from './review/rules';
+import { ERROR_CODES } from '../Shared/errors';
+import { RULES } from '../Shared/rules';
 
 /*
  * The client shows rules and errors in its own words, from its `moonshot`

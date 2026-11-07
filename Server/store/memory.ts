@@ -1,4 +1,5 @@
-import { summarise, type Review, type Store } from './review';
+import type { Review } from '../../Shared/review';
+import { summarise, type Store } from './review';
 
 /** Lost on restart. Only for running the server locally without Mongo. */
 class MemoryStore implements Store {

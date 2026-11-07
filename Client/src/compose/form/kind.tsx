@@ -15,7 +15,7 @@ import { EXAMPLES } from './examples/constants';
 
 // API
 import type { Kind } from '@/api';
-import { KINDS } from '@server/review/constants';
+import { KINDS } from '@shared/review';
 
 // `Segmented` reports its value as a string.
 const isKind = (value: string): value is Kind =>

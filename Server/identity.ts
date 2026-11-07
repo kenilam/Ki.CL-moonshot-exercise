@@ -18,11 +18,11 @@ import type { ErrorCode } from './api/errors';
 
 const BACKEND_URL = process.env.KICL_BACKEND_URL || 'http://localhost:3100';
 
-const QUERY = 'query kicl_Me { Me { UserGUID aud } }';
+const QUERY = 'query kicl_me { me { userGUID aud } }';
 
 const TTL_MS = 60 * 1000;
 
-type Me = { UserGUID: string; aud: string } | null;
+type Me = { userGUID: string; aud: string } | null;
 
 /** The API could not answer, as opposed to answering "not signed in". */
 class IdentityError extends Error {
@@ -86,7 +86,7 @@ async function identify(cookie: string | undefined): Promise<string | null> {
   }
 
   const response = await fetch(`${BACKEND_URL}/graphql`, {
-    body: JSON.stringify({ operationName: 'kicl_Me', query: QUERY }),
+    body: JSON.stringify({ operationName: 'kicl_me', query: QUERY }),
     headers: {
       'Content-Type': 'application/json',
       Cookie: cookie,
@@ -107,18 +107,18 @@ async function identify(cookie: string | undefined): Promise<string | null> {
     throw new IdentityError('session_unreachable', 502);
   }
 
-  const { data } = (await response.json()) as { data?: { Me: Me } };
+  const { data } = (await response.json()) as { data?: { me: Me } };
 
-  if (data?.Me?.aud !== 'user' && data?.Me?.aud !== 'anon') {
+  if (data?.me?.aud !== 'user' && data?.me?.aud !== 'anon') {
     return null;
   }
 
   sessions.set(key, {
     expiresAt: Date.now() + TTL_MS,
-    userGUID: data.Me.UserGUID,
+    userGUID: data.me.userGUID,
   });
 
-  return data.Me.UserGUID;
+  return data.me.userGUID;
 }
 
 export { identify, IdentityError };

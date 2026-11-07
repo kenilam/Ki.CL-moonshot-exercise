@@ -64,7 +64,7 @@ const services = (t: TFunction<'moonshot'>): DiagramSpec => ({
     },
     {
       title: t('diagram.services.node', { context: 'store' }),
-      lines: ['moonshot-reviews'],
+      lines: ['moonshot_reviews'],
       shape: 'cylinder',
       x: OUTSIDE,
       y: 260,
@@ -103,7 +103,7 @@ const services = (t: TFunction<'moonshot'>): DiagramSpec => ({
     },
     {
       dashed: true,
-      label: 'kicl_Me',
+      label: 'kicl_me',
       lx: 470,
       ly: 225,
       points: [

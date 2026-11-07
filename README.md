@@ -85,7 +85,7 @@ Why Opus 5.5: the task is judgment, not volume. It has to tell a filler sentence
 - The words on screen are in `Client/src/locales/en-US/moonshot.json`, read through i18next as the `moonshot` namespace. Inside Ki.CL they come from Ki.CL's database, seeded from that file, so they can change without a release. Standalone, the file is bundled. The rules' names and guidance are in that file and in `Server/review/rules.ts`, because the prompt is the model's and stays in English on the server; a test checks the two match.
 - The server asks Ki.CL's API whose session it is by passing their session cookie to `kicl_Me`. It doesn't verify the cookie itself, because the API signs it with a shared secret, and holding that secret here would also let this server issue sessions.
 - Each user gets 20 reviews a day, counted in Mongo so a second instance can't get around it. Text is capped at 8,000 characters.
-- Reviews are stored in Ki.CL-back's own database (`test` locally, `production` in production), in a `moonshot-reviews` collection beside the API's.
+- Reviews are stored in Ki.CL-back's own database (`test` locally, `production` in production), in a `moonshot_reviews` collection beside the API's.
 
 The browser only ever talks to localhost. Module scripts loaded with `import()` can't carry a custom header or a cross-site cookie, so the token goes on the dev server's proxy rather than in the browser. `make types` exists for the same reason: the federation plugin can't send the token when it fetches types itself.
 

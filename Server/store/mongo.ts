@@ -44,7 +44,7 @@ class MongoStore implements Store {
     const client = await new MongoClient(this.#uri).connect();
     const reviews = client
       .db(process.env.MONGODB_DATABASE || 'test')
-      .collection<Document>('moonshot-reviews');
+      .collection<Document>('moonshot_reviews');
 
     await reviews.createIndex({ userGUID: 1, createdAt: -1 });
     this.#client = client;

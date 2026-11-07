@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { GoogleAuth, type IdTokenClient } from 'google-auth-library';
 
-import type { ErrorCode } from './api/errors';
+import type { ErrorCode } from '../Shared/errors';
 
 /**
  * Asks Ki.CL's API who the visitor is, passing their session cookie along.

@@ -26,7 +26,7 @@ import './styles.css';
 // Schema
 import type { ComposeValues } from './schema';
 
-import { MAX_LENGTH } from '@server/review/constants';
+import { MAX_LENGTH } from '@shared/review';
 
 const Text: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');

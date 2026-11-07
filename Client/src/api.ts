@@ -1,9 +1,13 @@
 import type { TFunction } from 'i18next';
 
-import type { Failure } from '@server/api/errors';
-import type { Allowance } from '@server/api/reviews';
-import type { Review, Summary } from '@server/store';
-import { MAX_LENGTH, type Kind } from '@server/review/constants';
+import type { Failure } from '@shared/errors';
+import {
+  MAX_LENGTH,
+  type Allowance,
+  type Kind,
+  type Review,
+  type Summary,
+} from '@shared/review';
 
 import { SESSION_ENDED } from '@/constants';
 

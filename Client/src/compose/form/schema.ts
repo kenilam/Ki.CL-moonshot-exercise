@@ -1,7 +1,7 @@
 import type { TFunction } from 'i18next';
 import * as v from 'valibot';
 
-import { KINDS, MAX_LENGTH } from '@server/review/constants';
+import { KINDS, MAX_LENGTH } from '@shared/review';
 
 const composeSchema = (t: TFunction<'moonshot'>) =>
   v.object({

@@ -1,4 +1,4 @@
-import type { Kind } from '../review/constants';
+import type { Kind } from '../../Shared/review';
 
 /**
  * Each case says which phrases a good review must touch and which it must

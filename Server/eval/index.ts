@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import { locate } from '../review/locate';
 import { MODEL, propose } from '../review/model';
-import type { Edit } from '../review/schema';
+import type { Edit } from '../../Shared/review';
 
 import { CASES, type Case } from './cases';
 

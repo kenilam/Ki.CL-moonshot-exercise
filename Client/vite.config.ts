@@ -100,7 +100,7 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         '@': path.resolve(root, 'src'),
         // Constants and types the API shares with the client.
-        '@server': path.resolve(root, '../Server'),
+        '@shared': path.resolve(root, '../Shared'),
       },
     },
     server: {

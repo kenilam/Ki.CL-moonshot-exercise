@@ -13,7 +13,7 @@ import {
 } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Libraries
 import { apply } from '@/review/apply';
@@ -36,7 +36,7 @@ const Result: React.FunctionComponent<Props> = ({ decisions, review }) => {
           <CardAction>
             <CopyButton
               copiedLabel={t('status', { context: 'copied' })}
-              icon={<Ri.RiClipboardLine aria-hidden />}
+              icon={<Bs.BsClipboard aria-hidden />}
               label={t('action', { context: 'copy' })}
               level='info'
               showLabel

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Components
 import { Badge, Card, Heading, HyperLink, List } from 'design/components';
@@ -59,7 +59,7 @@ const History: React.FunctionComponent = () => {
             </Badge>
             <HyperLink
               after={
-                <Ri.RiArrowRightSLine aria-hidden className='kicl-rtl-mirror' />
+                <Bs.BsChevronRight aria-hidden className='kicl-rtl-mirror' />
               }
               className='kicl-margin-inline-narrower'
               to={id}

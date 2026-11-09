@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Heading, HyperLink, Layout, Text } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Constants
 import { REPOSITORY, REVIEW_PATH } from '@/constants';
@@ -24,7 +24,7 @@ const Hero: React.FunctionComponent = () => {
           <nav aria-label={t('title', { context: 'writing_review' })}>
             <HyperLink
               after={
-                <Ri.RiArrowRightLine aria-hidden className='kicl-rtl-mirror' />
+                <Bs.BsArrowRight aria-hidden className='kicl-rtl-mirror' />
               }
               lookLikeButton
               to={REVIEW_PATH}
@@ -32,7 +32,7 @@ const Hero: React.FunctionComponent = () => {
               {t('action', { context: 'try' })}
             </HyperLink>
             <HyperLink
-              before={<Ri.RiGithubLine aria-hidden />}
+              before={<Bs.BsGithub aria-hidden />}
               lookLikeButton
               to={REPOSITORY}
               variant='secondary'

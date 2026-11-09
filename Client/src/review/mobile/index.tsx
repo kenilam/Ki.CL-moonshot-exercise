@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Menu, Sheet } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Partials
 import { Edits } from '@/review/edits';
@@ -83,7 +83,7 @@ const Mobile: React.FunctionComponent<Props> = ({
         justifyItems='end'
       >
         <Button
-          before={<Ri.RiFileTextLine aria-hidden />}
+          before={<Bs.BsFileEarmarkText aria-hidden />}
           popoverTarget={id}
           popoverTargetAction='show'
           size='small'

@@ -15,7 +15,7 @@ import {
 } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Schema
 import type { ComposeValues } from '@/compose/form/schema';
@@ -43,7 +43,7 @@ const Examples: React.FunctionComponent = () => {
     <Popover onOpenChange={setOpen} open={open}>
       <PopoverTrigger asChild>
         <Button
-          after={<Ri.RiArrowDownSLine aria-hidden />}
+          after={<Bs.BsChevronDown aria-hidden />}
           size='small'
           type='button'
           variant='tertiary'
@@ -57,10 +57,7 @@ const Examples: React.FunctionComponent = () => {
             <ListItem key={example} gap='narrowest'>
               <Button
                 after={
-                  <Ri.RiArrowRightSLine
-                    aria-hidden
-                    className='kicl-rtl-mirror'
-                  />
+                  <Bs.BsChevronRight aria-hidden className='kicl-rtl-mirror' />
                 }
                 onClick={() => fill(example)}
                 size='small'

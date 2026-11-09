@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Heading, HyperLink, Layout } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Partials
 import { ComposeForm } from './form';
@@ -32,7 +32,7 @@ const Contents: React.FunctionComponent = () => {
         <header>
           <HyperLink
             before={
-              <Ri.RiArrowLeftSLine aria-hidden className='kicl-rtl-mirror' />
+              <Bs.BsChevronLeft aria-hidden className='kicl-rtl-mirror' />
             }
             to='..'
           >

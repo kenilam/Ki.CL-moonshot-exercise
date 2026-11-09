@@ -12,7 +12,7 @@ import { useNavigate } from 'design/router';
 import { Button, Card, Form, Layout } from 'design/components';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // API
 import { createReview, explain } from '@/api';
@@ -69,7 +69,7 @@ const ComposeForm: React.FunctionComponent = () => {
             <Button
               after={
                 isSubmitting && (
-                  <Ri.RiLoader4Line aria-hidden className='is-revolving' />
+                  <Bs.BsArrowClockwise aria-hidden className='is-revolving' />
                 )
               }
               disabled={isSubmitting}

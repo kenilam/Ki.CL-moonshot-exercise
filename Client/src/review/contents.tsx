@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'design/router';
 
 // Icons
-import * as Ri from 'react-icons/ri';
+import * as Bs from 'react-icons/bs';
 
 // Components
 import {
@@ -105,7 +105,7 @@ const Contents: React.FunctionComponent = () => {
           <header className='kicl-padding-inline-wide'>
             <HyperLink
               before={
-                <Ri.RiArrowLeftSLine aria-hidden className='kicl-rtl-mirror' />
+                <Bs.BsChevronLeft aria-hidden className='kicl-rtl-mirror' />
               }
               to={`../${REVIEW_PATH}`}
             >

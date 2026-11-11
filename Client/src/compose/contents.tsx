@@ -2,13 +2,15 @@ import React from 'react';
 
 // Libraries
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 
 // Components
 import { Heading, HyperLink, Layout } from 'design/components';
 
 // Icons
-import * as Bs from 'react-icons/bs';
+import * as Tb from 'react-icons/tb';
+
+// Hooks
+import { useTranslation } from 'design/hooks';
 
 // Partials
 import { ComposeForm } from './form';
@@ -16,7 +18,7 @@ import { History } from './history';
 import { Intro } from './intro';
 
 // Constants
-import { READING_PAGE_CLASS_NAMES } from '@/constants';
+import { READING_PAGE_CLASS_NAMES } from 'moonshot/constants';
 
 const Contents: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
@@ -32,7 +34,7 @@ const Contents: React.FunctionComponent = () => {
         <header>
           <HyperLink
             before={
-              <Bs.BsChevronLeft aria-hidden className='kicl-rtl-mirror' />
+              <Tb.TbChevronLeft aria-hidden className='kicl-rtl-mirror' />
             }
             to='..'
           >

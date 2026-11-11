@@ -1,16 +1,16 @@
 import React from 'react';
 
-// Libraries
-import { useTranslation } from 'react-i18next';
-
 // Components
 import { Heading, HyperLink, Layout, Text } from 'design/components';
 
 // Icons
-import * as Bs from 'react-icons/bs';
+import * as Tb from 'react-icons/tb';
+
+// Hooks
+import { useTranslation } from 'design/hooks';
 
 // Constants
-import { REPOSITORY, REVIEW_PATH } from '@/constants';
+import { REPOSITORY, REVIEW_PATH } from 'moonshot/constants';
 
 const Hero: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
@@ -24,7 +24,7 @@ const Hero: React.FunctionComponent = () => {
           <nav aria-label={t('title', { context: 'writing_review' })}>
             <HyperLink
               after={
-                <Bs.BsArrowRight aria-hidden className='kicl-rtl-mirror' />
+                <Tb.TbArrowRight aria-hidden className='kicl-rtl-mirror' />
               }
               lookLikeButton
               to={REVIEW_PATH}
@@ -32,7 +32,7 @@ const Hero: React.FunctionComponent = () => {
               {t('action', { context: 'try' })}
             </HyperLink>
             <HyperLink
-              before={<Bs.BsGithub aria-hidden />}
+              before={<Tb.TbBrandGithub aria-hidden />}
               lookLikeButton
               to={REPOSITORY}
               variant='secondary'

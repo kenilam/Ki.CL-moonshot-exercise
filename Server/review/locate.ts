@@ -1,4 +1,4 @@
-import type { Edit } from '../../Shared/review';
+import type { Edit } from 'moonshot/shared/review';
 import type { Proposed } from './schema';
 
 /**

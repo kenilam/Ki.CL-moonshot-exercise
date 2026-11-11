@@ -1,23 +1,19 @@
 import React, { useMemo } from 'react';
 
-// Libraries
-import { useTranslation } from 'react-i18next';
-
 // Components
-import {
-  Card,
-  Diagram,
-  Heading,
-  Layout,
-  List,
-  ListItem,
-  Text,
-} from 'design/components';
+import { Card, Diagram, Heading, Layout, List, Text } from 'design/components';
 
 // Diagrams
 import { services } from './services';
 
-const POINTS = ['call', 'quote', 'rejection', 'store'] as const;
+// Hooks
+import { useTranslation } from 'design/hooks';
+
+// Partials
+import { Point } from './point';
+
+// Constants
+import { POINTS } from './constants';
 
 const Design: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
@@ -34,11 +30,9 @@ const Design: React.FunctionComponent = () => {
           <Diagram spec={spec} />
         </Card>
         <List gap='narrower'>
-          {POINTS.map((point) => (
-            <ListItem key={point}>
-              {t('introduction.design.point', { context: point })}
-            </ListItem>
-          ))}
+          {POINTS.map((point) => {
+            return <Point key={point} point={point} />;
+          })}
         </List>
       </section>
     </Layout>

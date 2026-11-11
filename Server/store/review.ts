@@ -1,4 +1,4 @@
-import type { Review, Summary } from '../../Shared/review';
+import type { Review, Summary } from 'moonshot/shared/review';
 
 interface Store {
   create(review: Review): Promise<void>;

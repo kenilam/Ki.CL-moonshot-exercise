@@ -1,10 +1,10 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 
-import type { ErrorCode } from '../../Shared/errors';
+import type { ErrorCode } from 'moonshot/shared/errors';
 
 import { render, SYSTEM } from './prompt';
-import type { Kind } from '../../Shared/review';
+import type { Kind } from 'moonshot/shared/review';
 import { ProposedEdits, type Proposal } from './schema';
 
 const MODEL = process.env.MOONSHOT_MODEL || 'claude-opus-5-5';

@@ -1,12 +1,16 @@
 import React from 'react';
 
-// Libraries
-import { useTranslation } from 'react-i18next';
-
 // Components
-import { Badge, Layout, List, ListItem, Text } from 'design/components';
+import { Layout, List, Text } from 'design/components';
 
-const STEPS = ['pick', 'paste', 'decide'] as const;
+// Hooks
+import { useTranslation } from 'design/hooks';
+
+// Partials
+import { Step } from './step';
+
+// Constants
+import { STEPS } from './constants';
 
 const Intro: React.FunctionComponent = () => {
   const { t } = useTranslation('moonshot');
@@ -16,25 +20,9 @@ const Intro: React.FunctionComponent = () => {
       <section aria-label={t('title', { context: 'how_it_works' })}>
         <Text is='p'>{t('intro')}</Text>
         <List gap='narrower' is='ol'>
-          {STEPS.map((step, index) => (
-            <ListItem
-              alignItems='start'
-              autoFlow='column'
-              gap='narrow'
-              justifyContent='start'
-              key={step}
-            >
-              {/* The list numbers the steps for screen readers already. */}
-              <Badge
-                className='kicl-border-radius-lg kicl-text-align-center'
-                size='small'
-                aria-hidden
-              >
-                {index + 1}
-              </Badge>
-              {t('step', { context: step })}
-            </ListItem>
-          ))}
+          {STEPS.map((step) => {
+            return <Step key={step} step={step} />;
+          })}
         </List>
       </section>
     </Layout>

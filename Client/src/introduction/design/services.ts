@@ -1,6 +1,7 @@
-import type { TFunction } from 'i18next';
-
 import type { DiagramSpec } from 'design/components';
+
+// Hooks
+import type { TFunction } from 'design/hooks';
 
 const W = 160;
 const H = 60;

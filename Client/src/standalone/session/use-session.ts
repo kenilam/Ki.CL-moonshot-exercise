@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Constants
-import { SESSION_ENDED } from '@/constants';
+import { SESSION_ENDED } from 'moonshot/constants';
 import { MAX_REJECTIONS, SITE_KEY } from './constants';
 
 // Session

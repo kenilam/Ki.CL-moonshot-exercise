@@ -3,15 +3,15 @@ import { randomUUID } from 'node:crypto';
 import { Router, type Request, type Response } from 'express';
 import type { z } from 'zod';
 
-import { identify, IdentityError } from '../identity';
-import { locate } from '../review/locate';
-import { MODEL, propose, ReviewError } from '../review/model';
-import { VERSION } from '../../Shared/rules';
-import { ReviewInput } from '../review/schema';
-import type { Store } from '../store';
+import { identify, IdentityError } from 'server/identity';
+import { locate } from 'server/review/locate';
+import { MODEL, propose, ReviewError } from 'server/review/model';
+import { VERSION } from 'moonshot/shared/rules';
+import { ReviewInput } from 'server/review/schema';
+import type { Store } from 'server/store';
 
-import type { ErrorCode, Failure } from '../../Shared/errors';
-import type { Allowance } from '../../Shared/review';
+import type { ErrorCode, Failure } from 'moonshot/shared/errors';
+import type { Allowance } from 'moonshot/shared/review';
 
 /** Reviews per user per UTC day. Each one is a paid model call. */
 const DAILY_ALLOWANCE = Number(process.env.MOONSHOT_DAILY_ALLOWANCE) || 20;

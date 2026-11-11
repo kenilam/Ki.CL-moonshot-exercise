@@ -1,4 +1,4 @@
-import type { Review } from '@/api';
+import type { Review } from 'moonshot/api';
 
 type Edit = Review['edits'][number];
 type Decision = 'accepted' | 'rejected';

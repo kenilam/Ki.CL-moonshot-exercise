@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-import { KINDS, MAX_LENGTH } from '../../Shared/review';
-import { RULE_IDS } from '../../Shared/rules';
+import { KINDS, MAX_LENGTH } from 'moonshot/shared/review';
+import { RULE_IDS } from 'moonshot/shared/rules';
 
 const ReviewInput = z.object({
   kind: z.enum(KINDS),

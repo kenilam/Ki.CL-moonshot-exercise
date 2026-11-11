@@ -1,4 +1,4 @@
-import type { Review } from '../../Shared/review';
+import type { Review } from 'moonshot/shared/review';
 import { summarise, type Store } from './review';
 
 /** Lost on restart. Only for running the server locally without Mongo. */

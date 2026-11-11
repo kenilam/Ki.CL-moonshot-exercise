@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import moonshot from '@/locales/en-US/moonshot.json';
+import moonshot from 'moonshot/locales/en-US/moonshot.json';
 
 /**
  * Inside Ki.CL the host creates i18next and reads the `moonshot` namespace

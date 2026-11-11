@@ -1,4 +1,4 @@
-import type { Kind } from '../../Shared/review';
+import type { Kind } from 'moonshot/shared/review';
 
 /**
  * Each case says which phrases a good review must touch and which it must

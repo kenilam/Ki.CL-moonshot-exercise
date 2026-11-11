@@ -1,13 +1,13 @@
 import React from 'react';
 
-// Libraries
-import { useTranslation } from 'react-i18next';
-
 // Components
 import { Heading, Layout, Markdown, Text } from 'design/components';
 
+// Hooks
+import { useTranslation } from 'design/hooks';
+
 // Constants
-import { REPOSITORY, TOKEN_REQUEST } from '@/constants';
+import { REPOSITORY, TOKEN_REQUEST } from 'moonshot/constants';
 
 const COMMANDS = [
   `git clone ${REPOSITORY}.git`,

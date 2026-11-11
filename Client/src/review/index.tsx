@@ -7,7 +7,7 @@ import { Route } from 'design/router';
 import { Spinner } from 'design/components';
 
 // Constants
-import { REVIEW_PATH } from '@/constants';
+import { REVIEW_PATH } from 'moonshot/constants';
 
 const Contents = React.lazy(async () => {
   const { Contents } = await import('./contents');

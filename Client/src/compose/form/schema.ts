@@ -1,7 +1,9 @@
-import type { TFunction } from 'i18next';
 import * as v from 'valibot';
 
-import { KINDS, MAX_LENGTH } from '@shared/review';
+import { KINDS, MAX_LENGTH } from 'moonshot/shared/review';
+
+// Hooks
+import type { TFunction } from 'design/hooks';
 
 const composeSchema = (t: TFunction<'moonshot'>) =>
   v.object({

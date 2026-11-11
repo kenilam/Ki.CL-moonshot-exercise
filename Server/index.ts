@@ -5,8 +5,8 @@ import express from 'express';
 
 import { reviews } from './api/reviews';
 import { precompressed } from './precompressed';
-import { MAX_LENGTH } from '../Shared/review';
-import { RULES } from '../Shared/rules';
+import { MAX_LENGTH } from 'moonshot/shared/review';
+import { RULES } from 'moonshot/shared/rules';
 import { createStore } from './store';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');

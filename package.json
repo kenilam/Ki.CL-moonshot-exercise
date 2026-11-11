@@ -15,12 +15,12 @@
   "scripts": {
     "build": "yarn workspace @ki-cl/moonshot run build",
     "development": "yarn workspace @ki-cl/moonshot run types; yarn workspace @ki-cl/moonshot run dev",
-    "eval": "tsx Server/eval/index.ts",
+    "eval": "tsx --tsconfig Server/tsconfig.json Server/eval/index.ts",
     "lint": "oxlint",
-    "production": "yarn build && NODE_ENV=production tsx Server/index.ts",
+    "production": "yarn build && NODE_ENV=production tsx --tsconfig Server/tsconfig.json Server/index.ts",
     "server": "yarn workspace @ki-cl/moonshot-server run dev",
     "start": "yarn run development",
-    "test": "tsx --test 'Server/**/*.test.ts' 'Client/src/**/*.test.ts'",
+    "test": "tsx --tsconfig Server/tsconfig.json --test 'Server/**/*.test.ts' && tsx --tsconfig Client/tsconfig.json --test 'Client/src/**/*.test.ts'",
     "typecheck": "yarn workspace @ki-cl/moonshot run typecheck && yarn workspace @ki-cl/moonshot-server run typecheck",
     "types": "yarn workspace @ki-cl/moonshot run types"
   },

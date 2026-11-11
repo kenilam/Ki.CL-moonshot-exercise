@@ -1,15 +1,16 @@
-import type { TFunction } from 'i18next';
-
-import type { Failure } from '@shared/errors';
+import type { Failure } from 'moonshot/shared/errors';
 import {
   MAX_LENGTH,
   type Allowance,
   type Kind,
   type Review,
   type Summary,
-} from '@shared/review';
+} from 'moonshot/shared/review';
 
-import { SESSION_ENDED } from '@/constants';
+import { SESSION_ENDED } from 'moonshot/constants';
+
+// Hooks
+import type { TFunction } from 'design/hooks';
 
 /** Same origin: Ki.CL, or the standalone dev server, proxies it to `Server/`. */
 const BASE = '/moonshot/api';

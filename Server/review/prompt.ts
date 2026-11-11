@@ -1,5 +1,5 @@
-import { RULES } from '../../Shared/rules';
-import type { Kind } from '../../Shared/review';
+import { RULES } from 'moonshot/shared/rules';
+import type { Kind } from 'moonshot/shared/review';
 
 const KIND_NAMES: Record<Kind, string> = {
   comment: 'code comment',

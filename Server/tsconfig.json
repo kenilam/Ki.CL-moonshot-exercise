@@ -8,6 +8,10 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "moonshot/shared/*": ["../Shared/*"],
+      "server/*": ["./*"]
+    },
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",

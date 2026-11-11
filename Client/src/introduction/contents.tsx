@@ -13,7 +13,7 @@ import { Idea } from './idea';
 import { Setup } from './setup';
 
 // Constants
-import { READING_PAGE_CLASS_NAMES } from '@/constants';
+import { READING_PAGE_CLASS_NAMES } from 'moonshot/constants';
 
 /** What the exercise is, how it's built and how to run it, before the editor. */
 const Contents: React.FunctionComponent = () => {

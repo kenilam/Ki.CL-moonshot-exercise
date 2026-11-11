@@ -97,11 +97,12 @@ export default defineConfig(({ command, mode }) => {
       }),
     ],
     resolve: {
-      alias: {
-        '@': path.resolve(root, 'src'),
+      // The remote's own name, so the types Ki.CL downloads keep paths it can resolve.
+      alias: [
         // Constants and types the API shares with the client.
-        '@shared': path.resolve(root, '../Shared'),
-      },
+        { find: /^moonshot\/shared\//, replacement: `${path.resolve(root, '../Shared')}/` },
+        { find: /^moonshot\//, replacement: `${path.resolve(root, 'src')}/` },
+      ],
     },
     server: {
       port: Number(env.PORT) || 3300,

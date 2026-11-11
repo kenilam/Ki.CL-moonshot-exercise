@@ -18,8 +18,8 @@
     "target": "ESNext",
     "types": ["node", "vite/client"],
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["../Shared/*"],
+      "moonshot/shared/*": ["../Shared/*"],
+      "moonshot/*": ["./src/*"],
       "design": ["./@mf-types/design"],
       "design/*": ["./@mf-types/design/*", "./@mf-types/design/compiled-types/src/*"],
       "REMOTE_ALIAS_IDENTIFIER/*": ["./src/*"]

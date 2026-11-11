@@ -1,9 +1,9 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { locate } from '../review/locate';
-import { MODEL, propose } from '../review/model';
-import type { Edit } from '../../Shared/review';
+import { locate } from 'server/review/locate';
+import { MODEL, propose } from 'server/review/model';
+import type { Edit } from 'moonshot/shared/review';
 
 import { CASES, type Case } from './cases';
 

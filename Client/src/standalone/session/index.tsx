@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Libraries
-import { useTranslation } from 'react-i18next';
-
 // Components
 import { Layout, Spinner } from 'design/components';
 
@@ -10,6 +7,7 @@ import { Layout, Spinner } from 'design/components';
 import { Status403, Status429, Status500 } from 'design/status';
 
 // Hooks
+import { useTranslation } from 'design/hooks';
 import { useSession } from './use-session';
 
 /**
@@ -64,7 +62,7 @@ const Session: React.FunctionComponent<React.PropsWithChildren> = ({
       fullScreen
     >
       <main>
-        {!interactive && <Spinner in />}
+        {!interactive ? <Spinner in /> : null}
         <div ref={container} />
       </main>
     </Layout>

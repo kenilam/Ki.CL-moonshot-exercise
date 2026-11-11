@@ -26,4 +26,4 @@ ENV NODE_ENV=production
 # Cloud Run supplies PORT; this is the fallback.
 EXPOSE 8080
 
-CMD ["yarn", "tsx", "Server/index.ts"]
+CMD ["yarn", "tsx", "--tsconfig", "Server/tsconfig.json", "Server/index.ts"]

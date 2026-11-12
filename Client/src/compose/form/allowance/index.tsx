@@ -9,7 +9,17 @@ import { getAllowance } from 'moonshot/api';
 // Hooks
 import { useTranslation } from 'design/hooks';
 
+type Level = React.ComponentProps<typeof Badge>['level'];
 type Remaining = Awaited<ReturnType<typeof getAllowance>>;
+
+/** None left is an error; the last quarter is a warning. */
+const levelFor = ({ limit, remaining }: Remaining): Level => {
+  if (remaining === 0) {
+    return 'error';
+  }
+
+  return remaining <= limit / 4 ? 'warning' : 'confirm';
+};
 
 /** How many reviews are left today. Hidden until it loads, and on error. */
 const Allowance: React.FunctionComponent = () => {
@@ -32,11 +42,9 @@ const Allowance: React.FunctionComponent = () => {
     return null;
   }
 
-  const { limit, remaining } = allowance;
-
   return (
-    <Badge limit={limit} remaining={remaining} size='small' variant='ghost'>
-      {t('allowance', { count: remaining, limit })}
+    <Badge size='small' level={levelFor(allowance)} variant='ghost'>
+      {t('allowance', { count: allowance.remaining, limit: allowance.limit })}
     </Badge>
   );
 };

@@ -1,13 +1,12 @@
 import React from 'react';
 
 // Components
-import { Card, Form, Layout } from 'design/components';
+import { Card, Form, FormMessage, Layout } from 'design/components';
 
 // Hooks
 import { useCompose } from './use-compose';
 
 // Partials
-import { RootError } from 'moonshot/root-error';
 import { Allowance } from './allowance';
 import { Submit } from './submit';
 import { Text } from './text';
@@ -21,7 +20,7 @@ const ComposeForm: React.FunctionComponent = () => {
         <Layout gap='narrow'>
           <section>
             <Text />
-            <RootError />
+            <FormMessage name='root' />
           </section>
         </Layout>
         <Layout

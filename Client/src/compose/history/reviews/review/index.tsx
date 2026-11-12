@@ -4,7 +4,7 @@ import React from 'react';
 import * as Tb from 'react-icons/tb';
 
 // Components
-import { Badge, Card, HyperLink } from 'design/components';
+import { Badge, Card, HyperLink, Text } from 'design/components';
 
 // Hooks
 import { useTranslation } from 'design/hooks';
@@ -50,9 +50,9 @@ const Review: React.FunctionComponent<Props> = ({ id }) => {
       </HyperLink>
       <Badge size='small' variant='ghost'>
         {t('edit_count', { count: editCount })} ·{' '}
-        <time dateTime={new Date(createdAt).toISOString()}>
+        <Text dateTime={new Date(createdAt).toISOString()} is='time' unstyled>
           {date.format(new Date(createdAt))}
-        </time>
+        </Text>
       </Badge>
     </Card>
   );

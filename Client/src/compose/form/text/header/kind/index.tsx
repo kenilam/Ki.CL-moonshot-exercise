@@ -31,6 +31,7 @@ const Kind: React.FunctionComponent = () => {
         <Segmented
           collapse='popover'
           aria-label={t('label', { context: 'kind' })}
+          className='kicl-inline-size-full'
           name={field.name}
           onValueChange={(next, { pointer }) => {
             swapExample(field.value, next);

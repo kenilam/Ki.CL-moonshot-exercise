@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Libraries
-import classNames from 'classnames';
-
 // Components
 import { Badge, Layout, PopoverHint, Text } from 'design/components';
 
@@ -29,9 +26,7 @@ const Hint: React.FunctionComponent<Pick<Edit, 'id'>> = ({ id }) => {
   return (
     <Layout autoFlow='row' gap='narrower' justifyItems='start'>
       {/* The cap goes on the panel: it's the panel that has to stay narrow. */}
-      <PopoverHint
-        className={classNames('kicl-max-inline-size-columns-4', 'kicl-padding')}
-      >
+      <PopoverHint className='kicl-max-inline-size-columns-4'>
         <Badge size='small' variant='ghost'>
           {/* A rule the guide no longer has shows as its id. */}
           {t('rule', { context: edit.rule, defaultValue: edit.rule })}

@@ -34,9 +34,7 @@ const Result: React.FunctionComponent = () => {
           <CardTitle is='h2'>{t('title', { context: 'result' })}</CardTitle>
           <CardAction>
             <CopyButton
-              copiedLabel={t('status', { context: 'copied' })}
               icon={<Tb.TbClipboard aria-hidden />}
-              label={t('action', { context: 'copy' })}
               level='info'
               showLabel
               size='small'

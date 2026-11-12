@@ -1,36 +1,33 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 // Components
-import { FormLabel, Layout, useFormContext } from 'design/components';
+import { Spinner } from 'design/components';
 
 // Hooks
-import { useTranslation } from 'design/hooks';
+import { useResponsive } from 'design/hooks';
 
-// Partials
-import { Examples } from './examples';
-import { Kind } from './kind';
+const VERSIONS = {
+  true: React.lazy(async () => {
+    const { Narrow } = await import('./narrow');
 
-// Styles
-import './styles.css';
+    return { default: Narrow };
+  }),
+  false: React.lazy(async () => {
+    const { Default } = await import('./default');
 
-// Schema
-import type { ComposeValues } from 'moonshot/compose/form/schema';
+    return { default: Default };
+  }),
+};
 
 const Header: React.FunctionComponent = () => {
-  const { t } = useTranslation('moonshot');
-  const { watch } = useFormContext<ComposeValues>();
-  const kind = watch('kind');
+  const { isNarrow } = useResponsive();
+
+  const Version = VERSIONS[`${isNarrow}` as const];
 
   return (
-    <Layout alignItems='center' gap='narrow' justifyContent='space-between'>
-      <header className='kicl--views--moonshot--compose--form__header'>
-        <Kind />
-        <FormLabel className='kicl-hidden-up-to-narrow'>
-          {t('label_text', { context: kind })}
-        </FormLabel>
-        <Examples />
-      </header>
-    </Layout>
+    <Suspense fallback={<Spinner position='inline' />}>
+      <Version />
+    </Suspense>
   );
 };
 

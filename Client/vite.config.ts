@@ -112,7 +112,6 @@ export default defineConfig(({ command, mode }) => {
     build: {
       modulePreload: false,
       outDir: 'dist',
-      sourcemap: true,
       target: 'esnext',
     },
   };

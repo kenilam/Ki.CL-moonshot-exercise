@@ -8,7 +8,7 @@ type Document = Omit<Review, 'id'> & { _id: string };
 const PING_TIMEOUT_MS = 2000;
 
 /**
- * The same database as Ki.CL-back - `test` locally, `production` in
+ * The same database as Ki.CL-core - `test` locally, `production` in
  * production - in a collection named for this module, so it sits beside the
  * API's collections without touching them.
  */

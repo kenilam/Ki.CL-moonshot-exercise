@@ -4,7 +4,7 @@ import { TOKEN_HEADER } from './constants';
 type Outcome = 'ready' | 'rejected' | 'limited' | 'failed';
 
 /**
- * Ki.CL-back's session endpoint: the ExchangeToken mutation as a plain
+ * Ki.CL-api's session endpoint: the ExchangeToken mutation as a plain
  * request. Same origin through the dev server's proxy.
  */
 const ENDPOINT = '/api/session';

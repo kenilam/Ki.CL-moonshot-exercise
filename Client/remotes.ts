@@ -55,7 +55,7 @@ const getProxy = (env: Env): Record<string, ProxyOptions> => {
   return {
     // This repo's own API. The model key stays on the deployed server.
     '/moonshot/api': route(moonshot),
-    // Ki.CL-back's session endpoint, for the standalone shell.
+    // Ki.CL-api's session endpoint, for the standalone shell.
     '/api/session': route(api),
     '/design': route(design),
   };

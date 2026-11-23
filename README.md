@@ -36,10 +36,10 @@ make start
 
 ### Against services on your machine
 
-This is for working on the stack itself, and needs Ki.CL-back, which is private.
+This is for working on the stack itself, and needs Ki.CL-api, which is private.
 
-1. Start Ki.CL-back and the design system.
-2. In `.env`, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` (the template has the ports) and `ANTHROPIC_API_KEY`. Set `TURNSTILE_SITE_KEY` to your Ki.CL-back's key, or to Cloudflare's test key `1x00000000000000000000AA`. `KICL_CLIENT_TOKEN` stays empty, since nothing goes to dev.ki-cl.com.
+1. Start Ki.CL-api and the design system.
+2. In `.env`, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` (the template has the ports) and `ANTHROPIC_API_KEY`. Set `TURNSTILE_SITE_KEY` to your Ki.CL-api's key, or to Cloudflare's test key `1x00000000000000000000AA`. `KICL_CLIENT_TOKEN` stays empty, since nothing goes to dev.ki-cl.com.
 3. Run `make run.server` and `make run` side by side.
 
 Without `MONGODB_ATLAS_URI` the server keeps reviews in memory.
@@ -76,7 +76,7 @@ Why Opus 5.5: the task is judgment, not volume. It has to tell a filler sentence
 
 - `Client/` is a Vite app and a Module Federation remote called `moonshot`. It exposes its parts rather than a finished route: `./introduction`, `./compose` and `./review` (the three routes) and `./constants` (`PATH`). Ki.CL renders them in a `<Routes>` under its own `/portfolio/moonshot/*` route, loaded on first visit and behind its sign-in, so the rest of Ki.CL still works if this remote is down. The standalone host assembles them under `PATH`. `src/standalone` stands in for Ki.CL when it runs alone: it provides the API client and the router.
 - It consumes one remote, `design` (from [Ki.CL-design-system](https://github.com/kenilam/Ki.CL-design-system)), for the components, styles and router. React, the router, react-hook-form, i18next and react-i18next are shared singletons, so the module uses Ki.CL's copies.
-- Sessions belong to the host. The module only sends the session cookie, and if its API answers 401 it asks the visitor to reload. Inside Ki.CL, the portfolio's sign-in and Ki.CL's own session handle the rest. Standalone, `src/standalone` starts an anonymous session with one request to Ki.CL-back's `POST /api/session`, after Turnstile when the API asks for it. The allowance and history follow that session.
+- Sessions belong to the host. The module only sends the session cookie, and if its API answers 401 it asks the visitor to reload. Inside Ki.CL, the portfolio's sign-in and Ki.CL's own session handle the rest. Standalone, `src/standalone` starts an anonymous session with one request to Ki.CL-api's `POST /api/session`, after Turnstile when the API asks for it. The allowance and history follow that session.
 - `Server/` is Express. It serves the built remote at `/moonshot` and the review API at `/moonshot/api`:
   - `POST /reviews` with `{ kind, text }` returns the review with its located edits.
   - `GET /reviews`, `GET /reviews/:id` and `GET /reviews/allowance` back the history and the counter.
@@ -85,7 +85,7 @@ Why Opus 5.5: the task is judgment, not volume. It has to tell a filler sentence
 - The words on screen are in `Client/src/locales/en-US/moonshot.json`, read through i18next as the `moonshot` namespace. Inside Ki.CL they come from Ki.CL's database, seeded from that file, so they can change without a release. Standalone, the file is bundled. The rules' names and guidance are in that file and in `Shared/rules.ts`, because the prompt is the model's and stays in English on the server; a test checks the two match.
 - The server asks Ki.CL's API whose session it is by passing their session cookie to `kicl_Me`. It doesn't verify the cookie itself, because the API signs it with a shared secret, and holding that secret here would also let this server issue sessions.
 - Each user gets 20 reviews a day, counted in Mongo so a second instance can't get around it. Text is capped at 8,000 characters.
-- Reviews are stored in Ki.CL-back's own database (`test` locally, `production` in production), in a `moonshot_reviews` collection beside the API's.
+- Reviews are stored in Ki.CL-api's own database (`test` locally, `production` in production), in a `moonshot_reviews` collection beside the API's.
 
 The browser only ever talks to localhost. Module scripts loaded with `import()` can't carry a custom header or a cross-site cookie, so the token goes on the dev server's proxy rather than in the browser. `make types` exists for the same reason: the federation plugin can't send the token when it fetches types itself.
 

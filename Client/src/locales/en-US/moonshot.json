@@ -15,12 +15,12 @@
   "allowance_other": "{{count}} of {{limit}} reviews left today",
   "diagram": {
     "services": {
-      "description": "The browser loads the moonshot remote through Ki.CL’s server, or through the dev proxy when it runs alone. That server forwards /design to the design system, /api to Ki.CL-back and /moonshot to the moonshot server. The moonshot server checks the session with Ki.CL-back, asks Claude for the edits and stores reviews in MongoDB.",
+      "description": "The browser loads the moonshot remote through Ki.CL’s server, or through the dev proxy when it runs alone. That server forwards /design to the design system, /api to Ki.CL-api and /moonshot to the moonshot server. The moonshot server checks the session with Ki.CL-api, asks Claude for the edits and stores reviews in MongoDB.",
       "line_back": "/api · sessions",
       "line_browser": "moonshot remote",
       "line_model": "edits as structured output",
       "line_server": "or the dev proxy",
-      "node_back": "Ki.CL-back",
+      "node_back": "Ki.CL-api",
       "node_browser": "Browser",
       "node_design": "Design system",
       "node_model": "Claude Opus 5.5",
@@ -73,7 +73,7 @@
   "intro": "Paste something you wrote for other engineers. You get back suggested edits, each with the rule it applies and why. Keep the ones you agree with.",
   "introduction": {
     "design": {
-      "architecture": "It’s a Module Federation remote of Ki.CL, with a small Express server beside it for the reviews. Components, styles and routing come from the design system’s remote. Sessions are Ki.CL’s: the module only sends the cookie, and the server asks Ki.CL-back whose session it is, so it never holds the secret that signs them.",
+      "architecture": "It’s a Module Federation remote of Ki.CL, with a small Express server beside it for the reviews. Components, styles and routing come from the design system’s remote. Sessions are Ki.CL’s: the module only sends the cookie, and the server asks Ki.CL-api whose session it is, so it never holds the secret that signs them.",
       "point_call": "One call to Claude Opus 5.5 per review. The style guide is the system prompt, cached across requests, and the output is structured: a quote, its replacement, the rule and the reason for each edit.",
       "point_quote": "The model quotes the text instead of giving positions. The server finds each quote and drops any it can’t find, finds more than once, overlaps another edit or that changes nothing, so an edit never lands in the wrong place.",
       "point_rejection": "Text that isn’t technical writing, or that tries to instruct the model, comes back with a one-line reason instead of edits.",

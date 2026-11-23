@@ -36,10 +36,10 @@ make start
 
 ### Against services on your machine
 
-This is for working on the stack itself, and needs Ki.CL-api, which is private.
+This is for working on the stack itself, and needs Ki.CL-core and Ki.CL-api.
 
-1. Start Ki.CL-api and the design system.
-2. In `.env`, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` (the template has the ports) and `ANTHROPIC_API_KEY`. Set `TURNSTILE_SITE_KEY` to your Ki.CL-api's key, or to Cloudflare's test key `1x00000000000000000000AA`. `KICL_CLIENT_TOKEN` stays empty, since nothing goes to dev.ki-cl.com.
+1. Start Ki.CL-core, Ki.CL-api and the design system.
+2. In `.env`, set `KICL_BACKEND_URL`, `KICL_DESIGN_URL` and `KICL_MOONSHOT_URL` (the template has the ports) and `ANTHROPIC_API_KEY`. Set `TURNSTILE_SITE_KEY` to your Ki.CL-core's key, or to Cloudflare's test key `1x00000000000000000000AA`. `KICL_CLIENT_TOKEN` stays empty, since nothing goes to dev.ki-cl.com.
 3. Run `make run.server` and `make run` side by side.
 
 Without `MONGODB_ATLAS_URI` the server keeps reviews in memory.
@@ -85,7 +85,7 @@ Why Opus 5.5: the task is judgment, not volume. It has to tell a filler sentence
 - The words on screen are in `Client/src/locales/en-US/moonshot.json`, read through i18next as the `moonshot` namespace. Inside Ki.CL they come from Ki.CL's database, seeded from that file, so they can change without a release. Standalone, the file is bundled. The rules' names and guidance are in that file and in `Shared/rules.ts`, because the prompt is the model's and stays in English on the server; a test checks the two match.
 - The server asks Ki.CL's API whose session it is by passing their session cookie to `kicl_Me`. It doesn't verify the cookie itself, because the API signs it with a shared secret, and holding that secret here would also let this server issue sessions.
 - Each user gets 20 reviews a day, counted in Mongo so a second instance can't get around it. Text is capped at 8,000 characters.
-- Reviews are stored in Ki.CL-api's own database (`test` locally, `production` in production), in a `moonshot_reviews` collection beside the API's.
+- Reviews are stored in Ki.CL-core's database (`test` locally, `production` in production), in a `moonshot_reviews` collection beside the API's.
 
 The browser only ever talks to localhost. Module scripts loaded with `import()` can't carry a custom header or a cross-site cookie, so the token goes on the dev server's proxy rather than in the browser. `make types` exists for the same reason: the federation plugin can't send the token when it fetches types itself.
 

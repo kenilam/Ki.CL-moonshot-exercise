@@ -382,17 +382,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@module-federation/dts-plugin@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/dts-plugin@npm:2.9.2"
+"@module-federation/dts-plugin@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/dts-plugin@npm:2.9.4"
   dependencies:
-    "@module-federation/error-codes": "npm:2.9.2"
-    "@module-federation/managers": "npm:2.9.2"
-    "@module-federation/sdk": "npm:2.9.2"
-    "@module-federation/third-party-dts-extractor": "npm:2.9.2"
+    "@module-federation/error-codes": "npm:2.9.4"
+    "@module-federation/managers": "npm:2.9.4"
+    "@module-federation/sdk": "npm:2.9.4"
+    "@module-federation/third-party-dts-extractor": "npm:2.9.4"
     adm-zip: "npm:^0.6.1"
     isomorphic-ws: "npm:5.0.0"
-    undici: "npm:7.29.1"
+    undici: "npm:7.30.1"
     ws: "npm:8.21.3"
   peerDependencies:
     typescript: ^4.9.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -400,71 +400,71 @@ __metadata:
   peerDependenciesMeta:
     vue-tsc:
       optional: true
-  checksum: 10c0/9a767bf3447e0bce4264f3dcf63315a10672bc4a3c98171ebb737eef888bfad05accdddafc42f3ec4d8799f686e684e2a250f6ee6097eaad0298724556e7e939
+  checksum: 10c0/d043f30aecddbdbe32971c08ee7babec8e82492f7da318d5dbeb3bc395b6e951553e4145b401af5d7ff6215404cb335aa85f47d056875cadb6d92f6a399df265
   languageName: node
   linkType: hard
 
-"@module-federation/error-codes@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/error-codes@npm:2.9.2"
-  checksum: 10c0/f18e62190407cc1cac0255782646d547e1a6d5fcf7004f731669d4002d121475c34c7b6c145318401bcdf424f990e4ab08b5ff8dbc341df613092059008062ec
+"@module-federation/error-codes@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/error-codes@npm:2.9.4"
+  checksum: 10c0/ef8d948ae26568bfd7e7ca2205e973ce4f12b711d1b3651dc5ca1a7de3f9f26f3c2922598a7c5c1eba751bdc9de16cefab27f6c675d4eb69ab22120d6e6aed20
   languageName: node
   linkType: hard
 
-"@module-federation/managers@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/managers@npm:2.9.2"
+"@module-federation/managers@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/managers@npm:2.9.4"
   dependencies:
-    "@module-federation/sdk": "npm:2.9.2"
-  checksum: 10c0/7a4f8fa5defbbb28f4fd442aadf9b5a740ed8f35d61d3959af466a7acc9efc163e2a259585422e5c0ce02b17aed55e65eb80a4a3476dd1a54cddd2b9db580ff4
+    "@module-federation/sdk": "npm:2.9.4"
+  checksum: 10c0/f3ac680f84d9742c125960b7a61ec44e18cf22e05434480dcd3eae3072eb3e24bd5b48a72fa5675718663497023139dded49992baf9e4c1032706bd5b537e957
   languageName: node
   linkType: hard
 
-"@module-federation/runtime-core@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/runtime-core@npm:2.9.2"
+"@module-federation/runtime-core@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/runtime-core@npm:2.9.4"
   dependencies:
-    "@module-federation/error-codes": "npm:2.9.2"
-    "@module-federation/sdk": "npm:2.9.2"
-  checksum: 10c0/951ea97bf5c413bb0922df7dd03c34e6eed340ef98b6d124dbd93f787f2f57fe8213d3ec3f9c2f827b209097937830f03d996683ea19b6b00e0d712fa1b440dd
+    "@module-federation/error-codes": "npm:2.9.4"
+    "@module-federation/sdk": "npm:2.9.4"
+  checksum: 10c0/1ce79d05352d140a1bac359ce31c89c7513f4bb9c4fceda3a7e75e0492e081dfec3e9257cc2d4a357b43f673069d4da2aded6bb098390e42557f25ae32db5a8e
   languageName: node
   linkType: hard
 
-"@module-federation/runtime@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/runtime@npm:2.9.2"
+"@module-federation/runtime@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/runtime@npm:2.9.4"
   dependencies:
-    "@module-federation/error-codes": "npm:2.9.2"
-    "@module-federation/runtime-core": "npm:2.9.2"
-    "@module-federation/sdk": "npm:2.9.2"
-  checksum: 10c0/120abc89da43191796da23447eaa572608180aa79bfb558e086f310d0c4d4dcf9fc2cba418f12e251053e83a25d8d2a535f88007e0d7c99d9441a5f27361354d
+    "@module-federation/error-codes": "npm:2.9.4"
+    "@module-federation/runtime-core": "npm:2.9.4"
+    "@module-federation/sdk": "npm:2.9.4"
+  checksum: 10c0/506e187562c121cf0e94194225d9e314d100ae6d65933e228b3f8f965e153b562a73589c74c69a7b5ae79b4ee4afba7934edbfb0022a3014f3290db3349b8cd0
   languageName: node
   linkType: hard
 
-"@module-federation/sdk@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/sdk@npm:2.9.2"
-  checksum: 10c0/3f3f4937aeb41610cea06402e0b0f5ad3117784cadf0a6a997e61f7242ece2a9dedef5a85e284d227ccfb23793b4516c37ef86904c493c065574c0d711f9417a
+"@module-federation/sdk@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/sdk@npm:2.9.4"
+  checksum: 10c0/cdda067cd65425c6ee598fa6d2ef73d7feeb29f1f29601ab01c9041270c39fb67e7ef97cef47d5f973b04784116e40c0f97fb06a781ab9dd069918a2bce4f175
   languageName: node
   linkType: hard
 
-"@module-federation/third-party-dts-extractor@npm:2.9.2":
-  version: 2.9.2
-  resolution: "@module-federation/third-party-dts-extractor@npm:2.9.2"
-  checksum: 10c0/0d112137ec10744a24a8dcd45779f647caf9ce9f56c5f5eff9eefe6479ece69982ae25b46f45630cea8d0b325433b0b5632fbc7fcbd1aa5cefae846669150cc3
+"@module-federation/third-party-dts-extractor@npm:2.9.4":
+  version: 2.9.4
+  resolution: "@module-federation/third-party-dts-extractor@npm:2.9.4"
+  checksum: 10c0/f9fa09dfe3f6686b8b1b01dfb9cd5fb30e39d7567adedeb87f28bedfcf3f439b0e28ce792b17e735d6d6fdbe8e58728b6e9ba4e3ccde4381b6f44b0f9d398a32
   languageName: node
   linkType: hard
 
 "@module-federation/vite@npm:^1.20.0":
-  version: 1.23.1
-  resolution: "@module-federation/vite@npm:1.23.1"
+  version: 1.25.1
+  resolution: "@module-federation/vite@npm:1.25.1"
   dependencies:
-    "@module-federation/dts-plugin": "npm:2.9.2"
-    "@module-federation/runtime": "npm:2.9.2"
-    "@module-federation/sdk": "npm:2.9.2"
+    "@module-federation/dts-plugin": "npm:2.9.4"
+    "@module-federation/runtime": "npm:2.9.4"
+    "@module-federation/sdk": "npm:2.9.4"
   peerDependencies:
-    vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 10c0/f428c4b57aea27d2d5d4d1c3f2c27a17f05d210b06c5bbb9794ef801daa3f99ca4fed22d55c5ef06142aac0b125917e39a72913840e74dcf530576798df15c50
+    vite: ^5.1.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: 10c0/9927ec4606bbd5fd45d835a2bb87ad3ae3746147855d5e378c2a7eaa707724796fdb327e90f09ac400b9fe9ce1e9f14c8140cbaba66535b2b60f0d2c9231511c
   languageName: node
   linkType: hard
 
@@ -2912,10 +2912,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:7.29.1":
-  version: 7.29.1
-  resolution: "undici@npm:7.29.1"
-  checksum: 10c0/5a419b1364531071ebdfd93748f7f2392d4eb6d68dd99814e1020f8fc6a517e3298129004c871516ee204bac68aba93541f587200b04a7449b8d45683a7d86f6
+"undici@npm:7.30.1":
+  version: 7.30.1
+  resolution: "undici@npm:7.30.1"
+  checksum: 10c0/c838089b010e8e28a9a5358d4bf4621e0c8d7bb70058b23e819667349c4c0b6791a7c8bc9bbe94ff0923db132faae0d9d9592b9743eda4f2b49466fa57482213
   languageName: node
   linkType: hard
 

@@ -2,7 +2,7 @@
 
 A federated module of Ki.CL (`/Users/kenilam/Development/Ki.CL`), served as the remote `moonshot` and mounted at `/portfolio/moonshot`. It also runs standalone. See README.md for commands.
 
-Follow Ki.CL's CLAUDE.md for UI and structure: semantic markup, `design/components` over raw DOM, no custom CSS unless nothing else can do it, no extra wrappers, views as folders of small parts, named exports only, single quotes, lowercase-dash file names.
+Follow Ki.CL's CLAUDE.md for UI and structure: semantic markup, `design/components` over raw DOM, no custom CSS unless nothing else can do it, no extra wrappers, views as folders of small parts, named exports only, lowercase-dash file names. How code is written follows its "Code" section.
 
 - Imports climb with an alias, never `../`; same-folder `./` is fine. The client imports itself as `moonshot/` (`Client/src`), the name Ki.CL loads it under, so the types Ki.CL downloads resolve there. The server imports itself as `server/` (`Server/`), and both import `Shared/` as `moonshot/shared/`. Each entry point runs tsx with the tsconfig that holds these paths (`--tsconfig Server/tsconfig.json`).
 - The client and the server never import from each other. What both use (the error codes, the review limits and shapes, the rules) is in `Shared/` at the root: both import it as `moonshot/shared/`.
